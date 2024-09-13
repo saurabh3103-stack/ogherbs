@@ -64,7 +64,7 @@ const QuickViewModal = (props) => {
                     setproduct(result.data);
                     setVariantIndex(result.data.variants?.length > 0 && result.data.variants[0]?.id);
                     setmainimage(result.data.image_url);
-                    setSelectedVariant((result.data.variants?.length > 0 && result.data.variants.find((element) => element.id == variant_index)) || result.data.variants?.[0]);
+                    setSelectedVariant((result.data.variants?.length > 0 && result.data.variants.find((element) => element.id === variant_index)) || result.data.variants?.[0]);
                 }
             })
             .catch(error => console.log(error));
@@ -78,7 +78,7 @@ const QuickViewModal = (props) => {
                     setproduct(result.data);
                     setVariantIndex(result.data.variants?.length > 0 && result.data.variants[0]?.id);
                     setmainimage(result.data.image_url);
-                    setSelectedVariant((result.data.variants?.length > 0 && result.data.variants.find((element) => element.id == variant_index)) || result.data.variants?.[0]);
+                    setSelectedVariant((result.data.variants?.length > 0 && result.data.variants.find((element) => element.id === variant_index)) || result.data.variants?.[0]);
                 }
             })
             .catch(error => console.log(error));
@@ -147,14 +147,14 @@ const QuickViewModal = (props) => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    if (cart?.cartProducts?.find((product) => (product?.product_id == product_id) && (product?.product_variant_id == product_variant_id))?.qty == undefined) {
+                    if (cart?.cartProducts?.find((product) => (product?.product_id === product_id) && (product?.product_variant_id === product_variant_id))?.qty === undefined) {
                         dispatch(setCart({ data: result }));
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                         const updatedCartCount = [...cart?.cartProducts, { product_id: product_id, product_variant_id: product_variant_id, qty: qty }];
                         dispatch(setCartProducts({ data: updatedCartCount }));
                     } else {
                         const updatedProducts = cart?.cartProducts?.map(product => {
-                            if ((product.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
+                            if ((product.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
                                 return { ...product, qty: qty };
                             } else {
                                 return product;
@@ -165,7 +165,7 @@ const QuickViewModal = (props) => {
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                     }
                 }
-                else if (result?.data?.one_seller_error_code == 1) {
+                else if (result?.data?.one_seller_error_code === 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(result.message);
                     // toast.error(t(`${result.message}`));
@@ -186,7 +186,7 @@ const QuickViewModal = (props) => {
                     // toast.success(result.message);
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id != product_variant_id) {
+                        if (product?.product_variant_id !==product_variant_id) {
                             return product;
                         }
                     });
@@ -223,7 +223,7 @@ const QuickViewModal = (props) => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id != product_id);
+                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !==product_id);
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -329,29 +329,29 @@ const QuickViewModal = (props) => {
 
     const handleValidateAddExistingProduct = (productQuantity, product) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
-                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty + 1);
+                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty + 1);
             }
         }
         else {
             if (selectedVariant.cart_count >= Number(selectedVariant.stock)) {
                 toast.error(t("limited_product_stock_error"));
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
-                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty + 1);
+                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty + 1);
             }
         }
     };
 
     const handleValidateAddNewProduct = (productQuantity, product) => {
         if (user?.jwtToken !== "") {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("limited_product_stock_error"));
             }
             else if (Number(product.is_unlimited_stock)) {
@@ -371,7 +371,7 @@ const QuickViewModal = (props) => {
 
     const handleValidateAddExistingGuestProduct = (productQuantity, product, quantity) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
@@ -382,7 +382,7 @@ const QuickViewModal = (props) => {
             if (selectedVariant.cart_count >= Number(selectedVariant.stock)) {
                 toast.error(t("limited_product_stock_error"));
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
@@ -394,7 +394,7 @@ const QuickViewModal = (props) => {
     const AddToGuestCart = (productId, productVariantId, Qty, isExisting) => {
         if (isExisting) {
             const updatedProducts = cart?.guestCart?.map((product) => {
-                if (product?.product_id == productId && product?.product_variant_id == productVariantId) {
+                if (product?.product_id === productId && product?.product_variant_id === productVariantId) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
@@ -533,35 +533,35 @@ const QuickViewModal = (props) => {
 
                                                     </div>
                                                     {selectedVariant ?
-                                                        (cart?.isGuest === false && user?.user && cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty >= 1) ||
-                                                            (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty > 0)
+                                                        (cart?.isGuest === false && user?.user && cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty >= 1) ||
+                                                            (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty > 0)
                                                             ? <>
                                                                 <div id={`input-cart-quickview`} className="input-to-cart">
                                                                     {/* Remove From Cart Button */}
                                                                     <button type='button' onClick={(e) => {
                                                                         e.preventDefault();
                                                                         if (cart?.isGuest) {
-                                                                            AddToGuestCart(product?.id, selectedVariant.id, cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == selectedVariant?.id)?.qty - 1, 1);
+                                                                            AddToGuestCart(product?.id, selectedVariant.id, cart?.guestCart?.find(prdct => prdct?.product_id === product?.id && prdct?.product_variant_id === selectedVariant?.id)?.qty - 1, 1);
                                                                         } else {
-                                                                            if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty == 1) {
+                                                                            if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty === 1) {
                                                                                 removefromCart(product.id, selectedVariant.id);
                                                                             }
                                                                             else {
-                                                                                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty - 1);
+                                                                                addtoCart(product.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty - 1);
                                                                             }
                                                                         }
                                                                     }} className="wishlist-button">
                                                                         <BiMinus fill='#fff' />
                                                                     </button>
                                                                     <span id={`input-quickview`} >{cart?.isGuest === false ?
-                                                                        cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty :
-                                                                        cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty
+                                                                        cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty :
+                                                                        cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty
                                                                     }</span>
                                                                     <button type='button' onClick={(e) => {
                                                                         e.preventDefault();
                                                                         if (cart?.isGuest) {
                                                                             const productQuantity = getProductQuantities(cart?.guestCart);
-                                                                            handleValidateAddExistingGuestProduct(productQuantity, product, cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant?.id)?.qty + 1);
+                                                                            handleValidateAddExistingGuestProduct(productQuantity, product, cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant?.id)?.qty + 1);
                                                                         } else {
                                                                             const productQuantity = getProductQuantities(cart?.cartProducts);
                                                                             handleValidateAddExistingProduct(productQuantity, product);
@@ -577,7 +577,7 @@ const QuickViewModal = (props) => {
                                                                         e.preventDefault();
                                                                         if (cart?.isGuest) {
                                                                             const productQuantity = getProductQuantities(cart?.guestCart);
-                                                                            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+                                                                            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                                                                                 toast.error(t('max_cart_limit_error'));
                                                                             }
                                                                             else if (Number(product.is_unlimited_stock)) {
@@ -596,7 +596,7 @@ const QuickViewModal = (props) => {
                                                                     }}>{t("add_to_cart")}</button>
                                                             </>
                                                         : null}
-                                                    {favorite.favorite && favorite.favouriteProductIds?.some(id => id == product.id) ? (
+                                                    {favorite.favorite && favorite.favouriteProductIds?.some(id => id === product.id) ? (
                                                         <button type="button" className='wishlist-product' onClick={() => {
                                                             if (user?.jwtToken !== "") {
                                                                 removefromFavorite(product.id);

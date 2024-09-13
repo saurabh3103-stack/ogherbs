@@ -148,11 +148,11 @@ const App = () => {
   };
   //fetching app-settings
   const getSetting = async () => {
-    // if (setting?.setting == null)
+    // if (setting?.setting === null)
     await api.getSettings(user?.user ? 1 : 0, user?.user ? user?.jwtToken : null).then(response => response.json())
       .then(result => {
         if (result.status === 1) {
-          if (result?.data?.default_city == undefined && city?.city) {
+          if (result?.data?.default_city === undefined && city?.city) {
             const updatedSetting = {
               ...setting?.setting,
               default_city: {

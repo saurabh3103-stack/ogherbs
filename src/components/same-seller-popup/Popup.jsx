@@ -27,7 +27,7 @@ const Popup = React.memo(({ product_id, product_variant_id, quantity, toast, cit
                     dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
 
                 }
-                else if (result?.data?.one_seller_error_code == 1) {
+                else if (result?.data?.one_seller_error_code === 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(error_)
                     toast.error(t(`${result.message}`));

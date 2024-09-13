@@ -82,14 +82,14 @@ const Header = () => {
     };
 
     useEffect(() => {
-        if (curr_url.pathname != "/products") {
+        if (curr_url.pathname !=="/products") {
             setsearch("");
             dispatch(setFilterSearch({ data: null }));
         }
     }, [curr_url]);
 
     useEffect(() => {
-        if (setting.setting?.default_city && city.city == null) {
+        if (setting.setting?.default_city && city.city === null) {
             setisLocationPresent(true);
             api.getCity(parseFloat(setting.setting.default_city?.latitude), parseFloat(setting.setting.default_city?.longitude))
                 .then(response => response.json())
@@ -100,7 +100,7 @@ const Header = () => {
                 });
             setisLocationPresent(true);
         }
-        else if (setting?.setting && setting.setting?.default_city == null && city?.city == null) {
+        else if (setting?.setting && setting.setting?.default_city === null && city?.city === null) {
             setLocModal(true);
         }
     }, [setting]);
@@ -114,7 +114,7 @@ const Header = () => {
                 dispatch(setLanguageList({ data: result.data }));
             });
         // }
-        if ((curr_url?.pathname == "/") || (curr_url?.pathname == "/profile/wallet-transaction") || (curr_url?.pathname == "/checkout")) {
+        if ((curr_url?.pathname === "/") || (curr_url?.pathname === "/profile/wallet-transaction") || (curr_url?.pathname === "/checkout")) {
             fetchPaymentSetting();
         }
         // dispatch(setFilterSearch({ data: null }));
@@ -177,7 +177,7 @@ const Header = () => {
     // };
 
     // useEffect(() => {
-    //     if (city.city !== null && user?.jwtToken !== undefined && user.user == null) {
+    //     if (city.city !== null && user?.jwtToken !== undefined && user.user === null) {
     //         fetchCart(user?.jwtToken, city.city.latitude, city.city.longitude);
     //         // fetchFavorite(user?.jwtToken, city?.city?.latitude, city?.city?.longitude);
     //         // fetchNotification(user?.jwtToken);
@@ -216,7 +216,7 @@ const Header = () => {
 
     // console.log(isDesktopView)
     const handleMobileNavActKey = (key) => {
-        setMobileNavActKey(key == mobileNavActKey ? null : key);
+        setMobileNavActKey(key === mobileNavActKey ? null : key);
     };
 
     const handleThemeChange = (theme) => {
@@ -566,7 +566,7 @@ const Header = () => {
                                     </div>
                                 </button>
 
-                                <div className={`header-search rounded-3 ${mobileNavActKey == 2 ? "active" : ""}`}>
+                                <div className={`header-search rounded-3 ${mobileNavActKey === 2 ? "active" : ""}`}>
                                     <form onSubmit={(e) => {
                                         e.preventDefault();
                                         if (search !== "") {
@@ -592,7 +592,7 @@ const Header = () => {
                                                 setsearch(e.target.value);
                                             }}
                                         />
-                                        {search != "" ? <AiOutlineClose size={15} className='cursorPointer' style={{
+                                        {search !=="" ? <AiOutlineClose size={15} className='cursorPointer' style={{
                                             position: "absolute",
                                             right: "65px"
                                         }} onClick={() => {
@@ -718,7 +718,7 @@ const Header = () => {
                                                         <span className="position-absolute start-100 translate-middle badge rounded-pill fs-5">
                                                             {console.log("total products", cart?.cart?.total)}
                                                             {cart?.cart?.total > 0 ? cart?.cart?.total : null}
-                                                            {cart?.cartProducts?.length != 0 ? cart?.cartProducts?.length : null}
+                                                            {cart?.cartProducts?.length !==0 ? cart?.cartProducts?.length : null}
                                                             <span className="visually-hidden">unread messages</span>
                                                         </span>
                                                         : null} */}
@@ -727,7 +727,7 @@ const Header = () => {
                                                     {cart?.cartProducts?.length !== 0 ?
                                                         <span className="position-absolute start-100 translate-middle badge rounded-pill fs-5">
                                                             {console.log("total products", cart?.cartProducts)}
-                                                            {cart?.cartProducts?.length != 0 ? cart?.cartProducts?.length : null}
+                                                            {cart?.cartProducts?.length !==0 ? cart?.cartProducts?.length : null}
                                                             <span className="visually-hidden">unread messages</span>
                                                         </span>
                                                         : null} 
@@ -792,7 +792,7 @@ const Header = () => {
                     <div className='mobile-nav-wrapper'>
                         <ul>
                             <li className='menu-item'>
-                                <Link to='/products' className={`shop ${curr_url.pathname === '/products' && mobileNavActKey == 1 ? 'active' : ''}`} onClick={() => {
+                                <Link to='/products' className={`shop ${curr_url.pathname === '/products' && mobileNavActKey === 1 ? 'active' : ''}`} onClick={() => {
                                     handleMobileNavActKey(1);
                                 }}>
                                     <div>
@@ -803,7 +803,7 @@ const Header = () => {
                             </li>
 
                             <li className='menu-item'>
-                                <button type='button' className={`search ${mobileNavActKey == 2 ? "active" : ""}`} ref={searchNavTrigger} onClick={() => {
+                                <button type='button' className={`search ${mobileNavActKey === 2 ? "active" : ""}`} ref={searchNavTrigger} onClick={() => {
                                     handleMobileNavActKey(2);
                                     searchNavTrigger.current.focus();
                                 }}>
@@ -816,7 +816,7 @@ const Header = () => {
 
                             {curr_url.pathname === '/products' ? (
                                 <li className='menu-item'>
-                                    <button type='button' className={`filter ${mobileNavActKey == 3 ? "active" : ""}`} data-bs-toggle="offcanvas" data-bs-target="#filteroffcanvasExample" aria-controls="filteroffcanvasExample" onClick={() => {
+                                    <button type='button' className={`filter ${mobileNavActKey === 3 ? "active" : ""}`} data-bs-toggle="offcanvas" data-bs-target="#filteroffcanvasExample" aria-controls="filteroffcanvasExample" onClick={() => {
 
                                         handleMobileNavActKey(3);
 
@@ -831,7 +831,7 @@ const Header = () => {
 
                             <li className='menu-item'>
                                 {city.city === null || user?.jwtToken === ""
-                                    ? <button type='button' className={`wishlist ${mobileNavActKey == 4 ? "active" : ""}`} onClick={() => {
+                                    ? <button type='button' className={`wishlist ${mobileNavActKey === 4 ? "active" : ""}`} onClick={() => {
 
                                         if (user?.jwtToken === "") {
                                             toast.error(t("required_login_message_for_wishlist"));
@@ -852,7 +852,7 @@ const Header = () => {
                                         </div>
                                         <span>{t("wishList")}</span>
                                     </button>
-                                    : <button type='button' className={`wishlist ${mobileNavActKey == 4 ? "active" : ""}`} onClick={() => {
+                                    : <button type='button' className={`wishlist ${mobileNavActKey === 4 ? "active" : ""}`} onClick={() => {
 
                                         if (user?.jwtToken === "") {
                                             toast.error(t("required_login_message_for_cartRedirect"));
@@ -910,7 +910,7 @@ const Header = () => {
                                         {user.status === 'loading'
                                             ? (
                                                 <>
-                                                    <button type='button' className={`account ${mobileNavActKey == 5 ? "active" : ""}`}
+                                                    <button type='button' className={`account ${mobileNavActKey === 5 ? "active" : ""}`}
                                                         // data-bs-toggle="modal" data-bs-target="#loginModal"
                                                         onClick={() => {
                                                             setShowModal(true);
@@ -928,7 +928,7 @@ const Header = () => {
                                             )
                                             : (
                                                 <>
-                                                    <button className={`d-flex user-profile account ${mobileNavActKey == 5 ? "active" : ""}`} onClick={() => {
+                                                    <button className={`d-flex user-profile account ${mobileNavActKey === 5 ? "active" : ""}`} onClick={() => {
                                                         handleMobileNavActKey(5);
                                                         navigate("/profile");
                                                     }}>

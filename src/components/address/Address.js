@@ -30,8 +30,8 @@ const Address = () => {
             .then(result => {
                 if (result.status === 1) {
                     dispatch(setAddress({ data: result.data }));
-                    if (result.data.find((element) => element.is_default == 1)) {
-                        dispatch(setSelectedAddress({ data: result.data.find((element) => element.is_default == 1) }));
+                    if (result.data.find((element) => element.is_default === 1)) {
+                        dispatch(setSelectedAddress({ data: result.data.find((element) => element.is_default === 1) }));
                     }
                 } else {
                     dispatch(setAddress({ data: null }));

@@ -70,17 +70,17 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
     const handleUserRegistration = async (e) => {
         e.preventDefault();
         try {
-            if (phoneNum?.length < countryCode.length || phoneNum == null) {
+            if (phoneNum?.length < countryCode.length || phoneNum === null) {
                 setError("Please enter phone number!");
                 setisLoading(false);
             } else {
                 await api.register(auth_id, userName, userEmail, phoneNum, authType, fcm_token, countryCode).then(response => response.json()).then(async (result) => {
-                    if (result.status == 1) {
+                    if (result.status === 1) {
                         getCurrentUser(result.data.access_token)
                         api.getSettings(1, result.data.access_token)
                             .then((req) => req.json())
                             .then((res) => {
-                                if (res.status == 1) {
+                                if (res.status === 1) {
                                     dispatch(setSetting({ data: res?.data }));
                                     dispatch(setFavouriteLength({ data: res?.data?.favorite_product_ids?.length }));
                                     dispatch(setFavouriteProductIds({ data: res?.data?.favorite_product_ids }));
@@ -90,10 +90,10 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
                         dispatch(setJWTToken({ data: result.data.access_token }));
                         // dispatch(setAuthId({ data: Uid }));
 
-                        if (result.data?.user?.status == 1) {
+                        if (result.data?.user?.status === 1) {
                             dispatch(setIsGuest({ data: false }));
                         }
-                        if (cart?.isGuest === true && cart?.guestCart?.length !== 0 && result.data?.user?.status == 1) {
+                        if (cart?.isGuest === true && cart?.guestCart?.length !== 0 && result.data?.user?.status === 1) {
                             await AddtoCartBulk(result.data.access_token);
                             // dispatch(setIsGuest({ data: false }));
                         }
@@ -141,7 +141,7 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
             const quantities = cart?.guestCart?.map((p) => p.qty);
             const response = await api.bulkAddToCart(token, variantIds.join(","), quantities.join(","));
             const result = await response.json();
-            if (result.status == 1) {
+            if (result.status === 1) {
                 // toast.success(t("guest_products_added_to_cart"));
                 dispatch(addtoGuestCart({ data: [] }));
             } else {
@@ -175,7 +175,7 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
 
     return (
         <Modal
-            // show={user.user && user.user.status == 2}
+            // show={user.user && user.user.status === 2}
             show={registerModalShow}
             backdrop="static"
             keyboard={true}
@@ -203,13 +203,13 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
                             setError("");
                             setUserName(e.target.value);
                         }} required />
-                        <input type='email' placeholder={t('email_address')} disabled={authType == "google"} value={userEmail} onChange={(e) => {
+                        <input type='email' placeholder={t('email_address')} disabled={authType === "google"} value={userEmail} onChange={(e) => {
                             setError("");
                             setUserEmail(e.target.value);
                         }}
-                            style={authType == "google" ? { color: "var(--sub-text-color)" } : { color: "black" }}
+                            style={authType === "google" ? { color: "var(--sub-text-color)" } : { color: "black" }}
                             required />
-                        <input type='tel' placeholder={t('mobile_number')} disabled={authType == "phone"} value={phoneNum} style={authType == "phone" ? { color: "var(--sub-text-color)" } : { color: "black" }} onChange={(e) => setPhoneNum(e.target.value)} />
+                        <input type='tel' placeholder={t('mobile_number')} disabled={authType === "phone"} value={phoneNum} style={authType === "phone" ? { color: "var(--sub-text-color)" } : { color: "black" }} onChange={(e) => setPhoneNum(e.target.value)} />
                     </div>
                     <button type='submit' disabled={isLoading} >{t("register")} {t("profile")}</button>
                 </form>

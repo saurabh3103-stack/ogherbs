@@ -170,7 +170,7 @@ const AddWalletModal = (props) => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (paymentMethod == "") {
+        if (paymentMethod === "") {
             return toast.error(t("please_select_payment_method"));
         }
         try {

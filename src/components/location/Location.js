@@ -93,7 +93,7 @@ const Location = (props) => {
                 props.setLocModal(false);
                 // closeModalRef.current.click();
               }
-              else if (res.status == 0) {
+              else if (res.status === 0) {
                 setisloading(false);
                 toast.error(t("We doesn't deliver at selected city"));
                 props.setisLocationPresent(false);
@@ -352,7 +352,7 @@ const Location = (props) => {
     try {
       const response = await api.getShop(latitude, longitude, user?.jwtToken);
       const result = await response.json();
-      if (result?.status == 1) {
+      if (result?.status === 1) {
         dispatch(setShop({ data: result?.data }));
       }
     } catch (error) {

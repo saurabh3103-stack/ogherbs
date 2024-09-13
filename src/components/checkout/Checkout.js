@@ -174,7 +174,7 @@ const Checkout = () => {
             .then(response => response.json())
             .then(result => {
                 if (result.status === 1) {
-                    if (result?.data?.time_slots_is_enabled == "false") {
+                    if (result?.data?.time_slots_is_enabled === "false") {
                         // toast.error(t("timeslots_not_enabled"));
                     }
                     settimeslots(result.data);
@@ -602,7 +602,7 @@ const Checkout = () => {
                 //         .catch(error => console.error(error))
                 // }
 
-            } else if (paymentMethod == "Midtrans") {
+            } else if (paymentMethod === "Midtrans") {
                 await api.placeOrder(user?.jwtToken, cart.checkout.product_variant_id, cart.checkout.quantity, cart.checkout.sub_total, cart.checkout.delivery_charge.total_delivery_charge, totalPayment, paymentMethod, address.selected_address.id, delivery_time, cart.promo_code?.promo_code_id, cart.is_wallet_checked ? (walletDeductionAmt) : null, cart.is_wallet_checked ? 1 : 0, orderNote)
                     .then(response => response.json())
                     .then(async result => {
@@ -636,7 +636,7 @@ const Checkout = () => {
                         }
                     })
                     .catch(error => console.log(error));
-            } else if (paymentMethod == "Phonepe") {
+            } else if (paymentMethod === "Phonepe") {
                 await api.placeOrder(user?.jwtToken, cart.checkout.product_variant_id, cart.checkout.quantity, cart.checkout.sub_total, cart.checkout.delivery_charge.total_delivery_charge, totalPayment, paymentMethod, address.selected_address.id, delivery_time, cart.promo_code?.promo_code_id, cart.is_wallet_checked ? (walletDeductionAmt) : null, cart.is_wallet_checked ? 1 : 0, orderNote)
                     .then(response => response.json())
                     .then(async result => {
@@ -876,7 +876,7 @@ const Checkout = () => {
 
                                                 <div className='payment-wrapper checkout-component'>
                                                     <span className='heading'>{t("payment_method")}</span>
-                                                    {setting?.payment_setting?.cod_payment_method === "1" && codAllow == 1
+                                                    {setting?.payment_setting?.cod_payment_method === "1" && codAllow === 1
                                                         ? (
                                                             <label className="form-check-label cursorPointer" htmlFor='cod'>
                                                                 <div className='payment-selector'>
@@ -1063,7 +1063,7 @@ const Checkout = () => {
                                                                         <Loader screen='full' background='none' content={"Your transaction is being processed.Please don't refresh the page."} />
                                                                         : <>
                                                                             {
-                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow == '1') ||
+                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow === '1') ||
                                                                                     setting.payment_setting.razorpay_payment_method === "1" ||
                                                                                     setting.payment_setting.paystack_payment_method === "1" ||
                                                                                     setting.payment_setting.stripe_payment_method === "1" ||

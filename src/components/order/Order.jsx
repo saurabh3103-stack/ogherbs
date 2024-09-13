@@ -177,14 +177,14 @@ const Order = () => {
         return (
             <>
                 {
-                    status == 1 ? <img src={PendingPaymentSVG} className='p-3' alt='PendingPaymentSVG' /> :
-                        status == 2 ? <img src={ReceivedSVG} className='p-3' alt='ReceivedSVG' /> :
-                            status == 3 ? <img src={ProcessedSVG} className='p-3' alt='ProcessedSVG' /> :
-                                status == 4 ? <img src={ShippedSVG} className='p-3' alt='ShippedSVG' /> :
-                                    status == 5 ? <img src={OutforDeliverySVG} className='p-3' alt='OutforDeliverySVG' /> :
-                                        status == 6 ? <img src={DeliveredSVG} className='p-3' alt='DeliveredSVG' /> :
-                                            status == 7 ? <img src={CancelledSVG} className='p-3' alt='CancelledSVG' /> :
-                                                status == 8 ? <img src={ReturnedSVG} className='p-3' alt='ReturnedSVG' /> : null
+                    status === 1 ? <img src={PendingPaymentSVG} className='p-3' alt='PendingPaymentSVG' /> :
+                        status === 2 ? <img src={ReceivedSVG} className='p-3' alt='ReceivedSVG' /> :
+                            status === 3 ? <img src={ProcessedSVG} className='p-3' alt='ProcessedSVG' /> :
+                                status === 4 ? <img src={ShippedSVG} className='p-3' alt='ShippedSVG' /> :
+                                    status === 5 ? <img src={OutforDeliverySVG} className='p-3' alt='OutforDeliverySVG' /> :
+                                        status === 6 ? <img src={DeliveredSVG} className='p-3' alt='DeliveredSVG' /> :
+                                            status === 7 ? <img src={CancelledSVG} className='p-3' alt='CancelledSVG' /> :
+                                                status === 8 ? <img src={ReturnedSVG} className='p-3' alt='ReturnedSVG' /> : null
                 }
             </>
         );
@@ -192,14 +192,14 @@ const Order = () => {
     const getStatus = (flag) => {
         return (
             <>
-                {Number(flag[0]) == 1 ? t("paymentPending") :
-                    Number(flag[0]) == 2 ? t("received") :
-                        Number(flag[0]) == 3 ? t("processed") :
-                            Number(flag[0]) == 4 ? t("shipped") :
-                                Number(flag[0]) == 5 ? t("outForDelivery") :
-                                    Number(flag[0]) == 6 ? t("delivered") :
-                                        Number(flag[0]) == 7 ? t("cancelled") :
-                                            Number(flag[0]) == 8 ? t("returned") : null}
+                {Number(flag[0]) === 1 ? t("paymentPending") :
+                    Number(flag[0]) === 2 ? t("received") :
+                        Number(flag[0]) === 3 ? t("processed") :
+                            Number(flag[0]) === 4 ? t("shipped") :
+                                Number(flag[0]) === 5 ? t("outForDelivery") :
+                                    Number(flag[0]) === 6 ? t("delivered") :
+                                        Number(flag[0]) === 7 ? t("cancelled") :
+                                            Number(flag[0]) === 8 ? t("returned") : null}
             </>);
     };
 

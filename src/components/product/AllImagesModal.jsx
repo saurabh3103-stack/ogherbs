@@ -30,7 +30,7 @@ const AllImagesModal = (props) => {
             }
             setLoading(false);
         };
-        if (props?.show && props?.userImages == null) {
+        if (props?.show && props?.userImages === null) {
             fetchAllRatingImages();
         }
         if (props?.userImages) {

@@ -70,7 +70,7 @@ const ProductDetailsTabs = ({ productdata, productRating, totalData, loading, ra
     };
     const items = [{
         key: "1",
-        label: <h3 className={activeKey == "1" ? "productTabActive" : "description-header"}>{t("product_desc_title")}</h3>,
+        label: <h3 className={activeKey === "1" ? "productTabActive" : "description-header"}>{t("product_desc_title")}</h3>,
         children:
 
             <div className='description' dangerouslySetInnerHTML={{ __html: productdata.description }} />
@@ -79,8 +79,8 @@ const ProductDetailsTabs = ({ productdata, productRating, totalData, loading, ra
     {
 
         key: "2",
-        label: <h3 className={activeKey == "2" ? "productTabActive  " : "description-header"}>{t("rating_and_reviews")}</h3>,
-        children: <div id='ratings-section' className={`${productRating?.rating_list?.length != 0 ? "row justify-content-center" : ""} `}>
+        label: <h3 className={activeKey === "2" ? "productTabActive  " : "description-header"}>{t("rating_and_reviews")}</h3>,
+        children: <div id='ratings-section' className={`${productRating?.rating_list?.length !==0 ? "row justify-content-center" : ""} `}>
             {loading &&
                 <>
                     <Loader width={"100%"} height={"500px"} />
@@ -163,7 +163,7 @@ const ProductDetailsTabs = ({ productdata, productRating, totalData, loading, ra
                                 <h5 className='title'>{t("customer_photos")}</h5>
                                 <div className='d-flex flex-row flex-wrap justify-content-start gap-3 ratingImagesContainer'>
                                     {ratingImages?.slice(0, 8)?.map((image, index) => (
-                                        <div className={index == 7 ? "overlayParent cursorPointer" : ""} key={`${image}-${index}`}
+                                        <div className={index === 7 ? "overlayParent cursorPointer" : ""} key={`${image}-${index}`}
                                             onClick={() => {
                                                 if (index === 7) {
                                                     // navigate(`/product/${slug}/rating-and-reviews`);
@@ -173,9 +173,9 @@ const ProductDetailsTabs = ({ productdata, productRating, totalData, loading, ra
                                                 }
                                             }}>
                                             <img src={image} alt='ratingImg' className='cursorPointer' />
-                                            {index == 7 ?
+                                            {index === 7 ?
                                                 <div className='overlay'>
-                                                    {(totalImages != ratingImages?.length && (totalImages - ratingImages?.length - 1) != 0) ? `+${(totalImages - ratingImages?.length)}` : null}
+                                                    {(totalImages !==ratingImages?.length && (totalImages - ratingImages?.length - 1) !==0) ? `+${(totalImages - ratingImages?.length)}` : null}
                                                 </div>
                                                 : null}
                                         </div>

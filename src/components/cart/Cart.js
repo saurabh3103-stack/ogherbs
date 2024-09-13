@@ -104,7 +104,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
         try {
             const response = await api.getCart(user?.jwtToken, city?.city?.latitude, city?.city?.longitude);
             const result = await response.json();
-            if (result.status == 1) {
+            if (result.status === 1) {
                 const productsData = result?.data?.cart?.map((product) => {
                     return {
                         product_id: product?.product_id,
@@ -117,7 +117,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                 dispatch(setCartProducts({ data: productsData }));
                 // setCartSubTotal(result?.data?.sub_total);
                 setCartSidebarData(result?.data?.cart);
-            } else if (result.message == "No item(s) found in users cart") {
+            } else if (result.message === "No item(s) found in users cart") {
                 setCartSidebarData([]);
                 dispatch(setCartProducts({ data: [] }));
                 dispatch(setCartSubTotal({ data: 0 }));
@@ -135,7 +135,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
             const quantities = cart?.guestCart?.map((p) => p.qty);
             const response = await api.getGuestCart(city?.city?.latitude, city?.city?.longitude, variantIds?.join(","), quantities?.join(","));
             const result = await response.json();
-            if (result.status == 1) {
+            if (result.status === 1) {
                 setCartSidebarData(result.data.cart);
                 setGuestCartSubTotal(result.data.sub_total);
             }
@@ -155,7 +155,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                     // toast.success(result.message);
                     dispatch(setCartSubTotal({ data: result?.sub_total ? result?.sub_total : 0 }));
                     const updatedCartProducts = cartSidebarData?.map(product => {
-                        if ((product.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
+                        if ((product.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
                             return { ...product, qty: qty };
                         } else {
                             return product;
@@ -163,7 +163,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                     });
                     setCartSidebarData(updatedCartProducts);
                     const updatedProducts = cart?.cartProducts?.map((product) => {
-                        if ((product?.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
+                        if ((product?.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
                             return { ...product, qty: qty };
                         } else {
                             return product;
@@ -190,14 +190,14 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id != product_variant_id) {
+                        if (product?.product_variant_id !==product_variant_id) {
                             return product;
                         }
                     });
                     dispatch(setCartProducts({ data: updatedCartProducts ? updatedCartProducts : [] }));
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedProducts = cartSidebarData?.filter(product => {
-                        if (product.product_variant_id != product_variant_id) {
+                        if (product.product_variant_id !==product_variant_id) {
                             return product;
                         }
                     });
@@ -247,14 +247,14 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
     const AddToGuestCart = (productId, productVariantId, Qty, isExisting) => {
         if (isExisting) {
             const updatedProducts = cart?.guestCart?.map((product) => {
-                if (product?.product_id == productId && product?.product_variant_id == productVariantId) {
+                if (product?.product_id === productId && product?.product_variant_id === productVariantId) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
                 }
             }).filter(product => product?.qty !== 0);
             const updatedCartProducts = cartSidebarData?.map(product => {
-                if ((product.product_id == productId) && (product?.product_variant_id == productVariantId)) {
+                if ((product.product_id === productId) && (product?.product_variant_id === productVariantId)) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
@@ -278,8 +278,8 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
     };
 
     const RemoveFromGuestCart = (productVariantId) => {
-        const updatedProducts = cart?.guestCart?.filter((p) => p.product_variant_id != productVariantId);
-        const updatedSideBarProducts = cartSidebarData.filter((p) => p.product_variant_id != productVariantId);
+        const updatedProducts = cart?.guestCart?.filter((p) => p.product_variant_id !==productVariantId);
+        const updatedSideBarProducts = cartSidebarData.filter((p) => p.product_variant_id !==productVariantId);
         computeSubTotal(updatedSideBarProducts);
         setCartSidebarData(updatedSideBarProducts);
         dispatch(addtoGuestCart({ data: updatedProducts }));
@@ -287,7 +287,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
 
     const handleValidateAddExistingGuestProduct = (productQuantity, product, quantity) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
@@ -295,10 +295,10 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
             }
         }
         else {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.stock)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.stock)) {
                 toast.error(t("limited_product_stock_error"));
             }
             else {
@@ -315,7 +315,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                 </button>
             </div>
 
-            {(cartSidebarData?.length == 0 && !isLoader) ? (
+            {(cartSidebarData?.length === 0 && !isLoader) ? (
                 <div className='empty-cart'>
                     <img src={EmptyCart} alt='empty-cart' onError={placeHolderImage}></img>
                     <p>{t("empty_cart_list_message")}</p>
@@ -325,7 +325,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                     }}>{t("empty_cart_list_button_name")}</button>
                 </div>) : (
                 <>
-                    {isLoader == true
+                    {isLoader === true
                         ? (
                             <Loader width='100%' height='100%' />
                         )
@@ -392,7 +392,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                                                                     } else {
                                                                         const productQuantity = getProductQuantities(cart?.cartProducts);
                                                                         if (Number(product.is_unlimited_stock) === 1) {
-                                                                            if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty < Number(product?.total_allowed_quantity)) {
+                                                                            if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty < Number(product?.total_allowed_quantity)) {
                                                                                 addtoCart(product.product_id, product.product_variant_id, product.qty + 1);
                                                                             } else {
                                                                                 toast.error(t("max_cart_limit_error"));
@@ -401,7 +401,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                                                                             if (Number(product.qty) >= Number(product.stock)) {
                                                                                 toast.error(t("out_of_stock_message"));
 
-                                                                            } else if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+                                                                            } else if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                                                                                 toast.error(t("max_cart_limit_error"));
                                                                             }
                                                                             else {
@@ -437,7 +437,7 @@ const Cart = ({ isCartSidebarOpen, setIsCartSidebarOpen }) => {
                                                     {/* <div className='d-flex flex-column align-items-center' style={{ fontSize: "14px", color: "var(--secondary-color)" }}>
                                                         <span id={`price${index}-cart-sidebar`}>
                                                             {setting.setting && setting.setting.currency}
-                                                            {(product.discounted_price == 0 ? (product.price * product.qty).toFixed(setting.setting && setting.setting.decimal_point) : (product.discounted_price * product.qty).toFixed(setting.setting && setting.setting.decimal_point))}</span>
+                                                            {(product.discounted_price === 0 ? (product.price * product.qty).toFixed(setting.setting && setting.setting.decimal_point) : (product.discounted_price * product.qty).toFixed(setting.setting && setting.setting.decimal_point))}</span>
                                                         {product?.price ?
                                                             <span id={`price${index}-section`} className="d-flex align-items-center" >
                                                                 <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}

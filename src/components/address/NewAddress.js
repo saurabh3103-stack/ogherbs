@@ -104,9 +104,9 @@ const NewAddress = (props) => {
                                     dispatch(setAddress({ data: res.data }));
                                     // dispatch({ type: ActionTypes.SET_ADDRESS, payload: res.data });
                                 }
-                                if (res.data.find((element) => element.is_default == 1)) {
-                                    dispatch(setSelectedAddress({ data: res.data.find((element) => element.is_default == 1) }));
-                                    // dispatch({ type: ActionTypes.SET_SELECTED_ADDRESS, payload: res.data.find((element) => element.is_default == 1) });
+                                if (res.data.find((element) => element.is_default === 1)) {
+                                    dispatch(setSelectedAddress({ data: res.data.find((element) => element.is_default === 1) }));
+                                    // dispatch({ type: ActionTypes.SET_SELECTED_ADDRESS, payload: res.data.find((element) => element.is_default === 1) });
                                 }
                             })
                             .catch(error => console.log(error));
@@ -133,9 +133,9 @@ const NewAddress = (props) => {
                                     // dispatch({ type: ActionTypes.SET_ADDRESS, payload: res.data });
                                     dispatch(setAddress({ data: res.data }));
                                 }
-                                if (result.data.find((element) => element.is_default == 1)) {
-                                    dispatch(setSelectedAddress({ data: res.data.find((element) => element.is_default == 1) }));
-                                    //dispatch({ type: ActionTypes.SET_SELECTED_ADDRESS, payload: result.data.find((element) => element.is_default == 1) });
+                                if (result.data.find((element) => element.is_default === 1)) {
+                                    dispatch(setSelectedAddress({ data: res.data.find((element) => element.is_default === 1) }));
+                                    //dispatch({ type: ActionTypes.SET_SELECTED_ADDRESS, payload: result.data.find((element) => element.is_default === 1) });
                                 }
                             })
                             .catch(error => console.log(error));

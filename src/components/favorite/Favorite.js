@@ -66,7 +66,7 @@ const Favorite = React.memo(() => {
                             //dispatch({ type: ActionTypes.SET_CART, payload: res });
                         });
                 }
-                else if (result?.data?.one_seller_error_code == 1) {
+                else if (result?.data?.one_seller_error_code === 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(result.message);
                     // toast.error(t(`${result.message}`));
@@ -278,7 +278,7 @@ const Favorite = React.memo(() => {
 
                                                     <div className='cart-card-end'>
                                                         <div className='d-flex align-items-center' style={{ fontSize: "1.855rem", color: "var(--secondary-color)" }}>
-                                                            {setting.setting && setting.setting.currency}  <span id={`price${index}-cart-sidebar`}> {product.variants.length > 0 && (product.variants[0].discounted_price == 0 ? product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point))}</span>
+                                                            {setting.setting && setting.setting.currency}  <span id={`price${index}-cart-sidebar`}> {product.variants.length > 0 && (product.variants[0].discounted_price === 0 ? product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point))}</span>
                                                         </div>
 
                                                         <button type='button' className='remove-product' onClick={() => removefromFavorite(product.id)}>{t("delete")}</button>

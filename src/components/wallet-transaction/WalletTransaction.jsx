@@ -113,18 +113,18 @@ const WalletTransaction = () => {
                                                                 {/* <th>{transaction?.txn_id}</th> */}
                                                                 <th>
 
-                                                                    {transaction.order_id == null && transaction.order_item_id == null ? transaction.message : ''
+                                                                    {transaction.order_id === null && transaction.order_item_id === null ? transaction.message : ''
                                                                     }
 
                                                                     {
-                                                                        transaction.order_id != null || transaction.order_id != null && transaction.order_item_id != null || transaction.order_item_id != null && transaction.type == "debit" ?
+                                                                        transaction.order_id !==null || transaction.order_id !==null && transaction.order_item_id !==null || transaction.order_item_id !==null && transaction.type === "debit" ?
                                                                             `${t("order_placed")}-${t("order_id")}:${transaction.order_id}`
                                                                             :
                                                                             ""
                                                                     }
 
                                                                     {
-                                                                        transaction.order_id != null || transaction.order_id != null && transaction.order_item_id != null || transaction.order_item_id != null && transaction.type == "credit" ?
+                                                                        transaction.order_id !==null || transaction.order_id !==null && transaction.order_item_id !==null || transaction.order_item_id !==null && transaction.type === "credit" ?
                                                                             `${transaction.message}-${t("order_id")}:${transaction?.order_id}`
                                                                             :
                                                                             ""
@@ -134,7 +134,7 @@ const WalletTransaction = () => {
                                                                 </th>
                                                                 <th>{`${new Date(transaction.created_at).getDate()}-${new Date(transaction.created_at).getMonth() + 1}-${new Date(transaction.created_at).getFullYear()}`}</th>
                                                                 <th className='amount'><FaRupeeSign fill='var(--secondary-color)' />{transaction.amount}</th>
-                                                                <th className={transaction.status == 'credit' ? 'success' : 'failed'}><p>{t(`${transaction.status}`)}</p></th>
+                                                                <th className={transaction.status === 'credit' ? 'success' : 'failed'}><p>{t(`${transaction.status}`)}</p></th>
                                                             </tr>
                                                         ))
                                                         }

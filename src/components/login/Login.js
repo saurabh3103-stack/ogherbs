@@ -47,7 +47,7 @@ const Login = React.memo((props) => {
                         const currentToken = await messaging.getToken();
                         if (currentToken) {
                             setFcm(currentToken);
-                            if (user?.fcm_token === null || currentToken != user?.fcm_token) {
+                            if (user?.fcm_token === null || currentToken !==user?.fcm_token) {
                                 dispatch(setFcmToken({ data: currentToken }));
                             }
                         } else {
@@ -75,7 +75,7 @@ const Login = React.memo((props) => {
     const closeModalRef = useRef();
     const dispatch = useDispatch();
 
-    const [phonenum, setPhonenum] = useState(process.env.REACT_APP_DEMO_MODE == "true" ?
+    const [phonenum, setPhonenum] = useState(process.env.REACT_APP_DEMO_MODE === "true" ?
         `${process.env.REACT_APP_COUNTRY_DIAL_CODE}${process.env.REACT_APP_DEMO_LOGIN_NO}` : "");
 
     const [countryCode, setCountryCode] = useState(process.env.REACT_APP_COUNTRY_DIAL_CODE);
@@ -86,7 +86,7 @@ const Login = React.memo((props) => {
     }, 5000));
     const [isOTP, setIsOTP] = useState(false);
     const [Uid, setUid] = useState("");
-    const [OTP, setOTP] = useState(process.env.REACT_APP_DEMO_MODE == "true" ? process.env.REACT_APP_DEMO_OTP : "");
+    const [OTP, setOTP] = useState(process.env.REACT_APP_DEMO_MODE === "true" ? process.env.REACT_APP_DEMO_OTP : "");
     const [isLoading, setisLoading] = useState(false);
     const [timer, setTimer] = useState(null); // Initial timer value in seconds
     const [disabled, setDisabled] = useState(true);
@@ -96,13 +96,13 @@ const Login = React.memo((props) => {
     // console.log(phonenum, countryCode);
 
     useEffect(() => {
-        if (props.show == true) {
-            setPhonenum(process.env.REACT_APP_DEMO_MODE == "true" ?
+        if (props.show === true) {
+            setPhonenum(process.env.REACT_APP_DEMO_MODE === "true" ?
                 `${process.env.REACT_APP_COUNTRY_DIAL_CODE}${process.env.REACT_APP_DEMO_LOGIN_NO}` : "");
-            setCountryCode(process.env.REACT_APP_DEMO_MODE == "true" ?
+            setCountryCode(process.env.REACT_APP_DEMO_MODE === "true" ?
                 process.env.REACT_APP_COUNTRY_DIAL_CODE : ""
             );
-            setOTP(process.env.REACT_APP_DEMO_MODE == "true" ? process.env.REACT_APP_DEMO_OTP : "");
+            setOTP(process.env.REACT_APP_DEMO_MODE === "true" ? process.env.REACT_APP_DEMO_OTP : "");
         }
     }, [props.show]);
 
@@ -264,7 +264,7 @@ const Login = React.memo((props) => {
             const quantities = cart?.guestCart?.map((p) => p.qty);
             const response = await api.bulkAddToCart(token, variantIds.join(","), quantities.join(","));
             const result = await response.json();
-            if (result.status == 1) {
+            if (result.status === 1) {
                 // toast.success(t("guest_products_added_to_cart"));
                 dispatch(addtoGuestCart({ data: [] }));
             } else {
@@ -285,7 +285,7 @@ const Login = React.memo((props) => {
                     api.getSettings(1, result.data.access_token)
                         .then((req) => req.json())
                         .then((res) => {
-                            if (res.status == 1) {
+                            if (res.status === 1) {
                                 dispatch(setSetting({ data: res?.data }));
                                 dispatch(setFavouriteLength({ data: res?.data?.favorite_product_ids?.length }));
                                 dispatch(setFavouriteProductIds({ data: res?.data?.favorite_product_ids }));
@@ -295,10 +295,10 @@ const Login = React.memo((props) => {
                     dispatch(setJWTToken({ data: result.data.access_token }));
                     // dispatch(setAuthId({ data: Uid }));
 
-                    if (result.data?.user?.status == 1) {
+                    if (result.data?.user?.status === 1) {
                         dispatch(setIsGuest({ data: false }));
                     }
-                    if (cart?.isGuest === true && cart?.guestCart?.length !== 0 && result.data?.user?.status == 1) {
+                    if (cart?.isGuest === true && cart?.guestCart?.length !== 0 && result.data?.user?.status === 1) {
                         await AddtoCartBulk(result.data.access_token);
                         // dispatch(setIsGuest({ data: false }));
                     }

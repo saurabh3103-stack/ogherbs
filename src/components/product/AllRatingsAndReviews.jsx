@@ -159,7 +159,7 @@ const AllRatingsAndReviews = () => {
             {!isNetworkError ?
                 <>
                     <h5 className="ms-5 mt-5 allReviewTitle">{t("all_customer_reviews")}</h5>
-                    <div id='all-ratings-section' className={`${productRating?.rating_list?.length != 0 ? "row justify-content-center m-5" : ""} `}>
+                    <div id='all-ratings-section' className={`${productRating?.rating_list?.length !==0 ? "row justify-content-center m-5" : ""} `}>
                         {Loading &&
                             <>
                                 <Loader width={"100%"} height={"500px"} />

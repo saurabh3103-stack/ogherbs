@@ -64,12 +64,12 @@ const CategoryComponent = ({ data, selectedCategories,
 
     const handleSelectedCategories = (ctgId) => {
         if (selectedCategories.includes(ctgId)) {
-            const updatedCategories = selectedCategories?.filter((id) => id != ctgId);
+            const updatedCategories = selectedCategories?.filter((id) => id !==ctgId);
             setSelectedCategories(updatedCategories);
             dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
         } else {
             const updatedCategories = selectedCategories?.filter((cat) => {
-                if (cat != "") {
+                if (cat !=="") {
                     return cat;
                 }
             });

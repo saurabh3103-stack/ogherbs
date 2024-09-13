@@ -39,7 +39,7 @@ const ViewCart = () => {
     const [guestCartSubTotal, setGuestCartSubTotal] = useState(null);
 
     useEffect(() => {
-        if (location.pathname == "/cart" && cart?.isGuest === false) {
+        if (location.pathname === "/cart" && cart?.isGuest === false) {
             api.getCart(user?.jwtToken, city.city.latitude, city.city.longitude, 0)
                 .then(response => response.json())
                 .then(result => {
@@ -67,16 +67,16 @@ const ViewCart = () => {
                         setIsNetworkError(isNoInternet);
                     }
                 });
-        } else if (location.pathname == "/cart" && cart?.isGuest === true && cart?.guestCart?.length !== 0) {
+        } else if (location.pathname === "/cart" && cart?.isGuest === true && cart?.guestCart?.length !== 0) {
             fetchGuestCart();
-        } else if (location.pathname == "/cart" && cart?.isGuest === true && cart?.guestCart?.length === 0) {
+        } else if (location.pathname === "/cart" && cart?.isGuest === true && cart?.guestCart?.length === 0) {
             setiscartEmpty(true);
         }
 
     }, [user]);
 
     useEffect(() => {
-        if (location.pathname == "/cart" && cart?.isGuest === true) {
+        if (location.pathname === "/cart" && cart?.isGuest === true) {
             fetchGuestCart();
         }
     }, []);
@@ -88,7 +88,7 @@ const ViewCart = () => {
             const quantities = cart?.guestCart?.map((p) => p.qty);
             const response = await api.getGuestCart(city?.city?.latitude, city?.city?.longitude, variantIds?.join(","), quantities?.join(","));
             const result = await response.json();
-            if (result.status == 1) {
+            if (result.status === 1) {
                 setViewCartProducts(result.data.cart);
                 setGuestCartSubTotal(result.data.sub_total);
                 result?.data?.cart?.length > 0 ? setiscartEmpty(false) : setiscartEmpty(true);
@@ -100,7 +100,7 @@ const ViewCart = () => {
     };
 
     useEffect(() => {
-        if (cart?.cartProducts?.length == 0 && cart?.isGuest === false) {
+        if (cart?.cartProducts?.length === 0 && cart?.isGuest === false) {
             setiscartEmpty(true);
         }
     }, [cart?.cartProducts]);
@@ -117,7 +117,7 @@ const ViewCart = () => {
                     dispatch(clearCartPromo());
                     dispatch(setCartSubTotal({ data: result?.sub_total ? result?.sub_total : 0 }));
                     const updatedCartProducts = cartProducts?.map(product => {
-                        if ((product.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
+                        if ((product.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
                             return { ...product, qty: qty };
                         } else {
                             return product;
@@ -125,7 +125,7 @@ const ViewCart = () => {
                     });
                     setViewCartProducts(updatedCartProducts);
                     const updatedProducts = cart?.cartProducts?.map((product) => {
-                        if ((product?.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
+                        if ((product?.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
                             return { ...product, qty: qty };
                         } else {
                             return product;
@@ -152,14 +152,14 @@ const ViewCart = () => {
                     // toast.success(result.message);
                     dispatch(clearCartPromo());
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id != product_variant_id) {
+                        if (product?.product_variant_id !==product_variant_id) {
                             return product;
                         }
                     });
                     dispatch(setCartProducts({ data: updatedCartProducts ? updatedCartProducts : [] }));
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedProducts = cartProducts?.filter(product => {
-                        if (product.product_variant_id != product_variant_id) {
+                        if (product.product_variant_id !==product_variant_id) {
                             return product;
                         }
                     });
@@ -202,14 +202,14 @@ const ViewCart = () => {
     const AddToGuestCart = (productId, productVariantId, Qty, isExisting) => {
         if (isExisting) {
             const updatedProducts = cart?.guestCart?.map((product) => {
-                if (product?.product_id == productId && product?.product_variant_id == productVariantId) {
+                if (product?.product_id === productId && product?.product_variant_id === productVariantId) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
                 }
             }).filter(product => product?.qty !== 0);
             const updatedCartProducts = cartProducts?.map(product => {
-                if ((product.product_id == productId) && (product?.product_variant_id == productVariantId)) {
+                if ((product.product_id === productId) && (product?.product_variant_id === productVariantId)) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
@@ -233,8 +233,8 @@ const ViewCart = () => {
         setGuestCartSubTotal(subTotal);
     };
     const RemoveFromGuestCart = (productVariantId) => {
-        const updatedProducts = cart?.guestCart?.filter((p) => p.product_variant_id != productVariantId);
-        const updatedSideBarProducts = cartProducts.filter((p) => p.product_variant_id != productVariantId);
+        const updatedProducts = cart?.guestCart?.filter((p) => p.product_variant_id !==productVariantId);
+        const updatedSideBarProducts = cartProducts.filter((p) => p.product_variant_id !==productVariantId);
         computeSubTotal(updatedSideBarProducts);
         setViewCartProducts(updatedSideBarProducts);
         if (updatedProducts?.length === 0) {
@@ -245,7 +245,7 @@ const ViewCart = () => {
 
     const handleValidateAddExistingGuestProduct = (productQuantity, product, quantity) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
@@ -253,10 +253,10 @@ const ViewCart = () => {
             }
         }
         else {
-            if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.stock)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.stock)) {
                 toast.error(t("limited_product_stock_error"));
             }
             else {
@@ -315,7 +315,7 @@ const ViewCart = () => {
 
                                                     <tbody>
                                                         {cartProducts?.map((product, index) => {
-                                                            if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty > 0 || cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty > 0) {
+                                                            if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty > 0 || cart?.guestCart?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty > 0) {
                                                                 return (
                                                                     <tr key={index} className={`${!product.status ? "danger" : ""}`}>
                                                                         <th className='products-image-container first-column'>
@@ -344,10 +344,10 @@ const ViewCart = () => {
                                                                                     type='button'
                                                                                     onClick={() => {
                                                                                         if (cart?.isGuest && product.qty > 1) {
-                                                                                            AddToGuestCart(product.product_id, product.product_variant_id, Number(cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty) - 1, 1);
+                                                                                            AddToGuestCart(product.product_id, product.product_variant_id, Number(cart?.guestCart?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty) - 1, 1);
                                                                                         } else {
                                                                                             if (product.qty > 1) {
-                                                                                                addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty - 1);
+                                                                                                addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty - 1);
                                                                                             }
                                                                                         }
 
@@ -356,8 +356,8 @@ const ViewCart = () => {
                                                                                 </button>
 
                                                                                 <span >{cart?.isGuest === false ?
-                                                                                    cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty :
-                                                                                    cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty}</span>
+                                                                                    cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty :
+                                                                                    cart?.guestCart?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty}</span>
 
                                                                                 <button
                                                                                     type='button'
@@ -372,8 +372,8 @@ const ViewCart = () => {
                                                                                         } else {
                                                                                             const productQuantity = getProductQuantities(cart?.cartProducts);
                                                                                             if (Number(product.is_unlimited_stock) === 1) {
-                                                                                                if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty < Number(product?.total_allowed_quantity)) {
-                                                                                                    addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty + 1);
+                                                                                                if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty < Number(product?.total_allowed_quantity)) {
+                                                                                                    addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty + 1);
                                                                                                 } else {
                                                                                                     toast.error(t("max_cart_limit_error"));
                                                                                                 }
@@ -381,11 +381,11 @@ const ViewCart = () => {
                                                                                                 if (Number(product.qty) >= Number(product.stock)) {
                                                                                                     toast.error(t("out_of_stock_message"));
 
-                                                                                                } else if (productQuantity?.find(prdct => prdct?.product_id == product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
+                                                                                                } else if (productQuantity?.find(prdct => prdct?.product_id === product?.product_id)?.qty >= Number(product?.total_allowed_quantity)) {
                                                                                                     toast.error(t("max_cart_limit_error"));
                                                                                                 }
                                                                                                 else {
-                                                                                                    addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.product_variant_id)?.qty + 1);
+                                                                                                    addtoCart(product.product_id, product.product_variant_id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.product_variant_id)?.qty + 1);
                                                                                                 }
                                                                                             }
                                                                                         }

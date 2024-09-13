@@ -42,12 +42,12 @@ const UpdateRatingModal = (props) => {
       setLoading(false);
 
     };
-    if (props.showModal == true)
+    if (props.showModal === true)
       fetchRating();
   }, [props.showModal]);
 
   const handleActive = (index) => {
-    setActiveIndex(index == activeIndex ? null : index);
+    setActiveIndex(index === activeIndex ? null : index);
   };
   const handleReviewChange = (e) => {
     setReview(e.target.value);
@@ -79,7 +79,7 @@ const UpdateRatingModal = (props) => {
       const response = await api.updateProductRating(user?.jwtToken, props?.ratingId, activeIndex, review, newFiles, deletedImageIds?.join(","));
       const result = await response.json();
       props.setShowModal(false);
-      if (result.message == "The image.0 must be an image.") {
+      if (result.message === "The image.0 must be an image.") {
         toast.error(t("only_images_are_allowed"));
       } else {
         toast.success(result.message);
