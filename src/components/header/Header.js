@@ -25,7 +25,12 @@ import { setFilterSearch } from "../../model/reducer/productFilterReducer";
 import { Modal } from 'antd';
 import "../location/location.css";
 import { setCSSMode } from '../../model/reducer/cssmodeReducer';
+
 import { MdOutlineWbSunny } from "react-icons/md";
+import { FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebookF } from "react-icons/fa";
+
 
 const Header = () => {
     const closeSidebarRef = useRef();
@@ -246,7 +251,7 @@ const Header = () => {
 
                     <div className="canvas-header">
                         <div className='site-brand'>
-                            <img src={setting.setting && setting.setting.web_settings.web_logo} height="70px" alt="logo"></img>
+                            <img src={setting.setting && setting.setting.web_settings.web_logo} height="70px" alt="logo" ></img>
                         </div>
 
                         <button type="button" className="close-canvas" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeSidebarRef} onClick={() => setIsOpen(false)}><AiOutlineCloseCircle fill='black' /></button>
@@ -517,6 +522,8 @@ const Header = () => {
                 </div>
 
 
+
+
                 {/* bottom header */}
                 <div className={isSticky ? "sticky header-main  w-100" : "header-main  w-100"} >
                     <div className="container">
@@ -536,9 +543,9 @@ const Header = () => {
                                 </div>
 
 
-                                <Link to='/' className='site-brand'>
-                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='desktop-logo hide-mobile' />
-                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='mobile-logo hide-desktop' />
+                                <Link to='/' className='site-brand mt-5'>
+                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='desktop-logo hide-mobile rounded mt-5 px-4' style={{minHeight:"35vh"}} />
+                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='mobile-logo hide-desktop rounded mt-5 px-4' style={{minHeight:"35vh"}}/>
                                 </Link>
                             </div>
 
