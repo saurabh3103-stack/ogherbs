@@ -28,7 +28,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                         window.open(offer?.offer_url, "_blank");
                     }
                 }}>
-                    <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" />
+                    {/* <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" /> */}
                 </div>
             ))}
 
@@ -49,7 +49,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                         window.open(offer?.offer_url, "_blank");
                     }
                 }}>
-                    <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" />
+                    {/* <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" /> */}
                 </div>
             ))}
 

@@ -100,44 +100,50 @@ const ProductList2 = React.memo(() => {
 
     const filterProductsFromApi = async (filter) => {
         setisLoader(true);
-        await api.getProductbyFilter(city?.city?.latitude, city?.city?.longitude, filter, user?.jwtToken)
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === 1) {
-                    // console.log("Filter Product From Api ->", result);
-                    if (minPrice === null && maxPrice === null && filter?.price_filter === null) {
-                        setMinPrice(parseInt(result.total_min_price));
-                        if (result.total_min_price === result.total_max_price) {
-                            setMaxPrice(parseInt(result.total_max_price) + 100);
-                            setValues([parseInt(result.total_min_price), parseInt(result.total_max_price) + 100]);
-                        } else {
-                            setMaxPrice(parseInt(result.total_max_price));
-                            setValues([parseInt(result.total_min_price), parseInt(result.total_max_price)]);
-                        }
+    
+        // Log latitude and longitude
+        console.log("Latitude:", city?.city?.latitude);
+        console.log("Longitude:", city?.city?.longitude);
+    
+        try {
+            const response = await api.getProductbyFilter(city?.city?.latitude, city?.city?.longitude, filter, user?.jwtToken);
+            const result = await response.json();
+    
+            if (result.status === 1) {
+                if (minPrice == null && maxPrice == null && filter?.price_filter == null) {
+                    setMinPrice(parseInt(result.total_min_price));
+                    if (result.total_min_price === result.total_max_price) {
+                        setMaxPrice(parseInt(result.total_max_price) + 100);
+                        setValues([parseInt(result.total_min_price), parseInt(result.total_max_price) + 100]);
+                    } else {
+                        setMaxPrice(parseInt(result.total_max_price));
+                        setValues([parseInt(result.total_min_price), parseInt(result.total_max_price)]);
                     }
-                    setproductresult(result.data);
-                    setSizes(result.sizes);
-                    settotalProducts(result.total);
-                    setShowPriceFilter(true);
                 }
-                else {
-                    setproductresult([]);
-                    settotalProducts(0);
-                    setSizes([]);
-                    setShowPriceFilter(false);
-                }
-                setisLoader(false);
-            })
-            .catch(error => {
-                const regex = /Failed to fetch/g;
-                if (regex.test(error.message)) {
-                    console.log("Network Error");
-                    setNetworkError(true);
-                }
-                console.log(error.message);
-            });
+    
+                setproductresult(result.data);
+                setSizes(result.sizes);
+                settotalProducts(result.total);
+                setShowPriceFilter(true);
+            } else {
+                setproductresult([]);
+                settotalProducts(0);
+                setSizes([]);
+                setShowPriceFilter(false);
+            }
+    
+        } catch (error) {
+            const regex = /Failed to fetch/g;
+            if (regex.test(error.message)) {
+                console.log("Network Error");
+                setNetworkError(true);
+            }
+            console.log(error.message);
+        } finally {
+            setisLoader(false);
+        }
     };
-
+    
 
     const sort_unique_brand_ids = (int_brand_ids) => {
         if (int_brand_ids.length === 0) return int_brand_ids;
@@ -291,7 +297,7 @@ const ProductList2 = React.memo(() => {
                                     <div whiltap={{ scale: 0.8 }} onClick={() => {
                                         filterbyBrands(brand);
                                         closeCanvas.current.click();
-                                    }} className={`d-flex justify-content-between align-items-center filter-bar border-bottom ${filter.brand_ids?.length !==0 ? filter.brand_ids.includes(brand.id) ? 'active' : null : null}`} key={index} >
+                                    }} className={`d-flex justify-content-between align-items-center filter-bar border-bottom ${filter.brand_ids?.length != 0 ? filter.brand_ids.includes(brand.id) ? 'active' : null : null}`} key={index} >
                                         <div className='d-flex gap-3 align-items-baseline'>
                                             <div className='image-container'>
                                                 {/* <img onError={placeHolderImage} src={brand.image_url} alt="category" /> */}
@@ -459,14 +465,14 @@ const ProductList2 = React.memo(() => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    if (cart?.cartProducts?.find((product) => ((product?.product_id === product_id) && (product?.product_variant_id === product_variant_id)))?.qty === undefined) {
+                    if (cart?.cartProducts?.find((product) => ((product?.product_id == product_id) && (product?.product_variant_id == product_variant_id)))?.qty == undefined) {
                         dispatch(setCart({ data: result }));
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                         const updatedCartCount = [...cart?.cartProducts, { product_id: product_id, product_variant_id: product_variant_id, qty: qty }];
                         dispatch(setCartProducts({ data: updatedCartCount }));
                     } else {
                         const updatedProducts = cart?.cartProducts?.map(product => {
-                            if (((product.product_id === product_id) && (product?.product_variant_id === product_variant_id))) {
+                            if (((product.product_id == product_id) && (product?.product_variant_id == product_variant_id))) {
                                 return { ...product, qty: qty };
                             } else {
                                 return product;
@@ -477,7 +483,7 @@ const ProductList2 = React.memo(() => {
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                     }
                 }
-                else if (result?.data?.one_seller_error_code === 1) {
+                else if (result?.data?.one_seller_error_code == 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(result.message);
                     // toast.error(t(`${result.message}`));
@@ -495,7 +501,7 @@ const ProductList2 = React.memo(() => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedProducts = cart?.cartProducts?.filter(product => ((product?.product_id !==product_id) && (product?.product_variant_id !==product_variant_id)));
+                    const updatedProducts = cart?.cartProducts?.filter(product => ((product?.product_id != product_id) && (product?.product_variant_id != product_variant_id)));
                     dispatch(setCartProducts({ data: updatedProducts }));
                 }
                 else {
@@ -529,7 +535,7 @@ const ProductList2 = React.memo(() => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !==product_id);
+                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id != product_id);
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -561,26 +567,26 @@ const ProductList2 = React.memo(() => {
 
     const handleValidateAddExistingProduct = (productQuantity, product) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty < Number(product?.total_allowed_quantity)) {
-                addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === product.variants[0].id)?.qty + 1);
+            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty < Number(product?.total_allowed_quantity)) {
+                addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product.variants[0].id)?.qty + 1);
             } else {
                 toast.error('Apologies, maximum product quantity limit reached!');
             }
         } else {
-            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product.variants[0].stock)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product.variants[0].stock)) {
                 toast.error(t("out_of_stock_message"));
             }
-            else if (Number(productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty) >= Number(product.total_allowed_quantity)) {
+            else if (Number(productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty) >= Number(product.total_allowed_quantity)) {
                 toast.error('Apologies, maximum product quantity limit reached');
             } else {
-                addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === product.variants[0].id)?.qty + 1);
+                addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product.variants[0].id)?.qty + 1);
             }
         }
     };
 
     const handleValidateAddNewProduct = (productQuantity, product) => {
         if (user?.jwtToken !== "") {
-            if ((productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty || 0) >= Number(product?.total_allowed_quantity)) {
+            if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) >= Number(product?.total_allowed_quantity)) {
                 toast.error('Oops, Limited Stock Available');
             }
             else if (Number(product.is_unlimited_stock)) {
@@ -599,7 +605,7 @@ const ProductList2 = React.memo(() => {
     };
 
     const handleAddNewProductGuest = (productQuantity, product) => {
-        if ((productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
+        if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
             AddToGuestCart(product.id, product.variants[0].id, 1, 0);
         } else {
             toast.error(t("out_of_stock_message"));
@@ -608,12 +614,12 @@ const ProductList2 = React.memo(() => {
     const AddToGuestCart = (productId, productVariantId, Qty, isExisting) => {
         if (isExisting) {
             const updatedProducts = Qty !== 0 ? cart?.guestCart?.map((product) => {
-                if (product?.product_id === productId && product?.product_variant_id === productVariantId) {
+                if (product?.product_id == productId && product?.product_variant_id == productVariantId) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
                 }
-            }) : cart?.guestCart?.filter(product => product?.product_id !==productId && product?.productVariantId !==productVariantId);
+            }) : cart?.guestCart?.filter(product => product?.product_id != productId && product?.productVariantId != productVariantId);
             dispatch(addtoGuestCart({ data: updatedProducts }));
         } else {
             const productData = { product_id: productId, product_variant_id: productVariantId, qty: Qty };
@@ -623,7 +629,7 @@ const ProductList2 = React.memo(() => {
 
     const handleValidateAddExistingGuestProduct = (productQuantity, product, quantity) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error('Apologies, maximum product quantity limit reached');
             }
             else {
@@ -631,10 +637,10 @@ const ProductList2 = React.memo(() => {
             }
         }
         else {
-            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.variants?.[0]?.stock)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.variants?.[0]?.stock)) {
                 toast.error('Oops, Limited Stock Available');
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error('Apologies, maximum cart quantity limit reached');
             }
             else {
@@ -733,7 +739,7 @@ const ProductList2 = React.memo(() => {
                                         )
                                         : (
                                             <>
-                                                {productresult.length > 0 && isLoader === false
+                                                {productresult.length > 0 && isLoader == false
                                                     ? (
                                                         <div className='h-100 productList_content'>
                                                             <div className="row  flex-wrap">
@@ -921,7 +927,7 @@ const ProductList2 = React.memo(() => {
                                                                                                         product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) :
                                                                                                         product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                                                 </p>
-                                                                                                {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price !==0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ?
+                                                                                                {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price != 0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ?
                                                                                                     <span id={`price${index}-section`} className="d-flex align-items-center" >
                                                                                                         <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}
                                                                                                             {product?.variants[0]?.price?.toFixed(setting.setting && setting.setting.decimal_point)}
@@ -983,7 +989,7 @@ const ProductList2 = React.memo(() => {
                                                                             {filter.grid_view ? <>
                                                                                 <div className='d-flex flex-row border-top product-card-footer'>
                                                                                     <div className='border-end '>
-                                                                                        {favorite.favorite && favorite?.favouriteProductIds?.some(id => id === product.id) ? (
+                                                                                        {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
                                                                                             <button type="button" className='wishlist-product favouriteBtn' onClick={() => {
                                                                                                 if (user?.jwtToken !== "") {
                                                                                                     removefromFavorite(product.id);
@@ -1007,8 +1013,8 @@ const ProductList2 = React.memo(() => {
                                                                                     </div>
 
                                                                                     <div className='border-end aes' style={{ flexGrow: "1" }} >
-                                                                                        {(cart?.isGuest === false && user?.user && cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty > 0) ||
-                                                                                            (cart?.isGuest === true && cart?.guestCart?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty > 0)
+                                                                                        {(cart?.isGuest === false && user?.user && cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
+                                                                                            (cart?.isGuest === true && cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0)
                                                                                             ?
                                                                                             <>
                                                                                                 <div id={`input-cart-productdetail`} className="input-to-cart">
@@ -1020,17 +1026,17 @@ const ProductList2 = React.memo(() => {
                                                                                                                 AddToGuestCart(
                                                                                                                     product?.id,
                                                                                                                     product?.variants?.[0]?.id,
-                                                                                                                    cart?.guestCart?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty - 1,
+                                                                                                                    cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty - 1,
                                                                                                                     1
                                                                                                                 );
                                                                                                             } else {
 
-                                                                                                                if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty === 1) {
+                                                                                                                if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty == 1) {
                                                                                                                     removefromCart(product.id, product.variants[0].id);
                                                                                                                     selectedVariant.cart_count = 0;
                                                                                                                 }
                                                                                                                 else {
-                                                                                                                    addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === product.variants[0].id)?.qty - 1);
+                                                                                                                    addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product.variants[0].id)?.qty - 1);
                                                                                                                     selectedVariant.cart_count = selectedVariant.cart_count - 1;
                                                                                                                 }
                                                                                                             }
@@ -1046,8 +1052,8 @@ const ProductList2 = React.memo(() => {
                                                                                                             className="quantity-input bg-transparent text-center"
                                                                                                             value={
                                                                                                                 cart.isGuest === false ?
-                                                                                                                    cart?.cartProducts?.find(prdct => prdct?.product_variant_id === product.variants[0].id)?.qty
-                                                                                                                    : cart?.guestCart?.find(prdct => prdct?.product_variant_id === product.variants[0].id)?.qty
+                                                                                                                    cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product.variants[0].id)?.qty
+                                                                                                                    : cart?.guestCart?.find(prdct => prdct?.product_variant_id == product.variants[0].id)?.qty
                                                                                                             }
                                                                                                             disabled
                                                                                                         />
@@ -1062,7 +1068,7 @@ const ProductList2 = React.memo(() => {
                                                                                                                 handleValidateAddExistingGuestProduct(
                                                                                                                     productQuantity,
                                                                                                                     product,
-                                                                                                                    cart?.guestCart?.find(prdct => prdct?.product_id === product?.id && prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty + 1
+                                                                                                                    cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty + 1
                                                                                                                 );
                                                                                                             } else {
                                                                                                                 const productQuantity = getProductQuantities(cart?.cartProducts);
@@ -1176,53 +1182,3 @@ const ProductList2 = React.memo(() => {
 });
 
 export default ProductList2;;
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// const ProductList2 = () => {
-//   const [products, setProducts] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     // Make a POST request to the API
-//     axios.post('https://ogherbs.deificindia.com/customer/products', {})
-//       .then(response => {
-//         // Check if the status is 1 and products exist
-//         console.log(response)
-//         if (response.data.status === 1) {
-           
-//           setProducts(response.data.message.products);
-//         } else {
-//           setError('Failed to load products.');
-//         }
-//         setLoading(false);
-//       })
-//       .catch(err => {
-//         setError('An error occurred while fetching products.');
-//         setLoading(false);
-//       });
-//   }, []);
-
-//   if (loading) return <div>Loading...</div>;
-//   if (error) return <div>{error}</div>;
-
-//   return (
-//     <div>
-//       <h2>Product List</h2>
-//       <ul>
-//         {products.map(product => (
-//           <li key={product.id}>
-//             <h3>{product.name}</h3>
-//             <img src={product.image_url} alt={product.name} style={{ width: '100px', height: '100px' }} />
-//             <p>Price: {product.price}</p>
-//             <p>Discounted Price: {product.discounted_price}</p>
-//             <p>Description: <span dangerouslySetInnerHTML={{ __html: product.description }} /></p>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default ProductList2;

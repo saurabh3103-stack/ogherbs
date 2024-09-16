@@ -87,7 +87,7 @@ const Slider = () => {
                                     pagination={{
                                         dynamicBullets: true,
                                     }}
-                                    navigation={true}
+                                 
                                     key={language.current_language && language.current_language.type}
                                 >
 

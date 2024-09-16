@@ -104,6 +104,7 @@ const api = {
         return fetch(url, requestOptions);
     },
     getCity(latitude, longitude) {
+        console.log(latitude,longitude)
         var myHeaders = new Headers();
         myHeaders.append(access_key_param, access_key);
 
