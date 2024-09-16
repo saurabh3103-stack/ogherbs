@@ -4,6 +4,26 @@
   background: var(--body-background-dark);
   color: var(--primary-color-dark);
 } */
+/* .site-header .header-main .site-brand {
+  width: 150px;
+  height: auto;
+}
+
+.site-header .header-main .site-brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.site-header .header-main .header-search {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 140%;
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+} */
+ 
 #sidebaroffcanvasExample,
 #cartoffcanvasExample,
 #promooffcanvas {
@@ -17,6 +37,15 @@
   padding: 8px 10px;
   background-color: transparent;
 }
+
+.themeDropdown1 > button {
+  font-size: 0px !important;
+  color: var(--font-color);
+  border: none;
+  padding: 8px 10px;
+  background-color: transparent;
+}
+
 .themeDropdown .dropdown-menu.show .dropdown-item {
   font-size: 12px;
   width: 100%;
@@ -57,7 +86,6 @@
   font-size: 14px;
   position: relative;
   background-color: var(--second-cards-color);
-  
   /* border-bottom: 1px solid var(--font-color); */
   /* -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -171,7 +199,7 @@
 .site-header .header-main .site-brand .desktop-logo,
 .site-header .header-main .site-brand .mobile-logo {
   width: 100%;
-  height: 220px;
+  height: 70px;
   object-fit: contain;
 }
 .site-location {
@@ -912,15 +940,6 @@
 .canvas-main {
   overflow: hidden;
 }
-.textCSS{
-  color: white !important;
-
-}
-.dropdown-menu .dropdown-item.textCSS {
-  color: white !important;  /* For dropdown items */
-  background-color: transparent; /* Ensure background doesn't override */
-}
-
-.dropdown-toggle.textCSS {
-  color: white !important;  /* For dropdown toggle text */
+.no-break {
+  white-space: nowrap;
 }

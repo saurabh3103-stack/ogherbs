@@ -17,6 +17,8 @@ import Cart from '../cart/Cart';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
+import { IoMdSettings } from "react-icons/io";
+import { FaBars } from "react-icons/fa6";
 
 import { setCity } from "../../model/reducer/locationReducer";
 import { setPaymentSetting } from '../../model/reducer/settingReducer';
@@ -25,12 +27,7 @@ import { setFilterSearch } from "../../model/reducer/productFilterReducer";
 import { Modal } from 'antd';
 import "../location/location.css";
 import { setCSSMode } from '../../model/reducer/cssmodeReducer';
-
 import { MdOutlineWbSunny } from "react-icons/md";
-import { FaInstagram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaFacebookF } from "react-icons/fa";
-
 
 const Header = () => {
     const closeSidebarRef = useRef();
@@ -63,6 +60,12 @@ const Header = () => {
     const openModal = () => {
         handleModal();
     };
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+    // Toggle dropdown visibility on click
+    const toggleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    };
 
     const openCanvasModal = () => {
         handleModal();
@@ -87,14 +90,14 @@ const Header = () => {
     };
 
     useEffect(() => {
-        if (curr_url.pathname !=="/products") {
+        if (curr_url.pathname != "/products") {
             setsearch("");
             dispatch(setFilterSearch({ data: null }));
         }
     }, [curr_url]);
 
     useEffect(() => {
-        if (setting.setting?.default_city && city.city === null) {
+        if (setting.setting?.default_city && city.city == null) {
             setisLocationPresent(true);
             api.getCity(parseFloat(setting.setting.default_city?.latitude), parseFloat(setting.setting.default_city?.longitude))
                 .then(response => response.json())
@@ -105,7 +108,7 @@ const Header = () => {
                 });
             setisLocationPresent(true);
         }
-        else if (setting?.setting && setting.setting?.default_city === null && city?.city === null) {
+        else if (setting?.setting && setting.setting?.default_city == null && city?.city == null) {
             setLocModal(true);
         }
     }, [setting]);
@@ -119,7 +122,7 @@ const Header = () => {
                 dispatch(setLanguageList({ data: result.data }));
             });
         // }
-        if ((curr_url?.pathname === "/") || (curr_url?.pathname === "/profile/wallet-transaction") || (curr_url?.pathname === "/checkout")) {
+        if ((curr_url?.pathname == "/") || (curr_url?.pathname == "/profile/wallet-transaction") || (curr_url?.pathname == "/checkout")) {
             fetchPaymentSetting();
         }
         // dispatch(setFilterSearch({ data: null }));
@@ -182,7 +185,7 @@ const Header = () => {
     // };
 
     // useEffect(() => {
-    //     if (city.city !== null && user?.jwtToken !== undefined && user.user === null) {
+    //     if (city.city !== null && user?.jwtToken !== undefined && user.user == null) {
     //         fetchCart(user?.jwtToken, city.city.latitude, city.city.longitude);
     //         // fetchFavorite(user?.jwtToken, city?.city?.latitude, city?.city?.longitude);
     //         // fetchNotification(user?.jwtToken);
@@ -221,7 +224,7 @@ const Header = () => {
 
     // console.log(isDesktopView)
     const handleMobileNavActKey = (key) => {
-        setMobileNavActKey(key === mobileNavActKey ? null : key);
+        setMobileNavActKey(key == mobileNavActKey ? null : key);
     };
 
     const handleThemeChange = (theme) => {
@@ -251,7 +254,7 @@ const Header = () => {
 
                     <div className="canvas-header">
                         <div className='site-brand'>
-                            <img src={setting.setting && setting.setting.web_settings.web_logo} height="70px" alt="logo" ></img>
+                            <img src={setting.setting && setting.setting.web_settings.web_logo} height="70px" alt="logo"></img>
                         </div>
 
                         <button type="button" className="close-canvas" data-bs-dismiss="offcanvas" aria-label="Close" ref={closeSidebarRef} onClick={() => setIsOpen(false)}><AiOutlineCloseCircle fill='black' /></button>
@@ -467,7 +470,7 @@ const Header = () => {
 
 
                 {/* top header */}
-                <div className={`header-top  hide-mobile border-bottom ${(cssmode.cssmode === "dark") ? "dark-header-top" : ''}`}>
+                <div className={`header-top d-none hide-mobile border-bottom ${(cssmode.cssmode === "dark") ? "dark-header-top" : ''}`}>
                     <div className="container">
                         <div className={`row justify-content-between`}>
                             <div className='col-md-6 d-flex justify-content-start align-items-center'>
@@ -522,10 +525,10 @@ const Header = () => {
                 </div>
 
 
-
-
                 {/* bottom header */}
                 <div className={isSticky ? "sticky header-main  w-100" : "header-main  w-100"} >
+                    {/* <div className="container">  */}
+                    {/*UPDATED */}
                     <div className="container">
                         <div className='d-flex row-reverse justify-content-lg-between justify-content-center'>
 
@@ -543,9 +546,9 @@ const Header = () => {
                                 </div>
 
 
-                                <Link to='/' className='site-brand mt-5'>
-                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='desktop-logo hide-mobile rounded mt-5 px-4' style={{minHeight:"35vh"}} />
-                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='mobile-logo hide-desktop rounded mt-5 px-4' style={{minHeight:"35vh"}}/>
+                                <Link to='/' className='site-brand'>
+                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='desktop-logo hide-mobile' />
+                                    <img src={setting.setting && setting.setting.web_settings.web_logo} alt="logo" className='mobile-logo hide-desktop' />
                                 </Link>
                             </div>
 
@@ -573,7 +576,7 @@ const Header = () => {
                                     </div>
                                 </button>
 
-                                <div className={`header-search rounded-3 ${mobileNavActKey === 2 ? "active" : ""}`}>
+                                <div className={`header-search rounded-3 ${mobileNavActKey == 2 ? "active" : ""}`}>
                                     <form onSubmit={(e) => {
                                         e.preventDefault();
                                         if (search !== "") {
@@ -599,7 +602,7 @@ const Header = () => {
                                                 setsearch(e.target.value);
                                             }}
                                         />
-                                        {search !=="" ? <AiOutlineClose size={15} className='cursorPointer' style={{
+                                        {search != "" ? <AiOutlineClose size={15} className='cursorPointer' style={{
                                             position: "absolute",
                                             right: "65px"
                                         }} onClick={() => {
@@ -614,7 +617,6 @@ const Header = () => {
 
 
                             </div>
-
 
                             <div className='d-flex col-md-3 w-auto order-3  justify-content-end align-items-center'>
                                 <button type='button' whiletap={{ scale: 0.6 }} className='icon position-relative hide-mobile mx-sm-4' onClick={() => {
@@ -725,7 +727,7 @@ const Header = () => {
                                                         <span className="position-absolute start-100 translate-middle badge rounded-pill fs-5">
                                                             {console.log("total products", cart?.cart?.total)}
                                                             {cart?.cart?.total > 0 ? cart?.cart?.total : null}
-                                                            {cart?.cartProducts?.length !==0 ? cart?.cartProducts?.length : null}
+                                                            {cart?.cartProducts?.length != 0 ? cart?.cartProducts?.length : null}
                                                             <span className="visually-hidden">unread messages</span>
                                                         </span>
                                                         : null} */}
@@ -734,10 +736,10 @@ const Header = () => {
                                                     {cart?.cartProducts?.length !== 0 ?
                                                         <span className="position-absolute start-100 translate-middle badge rounded-pill fs-5">
                                                             {console.log("total products", cart?.cartProducts)}
-                                                            {cart?.cartProducts?.length !==0 ? cart?.cartProducts?.length : null}
+                                                            {cart?.cartProducts?.length != 0 ? cart?.cartProducts?.length : null}
                                                             <span className="visually-hidden">unread messages</span>
                                                         </span>
-                                                        : null} 
+                                                        : null}
 
                                                 </button>
                                                 {cssmode?.cssmode === "light" ?
@@ -748,6 +750,93 @@ const Header = () => {
                                             </>
                                 }
 
+
+
+
+
+                                {/* Conditionally render dropdown */}
+
+                                <div className='d-flex align-items-center px-2 border-start border-end'>
+    <Dropdown className='themeDropdown1 themeDropdown'>
+        <Dropdown.Toggle>
+            <IoMdSettings size={25} />
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+            {/* Theme Toggle Section */}
+            <div className='d-flex align-items-center px-2 border-start border-end'>
+                <Dropdown className='themeDropdown'>
+                    <Dropdown.Toggle className="d-flex align-items-center">
+                        <IoContrast size={30} className='me-2' />
+                        {t(cssmode?.cssmode)}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {cssmode?.cssmode === "dark" ? (
+                            <Dropdown.Item onClick={() => handleThemeChange("light")}>
+                                Light Mode
+                            </Dropdown.Item>
+                        ) : (
+                            <Dropdown.Item onClick={() => handleThemeChange("dark")}>
+                                Dark Mode
+                            </Dropdown.Item>
+                        )}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+
+            {/* Language Selector */}
+            <div className='language-container'>
+                <Dropdown>
+                    <Dropdown.Toggle className="d-flex align-items-center">
+                        <MdGTranslate size={30} className='me-2' />
+                        {languages.current_language?.name}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {languages.available_languages?.map((language, index) => (
+                            <Dropdown.Item key={index} onClick={() => handleChangeLanguage(language.id)}>
+                                {language.name}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        </Dropdown.Menu>
+    </Dropdown>
+</div>
+
+{/* Navigation Links */}
+<div className='d-flex align-items-center px-2 border-start border-end'> 
+    <Dropdown className='themeDropdown1 themeDropdown'>
+        <Dropdown.Toggle>
+            <FaBars size={25} />
+        </Dropdown.Toggle>
+        <Dropdown.Menu className='px-4' style={{borderRadius:"10%"
+        }}>
+            <div className='d-flex flex-column justify-content-center text-center align-items-center'>
+                <Link
+                    to='/about'
+                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                >
+                    {t('about_us')}
+                </Link>
+                <Link
+                    to='/contact'
+                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                >
+                    {t('contact_us')}
+                </Link>
+                <Link
+                    to='/faq'
+                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                >
+                    {t('faq')}
+                </Link>
+            </div>
+        </Dropdown.Menu>
+    </Dropdown>
+</div>
+
+
+                                {/* my changes */}
                                 {user.status === 'loading'
                                     ? (
                                         <>
@@ -789,6 +878,9 @@ const Header = () => {
 
                             </div>
 
+
+
+
                         </div>
                     </div>
                 </div>
@@ -799,7 +891,7 @@ const Header = () => {
                     <div className='mobile-nav-wrapper'>
                         <ul>
                             <li className='menu-item'>
-                                <Link to='/products' className={`shop ${curr_url.pathname === '/products' && mobileNavActKey === 1 ? 'active' : ''}`} onClick={() => {
+                                <Link to='/products' className={`shop ${curr_url.pathname === '/products' && mobileNavActKey == 1 ? 'active' : ''}`} onClick={() => {
                                     handleMobileNavActKey(1);
                                 }}>
                                     <div>
@@ -810,7 +902,7 @@ const Header = () => {
                             </li>
 
                             <li className='menu-item'>
-                                <button type='button' className={`search ${mobileNavActKey === 2 ? "active" : ""}`} ref={searchNavTrigger} onClick={() => {
+                                <button type='button' className={`search ${mobileNavActKey == 2 ? "active" : ""}`} ref={searchNavTrigger} onClick={() => {
                                     handleMobileNavActKey(2);
                                     searchNavTrigger.current.focus();
                                 }}>
@@ -823,7 +915,7 @@ const Header = () => {
 
                             {curr_url.pathname === '/products' ? (
                                 <li className='menu-item'>
-                                    <button type='button' className={`filter ${mobileNavActKey === 3 ? "active" : ""}`} data-bs-toggle="offcanvas" data-bs-target="#filteroffcanvasExample" aria-controls="filteroffcanvasExample" onClick={() => {
+                                    <button type='button' className={`filter ${mobileNavActKey == 3 ? "active" : ""}`} data-bs-toggle="offcanvas" data-bs-target="#filteroffcanvasExample" aria-controls="filteroffcanvasExample" onClick={() => {
 
                                         handleMobileNavActKey(3);
 
@@ -838,7 +930,7 @@ const Header = () => {
 
                             <li className='menu-item'>
                                 {city.city === null || user?.jwtToken === ""
-                                    ? <button type='button' className={`wishlist ${mobileNavActKey === 4 ? "active" : ""}`} onClick={() => {
+                                    ? <button type='button' className={`wishlist ${mobileNavActKey == 4 ? "active" : ""}`} onClick={() => {
 
                                         if (user?.jwtToken === "") {
                                             toast.error(t("required_login_message_for_wishlist"));
@@ -859,7 +951,7 @@ const Header = () => {
                                         </div>
                                         <span>{t("wishList")}</span>
                                     </button>
-                                    : <button type='button' className={`wishlist ${mobileNavActKey === 4 ? "active" : ""}`} onClick={() => {
+                                    : <button type='button' className={`wishlist ${mobileNavActKey == 4 ? "active" : ""}`} onClick={() => {
 
                                         if (user?.jwtToken === "") {
                                             toast.error(t("required_login_message_for_cartRedirect"));
@@ -917,7 +1009,7 @@ const Header = () => {
                                         {user.status === 'loading'
                                             ? (
                                                 <>
-                                                    <button type='button' className={`account ${mobileNavActKey === 5 ? "active" : ""}`}
+                                                    <button type='button' className={`account ${mobileNavActKey == 5 ? "active" : ""}`}
                                                         // data-bs-toggle="modal" data-bs-target="#loginModal"
                                                         onClick={() => {
                                                             setShowModal(true);
@@ -935,7 +1027,7 @@ const Header = () => {
                                             )
                                             : (
                                                 <>
-                                                    <button className={`d-flex user-profile account ${mobileNavActKey === 5 ? "active" : ""}`} onClick={() => {
+                                                    <button className={`d-flex user-profile account ${mobileNavActKey == 5 ? "active" : ""}`} onClick={() => {
                                                         handleMobileNavActKey(5);
                                                         navigate("/profile");
                                                     }}>

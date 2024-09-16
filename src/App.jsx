@@ -336,7 +336,7 @@ const App = () => {
                   <Route key="faq" exact path='/faq' element={<FAQ />} />
                   <Route key="terms" exact path='/terms' element={<Terms />} />
                   <Route key="policy" exact path='/policy/:policy_type' element={<Policy />} />
-                  <Route key="home" exact path="" element={<MainContainer />} />
+                  <Route key="home" exact path="/" element={<MainContainer />} />
                 </>
               }
               <Route key="404-page" path='*' element={<NotFound />} />
