@@ -63,11 +63,16 @@
 }
 
 .category-container .card .category_image {
+  padding:10px;
   /* width: 120px; */
   /* border-radius: 100%; */
   margin: 0 auto;
   /* padding: 8px; */
   border-radius: 7px 7px 0px 0px;
+ 
+  height: 50vh;
+  
+ 
   /* border: 1px solid #ddd; */
   /* height: 120px; */
   /* margin-bottom: 15px; */
@@ -219,4 +224,60 @@
 
 #allcategories .categoryListPagination > a {
   color: var(--font-color);
+}
+
+/* div.scrollmenu {
+ 
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+} */
+.container-fluid {
+  background-color: #f8f9fa;
+}
+
+.scrollmenu {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.category-link {
+  cursor: pointer;
+}
+
+.category-image {
+  background-size: cover;
+  background-position: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.text-center h5 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.text-muted {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.padded-container {
+  padding: 4rem;
+  display: flex;
+  justify-content: space-evenly;
 }

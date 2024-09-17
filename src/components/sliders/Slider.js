@@ -51,7 +51,7 @@ const Slider = () => {
         e.target.src = setting.setting?.web_logo;
     };
     return (
-        <div className='slider '>
+        <div className='slider '  style={{marginTop:"-2vh",borderRadius:"20px"}}>
             {
                 shop.shop === null
                     ? (
@@ -87,7 +87,7 @@ const Slider = () => {
                                     pagination={{
                                         dynamicBullets: true,
                                     }}
-                                 
+                                    // navigation={true}
                                     key={language.current_language && language.current_language.type}
                                 >
 
@@ -101,8 +101,8 @@ const Slider = () => {
                                                         </div>
                                                     </a>
                                                     :
-                                                    <div className="slider__image" onClick={() => handleImageUrl(sld)} onError={placeHolderImage}>
-                                                        <img src={sld.image_url} alt={sld.type} id='slider-photo' />
+                                                    <div className="slider__image" onClick={() => handleImageUrl(sld)} onError={placeHolderImage} style={{position:"relative",zIndex:"1"}}>
+                                                        <img src={sld.image_url} alt={sld.type} id='slider-photo'  />
                                                     </div>
                                                 }
                                             </SwiperSlide>

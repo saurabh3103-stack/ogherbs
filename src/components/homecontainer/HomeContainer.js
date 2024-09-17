@@ -8,17 +8,20 @@ import ShopByCountries from '../shop-by-countries/ShopByCountries';
 import ShopBySellers from '../shop-by-seller/ShopBySellers';
 import { useNavigate } from 'react-router-dom';
 import { setFilterCategory } from '../../model/reducer/productFilterReducer';
+import DisplayByCategories from '../category/DisplayByCategories';
+import CardSection from '../card-section/CardSection';
+import ProductContainer from '../product/ProductContainer';
 
-const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryOfferArray }) => {
+const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryOfferArray,showModal,setShowModal,BelowSectionOfferArray }) => {
     const shop = useSelector((state) => state.shop);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     return (
         // elementor-section-height-min-height elementor-section-items-stretch elementor-section-boxed elementor-section-height-default
-        <section id="home" className='home-section container home-element section'>
+        <section id="home" className='home-section container-fluid px-5 home-element section'>
             {/* Slider & Category */}
             {OfferImagesArray?.map((offer) => (
-                <div className='col-md-12 p-0 col-12 my-5' key={offer?.id} onClick={() => {
+                <div className='col-md-12 p-0 col-12' key={offer?.id} onClick={() => {
                     if (offer?.category) {
                         dispatch(setFilterCategory({ data: offer?.category?.id.toString() }));
                         navigate("/products");
@@ -33,10 +36,12 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
             ))}
 
             <div className='home-container row'>
-                <div className="col-md-12 p-0 col-12">
+                <div className="col-md-12 py-0 col-12 pt-0">
                     <Slider />
                 </div>
             </div>
+
+            
 
             {BelowSliderOfferArray?.map((offer) => (
                 <div className='col-md-12 p-0 col-12 my-5' key={offer?.id} onClick={() => {
@@ -52,8 +57,20 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                     {/* <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" /> */}
                 </div>
             ))}
+            
+                   {/* {my changes} */}
+          <div className='mt-5'>
+            <CardSection></CardSection>
+          </div>
+{/* {my changes} */}
 
-            {shop.shop?.is_category_section_in_homepage ?
+            {/* {my changes} */}
+          <div className='mt-5'>
+            <DisplayByCategories></DisplayByCategories>
+          </div>
+{/* {my changes} */}
+
+            {/* {shop.shop?.is_category_section_in_homepage ?
                 <div className='category_section'>
                     <div className="container">
 
@@ -61,7 +78,12 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
 
                     </div>
                 </div>
-                : <></>}
+                : <></>} */}
+
+               
+
+
+                
 
 
             {BelowCategoryOfferArray?.map((offer) => (
@@ -78,6 +100,12 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                     <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" />
                 </div>
             ))}
+
+               {/* {my changes} */}
+          <div className='mt-5'>
+          <ProductContainer showModal={showModal} setShowModal={setShowModal} BelowSectionOfferArray={BelowSectionOfferArray} /> 
+          </div>
+{/* {my changes} */}
             {shop.shop?.is_brand_section_in_homepage ?
                 <div className='category_section'>
                     <div className="container">

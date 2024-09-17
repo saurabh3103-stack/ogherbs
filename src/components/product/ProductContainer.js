@@ -116,7 +116,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedProducts = cart?.cartProducts?.filter(product => product?.product_id !==product_id);
+                    const updatedProducts = cart?.cartProducts?.filter(product => product?.product_id !== product_id);
                     dispatch(setCartProducts({ data: updatedProducts }));
                 }
                 else {
@@ -151,7 +151,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !==product_id);
+                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !== product_id);
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -268,7 +268,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                 } else {
                     return product;
                 }
-            }) : cart?.guestCart?.filter(product => product?.product_id !==productId && product?.productVariantId !==productVariantId);
+            }) : cart?.guestCart?.filter(product => product?.product_id !== productId && product?.productVariantId !== productVariantId);
             dispatch(addtoGuestCart({ data: updatedProducts }));
         } else {
             const productData = { product_id: productId, product_variant_id: productVariantId, qty: Qty };
@@ -392,7 +392,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                             {setting.setting && setting.setting.currency}
                                                                                             {product.variants[0].discounted_price === 0 ? product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                                         </p>
-                                                                                        {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price !==0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ?
+                                                                                        {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price !== 0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ?
                                                                                             <span id={`price${index}-section`} className="d-flex align-items-center" >
                                                                                                 <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}
                                                                                                     {product?.variants[0]?.price?.toFixed(setting.setting && setting.setting.decimal_point)}

@@ -1063,13 +1063,13 @@ const Checkout = () => {
                                                                         <Loader screen='full' background='none' content={"Your transaction is being processed.Please don't refresh the page."} />
                                                                         : <>
                                                                             {
-                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow === '1') ||
-                                                                                    setting.payment_setting.razorpay_payment_method === "1" ||
-                                                                                    setting.payment_setting.paystack_payment_method === "1" ||
-                                                                                    setting.payment_setting.stripe_payment_method === "1" ||
-                                                                                    setting.payment_setting.paypal_payment_method === "1" ||
-                                                                                    setting?.payment_setting?.phonepay_payment_method === "1" ||
-                                                                                    setting?.payment_setting?.midtrans_payment_method === "1"
+                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow === '1') 
+                                                                                //     setting.payment_setting.razorpay_payment_method === "1" ||
+                                                                                //     setting.payment_setting.paystack_payment_method === "1" ||
+                                                                                //     setting.payment_setting.stripe_payment_method === "1" ||
+                                                                                //     setting.payment_setting.paypal_payment_method === "1" ||
+                                                                                //     setting?.payment_setting?.phonepay_payment_method === "1" ||
+                                                                                //     setting?.payment_setting?.midtrans_payment_method === "1"
                                                                                     ? (
                                                                                         <div className='button-container'>
                                                                                             {paymentMethod === "Stripe" && setting
@@ -1078,8 +1078,14 @@ const Checkout = () => {
                                                                                             }
                                                                                         </div>
                                                                                     ) : (
+                                                                                        // <div className='button-container'>
+                                                                                        //     <button type='button' className='checkout' disabled>{t("enable_payment_methods")}</button>
+                                                                                        // </div>
                                                                                         <div className='button-container'>
-                                                                                            <button type='button' className='checkout' disabled>{t("enable_payment_methods")}</button>
+                                                                                            {paymentMethod === "Stripe" && setting
+                                                                                                ? <motion.button whiletap={{ scale: 0.8 }} type='button' className='checkout' onClick={(e) => { e.preventDefault(); HandlePlaceOrder(); }}>{t("place_order")}</motion.button>
+                                                                                                : <motion.button whiletap={{ scale: 0.8 }} type='button' className='checkout' onClick={(e) => { e.preventDefault(); HandlePlaceOrder(); }}>{t("place_order")}</motion.button>
+                                                                                            }
                                                                                         </div>
                                                                                     )
                                                                             }
