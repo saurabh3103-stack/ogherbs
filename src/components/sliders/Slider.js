@@ -51,7 +51,7 @@ const Slider = () => {
         e.target.src = setting.setting?.web_logo;
     };
     return (
-        <div className='slider '  style={{marginTop:"-2vh",borderRadius:"20px"}}>
+        <div className='slider'>
             {
                 shop.shop === null
                     ? (
@@ -61,14 +61,12 @@ const Slider = () => {
                         <div className="slider__flex ">
                             <div className="slider__images">
                                 <Swiper
-
                                     loop={true}
                                     autoplay={{
                                         delay: 3000,
                                         disableOnInteraction: false,
                                     }}
                                     centeredSlides={false}
-                                    // thumbs={{ swiper: imagesNavSlider && !imagesNavSlider.destroyed ? imagesNavSlider : null }}
                                     direction="horizontal"
                                     slidesPerView={1}
                                     spaceBetween={15}
@@ -106,18 +104,10 @@ const Slider = () => {
                                                     </div>
                                                 }
                                             </SwiperSlide>
-
                                         );
                                     })}
-
-
-
-
                                 </Swiper>
                             </div>
-
-
-
                         </div>
                     )
             }

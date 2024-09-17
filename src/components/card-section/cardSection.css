@@ -1,33 +1,33 @@
 /* WidgetContainer.css */
 .SaleCouponList__Container {
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  text-align: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px; /* Adjusts the spacing between images */
+  padding: 10px;
 }
 
 .Imagestyles__ImageContainer {
-  width: 450.4px;
-  height: 195px;
+  flex: 1 1 calc(25% - 20px); /* 4 components per row on large screens */
+  max-width: 310.4px;
 }
 
-/* Media query for tablets and below */
+.Imagestyles__ImageContainer img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: fill;
+  cursor: default;
+}
+
+@media (max-width: 1024px) {
+  .Imagestyles__ImageContainer {
+    flex: 1 1 calc(33.33% - 20px); /* 3 components per row on small screens */
+  }
+}
+
 @media (max-width: 768px) {
-  .SaleCouponList__Container {
-    flex-direction: column;
-    gap: 24px;
-  }
-
   .Imagestyles__ImageContainer {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* Media query for mobile phones */
-@media (max-width: 480px) {
-  .Imagestyles__ImageContainer {
-    width: 100%;
-    height: auto;
+    flex: 1 1 calc(50% - 20px); /* 2 components per row on extra small screens */
   }
 }

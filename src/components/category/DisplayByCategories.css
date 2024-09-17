@@ -10,8 +10,8 @@
 .category-image {
     background-size: cover;
     background-position: center;
-    width: 120px;
-    height: 120px;
+    width: 12vw;
+    height: 12vw;
     border-radius: 50%;
 }
 
@@ -26,6 +26,7 @@
     font-size: 1.2rem;
     font-weight: 600;
 }/* Style for the Swiper navigation buttons */
+
 .swiper-button-next,
 .swiper-button-prev {
     width: 60px; /* Increased size of the circle */
@@ -39,7 +40,6 @@
     color: #fff; /* White color for the arrow icon */
     font-size: 12px; /* Adjust size of the arrow icon */
     z-index: 10;
-    padding:25px /* Ensure the buttons are above other elements */
 }
 
 .swiper-button-next::after,
