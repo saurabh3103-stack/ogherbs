@@ -25,4 +25,35 @@
 .category-subtitle {
     font-size: 1.2rem;
     font-weight: 600;
+}/* Style for the Swiper navigation buttons */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 60px; /* Increased size of the circle */
+    height: 60px; /* Increased size of the circle */
+    background-color: rgb(48, 149, 48); /* Black background color */
+    border-radius: 50%; /* Makes the button a circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional shadow */
+    color: #fff; /* White color for the arrow icon */
+    font-size: 12px; /* Adjust size of the arrow icon */
+    z-index: 10;
+    padding:25px /* Ensure the buttons are above other elements */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-family: "swiper-icons"; /* Font for the Swiper icons */
+    font-size: 12px; /* Size of the arrow icon */
+    color: #fff; /* White color for the arrow icon */
+}
+
+/* Optional: Style specific positioning for left and right arrows */
+.swiper-button-next {
+    right: 10px; /* Adjust right position */
+}
+
+.swiper-button-prev {
+    left: 10px; /* Adjust left position */
 }

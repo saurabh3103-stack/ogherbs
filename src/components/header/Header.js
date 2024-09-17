@@ -245,11 +245,12 @@ const Header = () => {
         e.preventDefault();
         setIsOpen(!isOpen);
     };
+   
 
     return (
         <>
             {/* sidebar */}
-            <div className="hide-desktop offcanvas offcanvas-start" tabIndex="-1" id="sidebaroffcanvasExample" aria-labelledby="sidebaroffcanvasExampleLabel">
+            <div className="hide-desktop offcanvas offcanvas-start " tabIndex="-1" id="sidebaroffcanvasExample" aria-labelledby="sidebaroffcanvasExampleLabel">
                 <div className='site-scroll ps'>
 
                     <div className="canvas-header">
@@ -466,11 +467,11 @@ const Header = () => {
             </div>
 
             {/* header */}
-            <header className='site-header  desktop-shadow-disable mobile-shadow-enable bg-white  mobile-nav-enable border-bottom' >
+            <header className='site-header desktop-shadow-disable mobile-shadow-enable bg-white  mobile-nav-enable border-bottom' >
 
 
                 {/* top header */}
-                <div className={`header-top d-none hide-mobile border-bottom ${(cssmode.cssmode === "dark") ? "dark-header-top" : ''}`}>
+                <div className={`header-top d-none  hide-mobile border-bottom ${(cssmode.cssmode === "dark") ? "dark-header-top" : ''}`}>
                     <div className="container">
                         <div className={`row justify-content-between`}>
                             <div className='col-md-6 d-flex justify-content-start align-items-center'>
@@ -526,7 +527,7 @@ const Header = () => {
 
 
                 {/* bottom header */}
-                <div className={isSticky ? "sticky header-main  w-100" : "header-main  w-100"} >
+                <div className={isSticky ? "sticky header-main w-100 sticky-top" : "header-main w-100 sticky-top"}>
                     {/* <div className="container">  */}
                     {/*UPDATED */}
                     <div className="container">
@@ -756,7 +757,7 @@ const Header = () => {
 
                                 {/* Conditionally render dropdown */}
 
-                                <div className='d-flex align-items-center px-2 border-start border-end'>
+                                <div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block'>
     <Dropdown className='themeDropdown1 themeDropdown' style={{zIndex:"999"}} >
         <Dropdown.Toggle>
             <IoMdSettings size={25} />
@@ -804,7 +805,7 @@ const Header = () => {
 </div>
 
 {/* Navigation Links */}
-<div className='d-flex align-items-center px-2 border-start border-end'> 
+<div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block'> 
     <Dropdown className='themeDropdown1 themeDropdown'  style={{zIndex:"999"}}>
         <Dropdown.Toggle>
             <FaBars size={25} />
