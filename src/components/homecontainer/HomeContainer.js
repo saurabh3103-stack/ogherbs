@@ -18,7 +18,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
     const navigate = useNavigate();
     return (
         // elementor-section-height-min-height elementor-section-items-stretch elementor-section-boxed elementor-section-height-default
-        <section id="home" className='home-section container-fluid px-5 home-element section'>
+        <section id="home" className='home-section container-fluid px-5 home-element section' style={{marginTop:"100px"}}>
             {/* Slider & Category */}
             {OfferImagesArray?.map((offer) => (
                 <div className='col-md-12 p-0 col-12' key={offer?.id} onClick={() => {

@@ -138,29 +138,24 @@
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
-.header-main {
+
+.site-header .header-main {
   background-color: var(--second-cards-color);
+  position: fixed;
+  top:0;
   padding: 8px 16px;
   display: flex;
+  height: 100px;
   align-items: center;
-  transition: background-color 0.3s ease-in-out;
 }
 
-/* Sticky class when active */
 .header-main.sticky {
+  transition: all ease-in-out;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 1000;
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.05);
-  background-color: var(--second-cards-color);
-}
-
-/* Sticky top class to make sure the header stays at the top */
-.sticky-top {
-  position: sticky;
-  top: 0;
 }
 
 .site-header .header-main .column-center {
