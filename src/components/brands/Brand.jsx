@@ -105,11 +105,9 @@ const Brand = () => {
                 {shop.shop?.brands?.map((ctg, index) => (
                   <div className="my-3 content" key={index} onClick={() => {
                     handleFilter(ctg.id.toString())
-                    // dispatch(setFilterBrands({ data: ctg.id.toString() }));
-                    // navigate('/products');
-                  }}>
-
-
+                      // dispatch(setFilterBrands({ data: ctg.id.toString() }));
+                      // navigate('/products');
+                    }}>
                     <div className='card'>
                       {/* <img onError={placeHolderImage} className='card-img-top' src={ctg.image_url} alt='' /> */}
                       <ImageWithPlaceholder className='card-img-top' src={ctg.image_url} alt='brandImage' />
@@ -120,8 +118,6 @@ const Brand = () => {
                   </div>
                 ))}
               </Slider>
-
-
             </div>
           </section>
           : null}

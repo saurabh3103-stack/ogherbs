@@ -24,7 +24,6 @@ import Popup from "../same-seller-popup/Popup";
 import { LuStar } from 'react-icons/lu';
 import Loader from '../loader/Loader';
 import { setSelectedProduct } from '../../model/reducer/selectedProduct';
-
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import ImageWithPlaceholder from '../image-with-placeholder/ImageWithPlaceholder';
@@ -32,7 +31,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css'; // Import Swiper styles
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
 const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOfferArray }) => {
 
@@ -58,6 +57,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     const [offerConatiner, setOfferContainer] = useState(0);
     const [variant_index, setVariantIndex] = useState(null);
 
+   
+
     useEffect(() => {
         if (sizes.sizes === null || sizes.status === 'loading') {
             if (city.city !== null) {
@@ -75,8 +76,6 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             setproductSizes(sizes.sizes);
         }
     }, [city, sizes]);
-
-
 
     //Add to Cart
     const addtoCart = async (product_id, product_variant_id, qty) => {
@@ -174,6 +173,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             </button>
         );
     };
+
     const CustomNextButton = (props) => {
         const { slideCount, currentSlide, ...remainingProps } = props;
         return (
@@ -182,6 +182,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             </button>
         );
     };
+
     const settings = {
         infinite: false,
         slidesToShow: 4,
@@ -312,7 +313,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
     return (
         <section id="products">
-            <div className="container">
+            <div className="container-fluid">
                 {shop.shop === null || productSizes === null
                     ? (
                         <>
@@ -320,20 +321,14 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                 <Loader width={"100%"} height={"500px"} />
                             </div>
                         </>
-
-
                     )
                     : (
                         <>
-
                             {shop?.shop?.sections?.map((section, index0) => {
                                 if (section.products.length > 0) {
                                     return (
-
                                         <div key={index0}>
-
                                             <div className='product_section row flex-column' value={index0} onChange={(e) => { setOfferContainer(index0); }}>
-
                                                 <div className="d-flex product_title_content justify-content-between align-items-center col-md-12">
                                                     <div className="">
                                                         <p>{section.title}</p>
@@ -348,22 +343,40 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}>{t('see_all')}</Link>
                                                     </div>
                                                 </div>
-
+                                                <div className="col-1 d-flex align-items-center justify-content-center">
+                    <FaCircleChevronLeft className="swiper-button-prev" size={40}  />
+                </div>
                                                 <div className="product_section_content p-0">
-                                                    <Swiper  spaceBetween={10}  // Space between slides
-                        slidesPerView={6}   // Number of slides to show at a time
-                        navigation={true}   // Add navigation arrows
-                        modules={[Autoplay, Navigation]} // Include Autoplay and Navigation modules
-                        autoplay={{
-                            delay: 1500, // Delay between slides (in ms)
-                            disableOnInteraction: true, // Continue autoplay after user interactions
-                        }}>
+
+                                                    <Swiper  
+                                                        spaceBetween={20}  // Space between slides
+                                                          // Number of slides to show at a time
+                                                        navigation={{ // Add navigation arrows
+                                                            prevEl: '.swiper-button-prev',
+                                                            nextEl: '.swiper-button-next',
+                                                        }}
+                                                        modules={[Autoplay, Navigation]} // Include Autoplay and Navigation modules
+                                                        autoplay={{
+                                                            delay: 5000, // Delay between slides (in ms)
+                                                            disableOnInteraction: true, // Continue autoplay after user interactions
+                                                        }}
+                                                        breakpoints={{
+                                                            320: { slidesPerView: 3 },
+                                                            576: { slidesPerView: 4 },
+                                                            768: { slidesPerView: 4 },
+                                                            992: { slidesPerView: 4 },
+                                                        }}
+                                                        >
                                                         {section?.products?.map((product, index) => (
                                                             <div className="row" key={index}>
+
+
+
                                                                 <div className="col-md-12">
+                                                                    
 
                                                                     <SwiperSlide className='product-card'>
-                                                                        <span className='border border-light rounded-circle p-2 px-3' id='aiEye'>
+                                                                        <span className='border border-light rounded-circle' id='aiEye'>
                                                                             <AiOutlineEye
                                                                                 onClick={() => {
                                                                                     setselectedProduct(product); setShowModal(true);
@@ -418,7 +431,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                     {product.variants.length > 1 ? <>
                                                                                         <div className='variant_selection' onClick={() => { setselectedProduct(product); setShowModal(true); setP_id(product.id); setP_V_id(product.variants[0].id); setQnty(product.variants[0].cart_count + 1); }} >
                                                                                             <span>{<>{product.variants[0].measurement} {product.variants[0].stock_unit_name} </>}</span>
-                                                                                            <IoIosArrowDown />
+                                                                                            <IoIosArrowDown  />
                                                                                         </div>
                                                                                     </>
                                                                                         :
@@ -551,6 +564,9 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         ))}
                                                     </Swiper>
                                                 </div>
+                                                <div className="col-1 d-flex align-items-center justify-content-center">
+                    <FaCircleChevronRight className="swiper-button-next" size={40}  />
+                </div>
 
 
                                             </div>

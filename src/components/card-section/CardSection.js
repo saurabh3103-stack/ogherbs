@@ -18,6 +18,8 @@ const WidgetContainer = () => {
                 style={{ borderRadius: '16px', objectFit: 'fill', cursor: 'default' }}
               />
             </div>
+
+            {/* Second Image */}
             <div className="Imagestyles__ImageContainer">
               <img
                 src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=720/layout-engine/2023-07/pharmacy-WEB.jpg"
@@ -29,7 +31,7 @@ const WidgetContainer = () => {
               />
             </div>
 
-            {/* Second Image */}
+            {/* Third Image */}
             <div className="Imagestyles__ImageContainer">
               <img
                 src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=720/layout-engine/2023-07/Pet-Care_WEB.jpg"
@@ -41,7 +43,7 @@ const WidgetContainer = () => {
               />
             </div>
 
-            {/* Third Image */}
+            {/* Fourth Image */}
             <div className="Imagestyles__ImageContainer">
               <img
                 src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=720/layout-engine/2023-03/babycare-WEB.jpg"

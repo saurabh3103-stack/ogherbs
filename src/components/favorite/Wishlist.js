@@ -91,14 +91,14 @@ const Wishlist = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    if (cart?.cartProducts?.find((product) => (product?.product_id === product_id) && (product?.product_variant_id === product_variant_id))?.qty === undefined) {
+                    if (cart?.cartProducts?.find((product) => (product?.product_id == product_id) && (product?.product_variant_id == product_variant_id))?.qty == undefined) {
                         dispatch(setCart({ data: result }));
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                         const updatedCartCount = [...cart?.cartProducts, { product_id: product_id, product_variant_id: product_variant_id, qty: qty }];
                         dispatch(setCartProducts({ data: updatedCartCount }));
                     } else {
                         const updatedProducts = cart?.cartProducts?.map(product => {
-                            if ((product.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
+                            if ((product.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
                                 return { ...product, qty: qty };
                             } else {
                                 return product;
@@ -109,7 +109,7 @@ const Wishlist = () => {
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                     }
                 }
-                else if (result?.data?.one_seller_error_code === 1) {
+                else if (result?.data?.one_seller_error_code == 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(result.message);
                     // toast.error(t(`${result.message}`));
@@ -129,7 +129,7 @@ const Wishlist = () => {
                     // toast.success(result.message);
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id !==product_variant_id) {
+                        if (product?.product_variant_id != product_variant_id) {
                             return product;
                         }
                     });
@@ -157,7 +157,8 @@ const Wishlist = () => {
                         .then((result) => {
                             dispatch(setFavourite({ data: result }));
                         });
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !==product_id);
+                        const updatedFavouriteProducts = favorite?.favouriteProductIds ? favorite.favouriteProductIds.filter(id => id != product_id) : [];
+
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -178,7 +179,7 @@ const Wishlist = () => {
     return (
         <>
             {!isNetworkError ?
-                <section id='wishlist' className='wishlist'>
+                <section id='wishlist' className='wishlist' style={{marginTop:"60px"}}>
                     <div className='cover'>
                         <img src={coverImg} className='img-fluid' alt="cover"></img>
                         <div className='title'>
@@ -246,32 +247,32 @@ const Wishlist = () => {
                                                                 <th className='price'>
                                                                     {setting.setting && setting.setting.currency + ' '}
                                                                     <span id={`price-wishlist${index}`}>{(product.variants.length > 0 ?
-                                                                        product.variants[0]?.discounted_price !=="0" ?
+                                                                        product.variants[0]?.discounted_price != "0" ?
                                                                             product.variants[0]?.discounted_price.toFixed(setting.setting && setting.setting.decimal_point) :
                                                                             product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : 0)}</span>
                                                                 </th>
 
                                                                 <th className='quantity'>
-                                                                    {cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty > 0 ?
+                                                                    {cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0 ?
                                                                         <>
                                                                             <div className='counter' id={`input-cart-wishlist${index}`}>
                                                                                 <button type='button' onClick={() => {
-                                                                                    if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty > 1) {
-                                                                                        addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty - 1);
+                                                                                    if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 1) {
+                                                                                        addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty - 1);
                                                                                     } else {
                                                                                         removefromCart(product.id, product.variants[0]?.id);
 
                                                                                     }
                                                                                 }}><BiMinus fill='#fff' /></button>
 
-                                                                                <span id={`input-cart-sidebar${index}`} >{cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty}</span>
+                                                                                <span id={`input-cart-sidebar${index}`} >{cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty}</span>
 
                                                                                 <button type='button' onClick={() => {
 
                                                                                     if (Number(product.is_unlimited_stock)) {
 
-                                                                                        if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty < Number(setting.setting.max_cart_items_count)) {
-                                                                                            addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty + 1);
+                                                                                        if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty < Number(setting.setting.max_cart_items_count)) {
+                                                                                            addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty + 1);
 
 
                                                                                         } else {
@@ -279,14 +280,14 @@ const Wishlist = () => {
                                                                                         }
                                                                                     } else {
 
-                                                                                        if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty >= Number(product.variants[0]?.stock)) {
+                                                                                        if (cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty >= Number(product.variants[0]?.stock)) {
                                                                                             toast.error(t("out_of_stock_message"));
                                                                                         }
-                                                                                        else if (Number(cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty) >= Number(product.total_allowed_quantity)) {
+                                                                                        else if (Number(cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty) >= Number(product.total_allowed_quantity)) {
                                                                                             toast.error('Apologies, maximum product quantity limit reached');
                                                                                         } else {
 
-                                                                                            addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id === product?.variants?.[0]?.id)?.qty + 1);
+                                                                                            addtoCart(product.id, product.variants[0]?.id, cart?.cartProducts?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty + 1);
                                                                                         }
                                                                                     }
 
@@ -357,3 +358,4 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
+ 

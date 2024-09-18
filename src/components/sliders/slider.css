@@ -1,5 +1,4 @@
 .slider {
-  margin-top: -2vh;
   border-radius: 20px;
   overflow: hidden; /* Ensure images don't overflow beyond the border radius */
 }
@@ -41,7 +40,7 @@
 .swiper-container2 .slider__image img {
   width: 100%;
   height: 40vh; /* Set a responsive height */
-   /* Ensure the image covers the entire container */
+  object-fit: fill; /* Ensure the image covers the entire container */
   border-radius: 20px; /* Apply border-radius to both sides */
 }
 

@@ -99,3 +99,165 @@
     padding: 0px;
   }
 }
+
+
+
+
+
+
+
+
+
+/* {
+  ne
+} */
+
+.notification {
+  font-family: 'Arial', sans-serif;
+  color: var(--font-color);
+}
+
+/* .cover {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.cover img {
+  width: 100%;
+  height: auto;
+  border-radius: 0 0 10px 10px;
+}
+
+.cover .title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+} */
+
+
+
+
+
+.notification-container {
+  padding: 30px;
+}
+
+.notification-container .notifications {
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background-color: var(--second-cards-color);
+  color: var(--font-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* .notification-container .heading {
+  padding: 20px;
+  font-size: 2.345rem;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+  background-color: var(--primary-color);
+  color: #fff;
+} */
+
+.notification-container .notification-body {
+  padding: 20px 0;
+}
+
+.no-notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.no-notification img {
+  width: 25vw;
+  max-width: 150px;
+  height: auto;
+}
+
+.no-notification p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  color: var(--font-color);
+}
+
+.notification-container .notification-body .wrapper {
+  display: flex;
+  gap: 15px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.notification-container .notification-body .wrapper img,
+.notification-container .notification-body .wrapper .logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notification-container .notification-body .wrapper .logo {
+  background-color: var(--primary-color);
+}
+
+.notification-container .notification-body .wrapper .content p {
+  font-size: 1.2rem;
+  color: var(--sub-text-color);
+  margin: 0;
+}
+
+.notification-container .notification-body .wrapper .content p.title {
+  font-weight: bold;
+  color: var(--font-color);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: #fff;
+  text-decoration: none;
+}
+
+.pagination li.active a {
+  background-color: var(--primary-color);
+}
+
+.pagination li a:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+@media screen and (max-width: 425px) {
+  .notification-container {
+    padding: 15px;
+  }
+
+  .notification-container .heading {
+    font-size: 1.5rem;
+  }
+
+  .notification-container .notification-body .wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -17,7 +17,6 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
     const dispatch = useDispatch();
     const navigate = useNavigate();
     return (
-        // elementor-section-height-min-height elementor-section-items-stretch elementor-section-boxed elementor-section-height-default
         <section id="home" className='home-section container-fluid px-5 home-element section' style={{marginTop:"100px"}}>
             {/* Slider & Category */}
             {OfferImagesArray?.map((offer) => (
@@ -31,17 +30,16 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                         window.open(offer?.offer_url, "_blank");
                     }
                 }}>
-                    {/* <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" /> */}
                 </div>
             ))}
 
+            {/* Responsive Done */}
             <div className='home-container row'>
                 <div className="col-md-12 py-0 col-12 pt-0">
                     <Slider />
                 </div>
             </div>
-
-            
+            {/* Responsive Done */}
 
             {BelowSliderOfferArray?.map((offer) => (
                 <div className='col-md-12 p-0 col-12 my-5' key={offer?.id} onClick={() => {
@@ -54,37 +52,20 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                         window.open(offer?.offer_url, "_blank");
                     }
                 }}>
-                    {/* <img className={`offerImages ${offer?.category ? "cursorPointer" : ""} ${offer?.product ? "cursorPointer" : ""} ${offer?.offer_url ? "cursorPointer" : ""}`} src={offer.image_url} alt="offers" /> */}
                 </div>
             ))}
-            
-                   {/* {my changes} */}
-          <div className='mt-5'>
-            <CardSection></CardSection>
-          </div>
-{/* {my changes} */}
 
-            {/* {my changes} */}
-          <div className='mt-5'>
-            <DisplayByCategories></DisplayByCategories>
-          </div>
-{/* {my changes} */}
+            {/* Responsive Done */}
+            <div className='mt-5'>
+                <CardSection></CardSection>
+            </div>
+            {/* Responsive Done */}
 
-            {/* {shop.shop?.is_category_section_in_homepage ?
-                <div className='category_section'>
-                    <div className="container">
-
-                        <Category />
-
-                    </div>
-                </div>
-                : <></>} */}
-
-               
-
-
-                
-
+            {/* Responsive Done */}
+            <div className='mt-5'>
+                <DisplayByCategories></DisplayByCategories>
+            </div>
+            {/* Responsive Done */}
 
             {BelowCategoryOfferArray?.map((offer) => (
                 <div className='col-md-12 p-0 col-12 my-5' key={offer?.id} onClick={() => {
@@ -101,38 +82,34 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                 </div>
             ))}
 
-               {/* {my changes} */}
-          <div className='mt-5'>
-          <ProductContainer showModal={showModal} setShowModal={setShowModal} BelowSectionOfferArray={BelowSectionOfferArray} /> 
-          </div>
-{/* {my changes} */}
-            {shop.shop?.is_brand_section_in_homepage ?
+            {/* Responsive Done */}
+            <div className='mt-5'>
+                <ProductContainer showModal={showModal} setShowModal={setShowModal} BelowSectionOfferArray={BelowSectionOfferArray} /> 
+            </div>
+            {/* Responsive Done */}
+
+            {/* {shop.shop?.is_brand_section_in_homepage ?
                 <div className='category_section'>
-                    <div className="container">
-
+                    <div className="container-fluid">
                         <Brand />
-
                     </div>
                 </div>
                 : <></>}
             {shop.shop?.is_country_section_in_homepage ?
                 <div className='category_section'>
-                    <div className='container'>
+                    <div className='container-fluid'>
                         <ShopByCountries />
                     </div>
                 </div>
                 : <></>}
             {shop.shop?.is_seller_section_in_homepage ?
                 <div className='category_section'>
-                    <div className='container'>
+                    <div className='container-fluid'>
                         <ShopBySellers />
                     </div>
                 </div>
-                : <></>}
-
-
+                : <></>} */}
         </section>
-
     );
 };
 
