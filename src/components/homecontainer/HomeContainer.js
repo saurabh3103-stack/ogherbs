@@ -88,7 +88,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
             </div>
             {/* Responsive Done */}
 
-            {shop.shop?.is_brand_section_in_homepage ?
+            {/* {shop.shop?.is_brand_section_in_homepage ?
                 <div className='category_section'>
                     <div className="container-fluid">
                         <Brand />
@@ -108,7 +108,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
                         <ShopBySellers />
                     </div>
                 </div>
-                : <></>}
+                : <></>} */}
         </section>
     );
 };

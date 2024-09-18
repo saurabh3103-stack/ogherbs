@@ -1730,3 +1730,60 @@ input::placeholder {
 #productlist .productListingItems>a {
   color: var(--font-color);
 }
+
+.categories {
+  position: relative;
+  width: 100%;
+}
+
+.category-container {
+  padding: 20px;
+}
+
+.category-link {
+  text-align: center;
+  cursor: pointer;
+}
+
+.category-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: var(--secondary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .category-image {
+      width: 70px;
+      height: 70px;
+  }
+}
+
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute !important;
+  top: var(--swiper-navigation-top-offset, 60%) !important;
+  width: calc(var(--swiper-navigation-size) / 44 * 27) !important;
+  height: var(--swiper-navigation-size) !important;
+  margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
+  z-index: 10 !important;
+  cursor: pointer !important ;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+ 
+}
