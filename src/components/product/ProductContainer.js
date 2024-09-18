@@ -336,7 +336,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                     </div>
                                                     <div>
                                                         {/* {console.log(section)} */}
-                                                        <Link to="/products" onClick={() => {
+                                                        <Link to="/products" className='p-2' onClick={() => {
                                                             dispatch(setFilterSection({ data: section.id }));
                                                             navigate('/products');
 
@@ -344,8 +344,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                     </div>
                                                 </div>
                                                 <div className="col-1 d-flex align-items-center justify-content-center">
-                    <FaCircleChevronLeft className="swiper-button-prev" size={40}  />
-                </div>
+                                                    <FaCircleChevronLeft className="swiper-button-prev" size={40}  />
+                                                </div>
                                                 <div className="product_section_content p-0">
 
                                                     <Swiper  
@@ -369,13 +369,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         >
                                                         {section?.products?.map((product, index) => (
                                                             <div className="row" key={index}>
-
-
-
                                                                 <div className="col-md-12">
-                                                                    
-
-                                                                    <SwiperSlide className='product-card'>
+                                                                    <SwiperSlide className='product-card' style={{padding:"5px"}}>
                                                                         <span className='border border-light rounded-circle' id='aiEye'>
                                                                             <AiOutlineEye
                                                                                 onClick={() => {
@@ -388,9 +383,9 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                             dispatch(setSelectedProduct({ data: product?.id }));
                                                                         }} className='text-decoration-none text-reset'>
 
-                                                                            <div className='image-container' >
+                                                                            <div className='image-container' style={{ textAlign: 'center', padding: '20px' }}>
                                                                                 {/* <img onLoadStart={(e) => { e.target.src = setting.setting?.web_logo; }} onError={placeHolderImage} src={product.image_url} alt={product.slug} className={`card-img-top`} loading='lazy' /> */}
-                                                                                <ImageWithPlaceholder src={product.image_url} alt={product.slug} className={`card-img-top`} />
+                                                                                <ImageWithPlaceholder src={product.image_url} alt={product.slug} className={`card-img-top`} style={{ maxWidth: '100%', height: 'auto', margin: '0 auto', display: 'block' }} />
                                                                                 {!Number(product.is_unlimited_stock) && parseInt(product.variants[0].status) === 0 &&
                                                                                     <div className="out_of_stockOverlay">
                                                                                         <p className="out_of_stockText">{t("out_of_stock")}</p>
@@ -398,6 +393,97 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 }
                                                                             </div>
                                                                             {/* {console.log(product)} */}
+                                                                            <div className='d-flex flex-row product-card-footer'>
+                                                                                <div>
+                                                                                    {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
+                                                                                        <button type="button" className='w-100 h-100 favouriteBtn px-4' onClick={() => {
+                                                                                            if (user?.jwtToken !== "") {
+                                                                                                removefromFavorite(product.id);
+                                                                                            } else {
+                                                                                                toast.error(t('required_login_message_for_cart'));
+                                                                                            }
+                                                                                        }}
+                                                                                        >
+                                                                                            <BsHeartFill size={16} fill='green' />
+                                                                                        </button>
+                                                                                    ) : (
+                                                                                        <button key={product.id} type="button" className='w-100 h-100 favouriteBtn px-4' onClick={() => {
+                                                                                            if (user?.jwtToken !== "") {
+                                                                                                addToFavorite(product.id);
+                                                                                            } else {
+                                                                                                toast.error(t("required_login_message_for_cart"));
+                                                                                            }
+                                                                                        }}>
+                                                                                            <BsHeart size={16} /></button>
+                                                                                    )}
+                                                                                </div>
+                                                                                <div style={{ flexGrow: "1" }}>
+                                                                                    {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
+                                                                                        (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ? <>
+                                                                                        <div id={`input-cart-productdetail`} className="input-to-cart">
+                                                                                            <button type='button' className="wishlist-button" onClick={() => {
+                                                                                                if (cart?.isGuest) {
+                                                                                                    AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty - 1, 1);
+                                                                                                } else {
+
+                                                                                                    if (cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty == 1) {
+                                                                                                        removefromCart(product.id, product.variants[0].id);
+                                                                                                    }
+                                                                                                    else {
+                                                                                                        addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty - 1);
+                                                                                                        // addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product?.variants[0]?.id)?.qty - 1);
+                                                                                                    }
+                                                                                                }
+
+                                                                                            }}><BiMinus size={20} fill='#fff' /></button>
+                                                                                            <div className="quantity-container text-center">
+                                                                                                <input
+                                                                                                    type="number"
+                                                                                                    min="1"
+                                                                                                    max={product.variants[0].stock}
+                                                                                                    className="quantity-input bg-transparent text-center"
+                                                                                                    // value={product.variants[0].cart_count} 
+                                                                                                    value={cart?.isGuest === false ? cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty : cart?.guestCart?.find(prdct => prdct?.product_id == product?.id)?.qty}
+                                                                                                    disabled
+                                                                                                />
+                                                                                            </div>
+                                                                                            <button type='button' className="wishlist-button" onClick={() => {
+                                                                                                if (cart?.isGuest) {
+                                                                                                    // AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty + 1, 1);
+
+                                                                                                    const productQuantity = getProductQuantities(cart?.guestCart);
+                                                                                                    handleValidateAddExistingGuestProduct(
+                                                                                                        productQuantity,
+                                                                                                        product,
+                                                                                                        cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty + 1
+                                                                                                    );
+                                                                                                } else {
+                                                                                                    const productQuantity = getProductQuantities(cart?.cartProducts);
+                                                                                                    handleValidateAddExistingProduct(productQuantity, product);
+                                                                                                }
+                                                                                            }}><BsPlus size={20} fill='#fff' /> </button>
+                                                                                        </div>
+                                                                                    </> : <>
+                                                                                    </>}
+                                                                                </div>
+
+                                                                                <div className='dropup share'>
+                                                                                    <button type="button" className='w-100 h-100 shareBtn px-4' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
+
+                                                                                    <ul className='dropdown-menu'>
+                                                                                        <li className='dropDownLi'><WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><WhatsappIcon size={32} round={true} /> <span>WhatsApp</span></WhatsappShareButton></li>
+                                                                                        <li className='dropDownLi'><TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><TelegramIcon size={32} round={true} /> <span>Telegram</span></TelegramShareButton></li>
+                                                                                        <li className='dropDownLi'><FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><FacebookIcon size={32} round={true} /> <span>Facebook</span></FacebookShareButton></li>
+                                                                                        <li>
+                                                                                            <button type='button' onClick={() => {
+                                                                                                navigator.clipboard.writeText(`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`);
+                                                                                                toast.success("Copied Succesfully!!");
+                                                                                            }} className="react-share__ShareButton"> <BiLink size={30} /> <span>{t('tap_to_copy')}</span></button>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
                                                                             <div className="card-body product-card-body p-3" >
                                                                                 {product?.rating_count > 0 ?
                                                                                     <div className='ratings d-flex align-items-center'>
@@ -410,7 +496,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                         </div>
                                                                                     </div> : null}
                                                                                 <h3>{product.name}</h3>
-                                                                                <div className='price'>
+                                                                                <div className='price d-flex flex-row'>
                                                                                     <span id={`price${index}${index0}-section`} className="d-flex align-items-center">
                                                                                         <p id='fa-rupee' className='m-0'>
                                                                                             {setting.setting && setting.setting.currency}
@@ -424,6 +510,29 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                             </span>
                                                                                             : null}
                                                                                     </span>
+
+                                                                                    <button type="button" id={`Add-to-cart-section${index}${index0}`} className='w-100 h-100 add-to-cart active' onClick={() => {
+                                                                                        if (cart?.isGuest) {
+                                                                                            const productQuantity = getProductQuantities(cart?.guestCart);
+                                                                                            handleAddNewProductGuest(
+                                                                                                productQuantity,
+                                                                                                product
+                                                                                            );
+                                                                                        }
+                                                                                        else if (user?.jwtToken !== "") {
+                                                                                            const productQuantity = getProductQuantities(cart?.cartProducts);
+                                                                                            if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
+                                                                                                addtoCart(product.id, product.variants[0].id, 1);
+                                                                                            } else {
+                                                                                                toast.error(t("out_of_stock_message"));
+                                                                                            }
+                                                                                        }
+                                                                                        else {
+                                                                                            toast.error(t("required_login_message_for_cartRedirect"));
+                                                                                        }
+
+                                                                                    }} disabled={!Number(product.is_unlimited_stock) && product.variants[0].stock <= 0}>{t('ADD')}</button>
+
                                                                                 </div>
                                                                                 <div className='product_varients_drop'>
                                                                                     <input type="hidden" name={`select-product${index}${index0}-variant-id`} id={`select-product${index}${index0}-variant-id`} value={selectedVariant.pid === product.id ? selectedVariant.id : product.variants[0].id} />
@@ -447,117 +556,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 </div>
                                                                             </div>
                                                                         </Link>
-                                                                        <div className='d-flex flex-row border-top product-card-footer'>
-                                                                            <div className='border-end'>
-                                                                                {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-                                                                                    <button type="button" className='w-100 h-100 favouriteBtn' onClick={() => {
-                                                                                        if (user?.jwtToken !== "") {
-                                                                                            removefromFavorite(product.id);
-                                                                                        } else {
-                                                                                            toast.error(t('required_login_message_for_cart'));
-                                                                                        }
-                                                                                    }}
-                                                                                    >
-                                                                                        <BsHeartFill size={16} fill='green' />
-                                                                                    </button>
-                                                                                ) : (
-                                                                                    <button key={product.id} type="button" className='w-100 h-100 favouriteBtn' onClick={() => {
-                                                                                        if (user?.jwtToken !== "") {
-                                                                                            addToFavorite(product.id);
-                                                                                        } else {
-                                                                                            toast.error(t("required_login_message_for_cart"));
-                                                                                        }
-                                                                                    }}>
-                                                                                        <BsHeart size={16} /></button>
-                                                                                )}
-                                                                            </div>
-                                                                            <div className='border-end' style={{ flexGrow: "1" }}>
-                                                                                {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
-                                                                                    (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ? <>
-                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart">
-                                                                                        <button type='button' className="wishlist-button" onClick={() => {
-                                                                                            if (cart?.isGuest) {
-                                                                                                AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty - 1, 1);
-                                                                                            } else {
-
-                                                                                                if (cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty == 1) {
-                                                                                                    removefromCart(product.id, product.variants[0].id);
-                                                                                                }
-                                                                                                else {
-                                                                                                    addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty - 1);
-                                                                                                    // addtoCart(product.id, product.variants[0].id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == product?.variants[0]?.id)?.qty - 1);
-                                                                                                }
-                                                                                            }
-
-                                                                                        }}><BiMinus size={20} fill='#fff' /></button>
-                                                                                        <div className="quantity-container text-center">
-                                                                                            <input
-                                                                                                type="number"
-                                                                                                min="1"
-                                                                                                max={product.variants[0].stock}
-                                                                                                className="quantity-input bg-transparent text-center"
-                                                                                                // value={product.variants[0].cart_count} 
-                                                                                                value={cart?.isGuest === false ? cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty : cart?.guestCart?.find(prdct => prdct?.product_id == product?.id)?.qty}
-                                                                                                disabled
-                                                                                            />
-                                                                                        </div>
-                                                                                        <button type='button' className="wishlist-button" onClick={() => {
-                                                                                            if (cart?.isGuest) {
-                                                                                                // AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty + 1, 1);
-
-                                                                                                const productQuantity = getProductQuantities(cart?.guestCart);
-                                                                                                handleValidateAddExistingGuestProduct(
-                                                                                                    productQuantity,
-                                                                                                    product,
-                                                                                                    cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty + 1
-                                                                                                );
-                                                                                            } else {
-                                                                                                const productQuantity = getProductQuantities(cart?.cartProducts);
-                                                                                                handleValidateAddExistingProduct(productQuantity, product);
-                                                                                            }
-                                                                                        }}><BsPlus size={20} fill='#fff' /> </button>
-                                                                                    </div>
-                                                                                </> : <>
-                                                                                    <button type="button" id={`Add-to-cart-section${index}${index0}`} className='w-100 h-100 add-to-cart active' onClick={() => {
-                                                                                        if (cart?.isGuest) {
-                                                                                            const productQuantity = getProductQuantities(cart?.guestCart);
-                                                                                            handleAddNewProductGuest(
-                                                                                                productQuantity,
-                                                                                                product
-                                                                                            );
-                                                                                        }
-                                                                                        else if (user?.jwtToken !== "") {
-                                                                                            const productQuantity = getProductQuantities(cart?.cartProducts);
-                                                                                            if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
-                                                                                                addtoCart(product.id, product.variants[0].id, 1);
-                                                                                            } else {
-                                                                                                toast.error(t("out_of_stock_message"));
-                                                                                            }
-                                                                                        }
-                                                                                        else {
-                                                                                            toast.error(t("required_login_message_for_cartRedirect"));
-                                                                                        }
-
-                                                                                    }} disabled={!Number(product.is_unlimited_stock) && product.variants[0].stock <= 0}>{t('add_to_cart')}</button>
-                                                                                </>}
-                                                                            </div>
-
-                                                                            <div className='dropup share'>
-                                                                                <button type="button" className='w-100 h-100 shareBtn' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
-
-                                                                                <ul className='dropdown-menu'>
-                                                                                    <li className='dropDownLi'><WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><WhatsappIcon size={32} round={true} /> <span>WhatsApp</span></WhatsappShareButton></li>
-                                                                                    <li className='dropDownLi'><TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><TelegramIcon size={32} round={true} /> <span>Telegram</span></TelegramShareButton></li>
-                                                                                    <li className='dropDownLi'><FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><FacebookIcon size={32} round={true} /> <span>Facebook</span></FacebookShareButton></li>
-                                                                                    <li>
-                                                                                        <button type='button' onClick={() => {
-                                                                                            navigator.clipboard.writeText(`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`);
-                                                                                            toast.success("Copied Succesfully!!");
-                                                                                        }} className="react-share__ShareButton"> <BiLink size={30} /> <span>{t('tap_to_copy')}</span></button>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
+                                                                      
                                                                     </SwiperSlide>
                                                                 </div>
                                                             </div>

@@ -9,165 +9,93 @@
 
 <url>
   <loc>eGrocerryApp-url/</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 
 <url>
   <loc>eGrocerryApp-url/about</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/contact</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/faqs</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/notification</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/wishlist</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/cart</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/profile</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/categories</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/products</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/product</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/product/:slug</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/terms</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/checkout</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/policy/Privacy_Policy</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/policy/ReturnsAndExchangesPolicy</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/policy/ReturnsAndExchangesPolicy</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>eGrocerryApp-url/policy/Cancellation_Policy</loc>
-<<<<<<< HEAD
-  <lastmod>2024-09-18T16:36:40+00:00</lastmod>
-=======
-  <lastmod>2024-09-18T10:05:34+00:00</lastmod>
->>>>>>> 61a3c87f7f73c1d29a1e8e47525417b858d746b5
+  <lastmod>2024-09-18T18:32:40+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 </urlset>
