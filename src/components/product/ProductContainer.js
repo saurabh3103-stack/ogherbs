@@ -32,8 +32,10 @@ import 'swiper/css'; // Import Swiper styles
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import { setCSSMode } from '../../model/reducer/cssmodeReducer';
 
 const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOfferArray }) => {
+    const cssmode = useSelector(state => (state.cssmode));
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -135,16 +137,23 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = [...favorite.favouriteProductIds, product_id];
+                    
+                    // Ensure favorite.favouriteProductIds is an array before spreading
+                    const updatedFavouriteProducts = [
+                        ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
+                        product_id
+                    ];
+    
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
-                    const updatedFavouriteLength = favorite?.favouritelength + 1;
+    
+                    const updatedFavouriteLength = (favorite?.favouritelength || 0) + 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
-                }
-                else {
+                } else {
                     toast.error(result.message);
                 }
             });
     };
+    
 
 
 
@@ -169,7 +178,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
         const { slideCount, currentSlide, ...remainingProps } = props;
         return (
             <button {...remainingProps} type="button" className="slick-prev">
-                <FaChevronLeft fill='black' size={30} className="prev-arrow" />
+                <FaChevronLeft fill='black' size={30} className="prev-arrow"  />
             </button>
         );
     };
@@ -344,7 +353,25 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                     </div>
                                                 </div>
                                                 <div className="col-1 d-flex align-items-center justify-content-center">
-                    <FaCircleChevronLeft className="swiper-button-prev" size={40}  />
+                    <FaCircleChevronLeft className="swiper-button-prev" size={40}    style={{
+            position: 'absolute',
+            top: '58%', // Adjusting position
+            zIndex: 10,
+            color: 'var(--swiper-navigation-color)', // Ensure color applies
+            display: 'flex',
+            cursor: 'pointer',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
+            height: 'var(--swiper-navigation-size)',
+            marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
+            important: 'true',
+            color: cssmode.cssmode === 'dark' ? 'white' : 'black',
+            left: 'var(--swiper-navigation-sides-offset, 1px)',
+  right: 'auto'
+           
+             // This won't work in React, but inline should still take priority
+        }}  />
                 </div>
                                                 <div className="product_section_content p-0">
 
@@ -565,7 +592,24 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                     </Swiper>
                                                 </div>
                                                 <div className="col-1 d-flex align-items-center justify-content-center">
-                    <FaCircleChevronRight className="swiper-button-next" size={40}  />
+                    <FaCircleChevronRight className="swiper-button-next" size={40}    
+       
+        style={{
+            position: 'absolute',
+            top: '58%', // Adjusting position
+            zIndex: 10,
+            color: 'var(--swiper-navigation-color)', // Ensure color applies
+            display: 'flex',
+            cursor: 'pointer',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
+            height: 'var(--swiper-navigation-size)',
+            marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
+            important: 'true',
+            color: cssmode.cssmode === 'dark' ? 'white' : 'black',
+             // This won't work in React, but inline should still take priority
+        }} />
                 </div>
 
 

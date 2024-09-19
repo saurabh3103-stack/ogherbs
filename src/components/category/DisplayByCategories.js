@@ -10,6 +10,7 @@ import 'swiper/css/navigation'; // Import Navigation module styles
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import { setCSSMode } from '../../model/reducer/cssmodeReducer';
 
 const DisplayByCategories = () => {
     const { t } = useTranslation();
@@ -20,7 +21,7 @@ const DisplayByCategories = () => {
     
     // Get theme from Redux store
     const theme = useSelector(state => state.theme);
-
+    const cssmode = useSelector(state => (state.cssmode));
     // Dynamically set theme colors
     const setThemeColors = (primaryColor, secondaryColor, textColor) => {
         document.documentElement.style.setProperty('--primary-color', primaryColor);
@@ -54,10 +55,13 @@ const DisplayByCategories = () => {
             width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
             height: 'var(--swiper-navigation-size)',
             marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
-            important: 'true', // This won't work in React, but inline should still take priority
+            important: 'true',
+            left: 'var(--swiper-navigation-sides-offset, -20px)',
+            right: 'auto' // This won't work in React, but inline should still take priority
         }}
     />
 </div>
+
 
                 {/* Category Navigation */}
                 <div className="col-md-12 category-container">
@@ -99,9 +103,15 @@ const DisplayByCategories = () => {
                                         />
                                     </div>
                                     <div className="text-center mt-2">
-                                        <h5 className="category-title">{t(category.name)}</h5>
-                                        <p className="category-subtitle text-muted">{t(category.subtitle)}</p>
-                                    </div>
+    <h5 
+        className="category-title" 
+        style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
+    >
+        {t(category.name)}
+    </h5>
+    <p className="category-subtitle text-muted">{t(category.subtitle)}</p>
+</div>
+
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -126,6 +136,8 @@ const DisplayByCategories = () => {
             height: 'var(--swiper-navigation-size)',
             marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
             important: 'true',
+              right: 'var(--swiper-navigation-sides-offset, -20px)',
+          left: 'auto'
         }}
     />
 </div>

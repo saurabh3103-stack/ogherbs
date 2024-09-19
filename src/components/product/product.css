@@ -1,5 +1,3 @@
-
-
 [dir="rtl"] .Manu-links ul li:last-of-type {
   margin-right: 30px;
 }
@@ -241,7 +239,7 @@
   border-width: 2px;
 }
 
- /*.product-card {
+.product-card {
   color: var(--primary-color);
   background: var(--second-cards-color);
   border-radius: 8px;
@@ -253,25 +251,9 @@
 .product-card:hover,
 a:focus .product-card {
   box-shadow: 0 0 15px rgb(0 0 0 / 5%);
-  transform: scale(1.003);
+  /* transform: scale(1.003); */
   border: 1px solid var(--secondary-color) !important;
-  cursor: pointer;
-} */
 
-.product-card {
-  color: var(--primary-color);
-  background: var(--second-cards-color);
-  border-radius: 20px;
-  overflow: visible;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.product-card:hover,
-a:focus .product-card {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transform: scale(1.02);
-  background-color: var(--hover-background-color); /* Add your hover background color */
   cursor: pointer;
 }
 
@@ -331,7 +313,7 @@ a:focus .product-card {
 
 .product-card .image-container img {
   height: auto;
-  width: 50%;
+  width: 100%;
   /* padding: 15px; */
   aspect-ratio: 3/3;
   object-fit: fill;
@@ -491,21 +473,9 @@ a:focus .product-card {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+
   width: 100%;
 }
-
-/* mayank changes */
-.product-card .product-card-body .price button {
-  background: var(--secondary-color);
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6rem;
-  padding: 3px;
-  border-radius: 10px;
-  font-weight: 600;
-}
-/* mayank changes */
 
 input::placeholder {
   text-align: center !important;
@@ -1802,33 +1772,4 @@ input::placeholder {
   }
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  position: absolute;
-  top: var(--swiper-navigation-top-offset, 58%);
-  width: calc(var(--swiper-navigation-size) / 44 * 27);
-  height: var(--swiper-navigation-size);
-  margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
-  z-index: 10;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--swiper-navigation-color, var(--swiper-theme-color));
-}
 
-/* 
-.swiper-button-prev,
-.swiper-button-next {
-  position: absolute !important;
-  top: var(--swiper-navigation-top-offset, 50%) !important;
-  width: calc(var(--swiper-navigation-size) / 44 * 27) !important;
-  height: var(--swiper-navigation-size) !important;
-  margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
-  z-index: 10 !important;
-  cursor: pointer !important ;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
- 
-} */
