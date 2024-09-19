@@ -43,7 +43,7 @@ const DisplayByCategories = () => {
                 </div>
 
                 {/* Category Navigation */}
-                <div className="col-md-10 category-container">
+                <div className="col-md-12 category-container">
                     <Swiper
                         spaceBetween={5}  // Space between slides
                         slidesPerView={6}   // Number of slides to show at a time
