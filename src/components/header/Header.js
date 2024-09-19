@@ -504,7 +504,7 @@ const Header = () => {
                                     </Dropdown>
                                 </div>
 
-                                <div className='language-container' >
+                                <div className='language-container'>
                                     <Dropdown>
                                         <Dropdown.Toggle>
                                             <MdGTranslate size={20} className='me-2' />
@@ -757,7 +757,7 @@ const Header = () => {
 
                                 {/* Conditionally render dropdown */}
 
-                                <div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block'>
+                                <div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block' id="dropa">
     <Dropdown className='themeDropdown1 themeDropdown' style={{zIndex:"999"}} >
         <Dropdown.Toggle>
             <IoMdSettings size={25} />
@@ -805,7 +805,7 @@ const Header = () => {
 </div>
 
 {/* Navigation Links */}
-<div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block'> 
+<div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block' id="dropb"> 
     <Dropdown className='themeDropdown1 themeDropdown'  style={{zIndex:"999"}}>
         <Dropdown.Toggle>
             <FaBars size={25} />

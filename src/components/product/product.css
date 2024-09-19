@@ -1,3 +1,5 @@
+
+
 [dir="rtl"] .Manu-links ul li:last-of-type {
   margin-right: 30px;
 }
@@ -1800,7 +1802,22 @@ input::placeholder {
   }
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: var(--swiper-navigation-top-offset, 58%);
+  width: calc(var(--swiper-navigation-size) / 44 * 27);
+  height: var(--swiper-navigation-size);
+  margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swiper-navigation-color, var(--swiper-theme-color));
+}
 
+/* 
 .swiper-button-prev,
 .swiper-button-next {
   position: absolute !important;
@@ -1814,4 +1831,4 @@ input::placeholder {
   align-items: center !important;
   justify-content: center !important;
  
-}
+} */

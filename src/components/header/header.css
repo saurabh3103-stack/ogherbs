@@ -945,3 +945,11 @@
 .no-break {
   white-space: nowrap;
 }
+
+
+@media screen and (max-width: 1200px){
+  #dropa,#dropb{
+    display: none !important;
+
+  }
+}

@@ -39,30 +39,47 @@ const DisplayByCategories = () => {
             <div className="row">
                 {/* Left Navigation */}
                 <div className="col-1 d-flex align-items-center justify-content-center">
-                    <FaCircleChevronLeft className="swiper-button-prev" size={40} />
-                </div>
+    <FaCircleChevronLeft 
+        className="swiper-button-prev" 
+        size={40} 
+        style={{
+            position: 'absolute',
+            top: '50%', // Adjusting position
+            zIndex: 10,
+            color: 'var(--swiper-navigation-color)', // Ensure color applies
+            display: 'flex',
+            cursor: 'pointer',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
+            height: 'var(--swiper-navigation-size)',
+            marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
+            important: 'true', // This won't work in React, but inline should still take priority
+        }}
+    />
+</div>
 
                 {/* Category Navigation */}
                 <div className="col-md-12 category-container">
-                    <Swiper
-                        spaceBetween={5}  // Space between slides
-                        slidesPerView={6}   // Number of slides to show at a time
-                        navigation={{ // Add navigation arrows
-                            prevEl: '.swiper-button-prev',
-                            nextEl: '.swiper-button-next',
-                        }}
-                        modules={[Autoplay, Navigation]} // Include Autoplay and Navigation modules
-                        autoplay={{
-                            delay: 1500, // Delay between slides (in ms)
-                            disableOnInteraction: true, // Continue autoplay after user interactions
-                        }}
-                        breakpoints={{
-                            320: { slidesPerView: 3 },
-                            576: { slidesPerView: 4 },
-                            768: { slidesPerView: 5 },
-                            992: { slidesPerView: 6 },
-                        }}
-                    >
+                <Swiper
+    spaceBetween={5}  // Space between slides
+    slidesPerView={6}  // Number of slides to show at a time
+    navigation={{ // Add navigation arrows
+        prevEl: '.swiper-button-prev',
+        nextEl: '.swiper-button-next',
+    }}
+    modules={[Autoplay, Navigation]} // Include Autoplay and Navigation modules
+    autoplay={{
+        delay: 1500, // Delay between slides (in ms)
+        disableOnInteraction: true, // Stop autoplay when the user interacts
+    }}
+    breakpoints={{
+        320: { slidesPerView: 3 },
+        576: { slidesPerView: 4 },
+        768: { slidesPerView: 5 },
+        992: { slidesPerView: 6 },
+    }}
+>
                         {categories.map(category => (
                             <SwiperSlide key={category.id}>
                                 <div
@@ -93,8 +110,25 @@ const DisplayByCategories = () => {
 
                 {/* Right Navigation */}
                 <div className="col-1 d-flex align-items-center justify-content-center">
-                    <FaCircleChevronRight className="swiper-button-next" size={40} />
-                </div>
+    <FaCircleChevronRight 
+        className="swiper-button-next" 
+        size={40} 
+        style={{
+            position: 'absolute',
+            top: '50%',
+            zIndex: 10,
+            color: 'var(--swiper-navigation-color)',
+            display: 'flex',
+            cursor: 'pointer',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
+            height: 'var(--swiper-navigation-size)',
+            marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
+            important: 'true',
+        }}
+    />
+</div>
             </div>
         </div>
     );
