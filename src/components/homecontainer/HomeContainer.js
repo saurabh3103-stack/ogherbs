@@ -68,7 +68,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
             {/* Responsive Done */}
 
             {BelowCategoryOfferArray?.map((offer) => (
-                <div className='col-md-12 p-0 col-12 my-5' key={offer?.id} onClick={() => {
+                <div className='col-md-12 p-0 col-12 my-2' key={offer?.id} onClick={() => {
                     if (offer?.category) {
                         dispatch(setFilterCategory({ data: offer?.category?.id.toString() }));
                         navigate("/products");
@@ -83,7 +83,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
             ))}
 
             {/* Responsive Done */}
-            <div className='mt-5'>
+            <div className='mt-2'>
                 <ProductContainer showModal={showModal} setShowModal={setShowModal} BelowSectionOfferArray={BelowSectionOfferArray} /> 
             </div>
             {/* Responsive Done */}

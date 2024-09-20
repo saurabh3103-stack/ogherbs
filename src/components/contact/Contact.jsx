@@ -42,14 +42,14 @@ const Contact = () => {
                 : (
                     <>
                       
-                        <div className='container'>
+                        <div className='container-fluid'>
                             <div className='contact-wrapper'>
                                   {/* Map Section */}
                                 <div className="map-section mb-4">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228624.5610691504!2d80.17356440406607!3d26.44738660476833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c4770b127c46f%3A0x1778302a9fbe7b41!2sKanpur%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1726799760906!5m2!1sen!2sin"  height="350" style={{width:"100%",border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
-                                <div className="up-section">
-                                    <div className="contact-card">
+                                <div className="up-section" id="cardsss">
+                                    <div className="contact-card  ">
                                         <div className="icon">
                                             <MdOutlineMail size={32} className="icon-color" />
                                         </div>
@@ -59,7 +59,7 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-                                    <div className="contact-card">
+                                    <div className="contact-card d-sm-none " id="secCard">
                                         <div className="icon">
                                             <FaPhone size={32} className="icon-color" />
                                         </div>
@@ -69,7 +69,36 @@ const Contact = () => {
                                         </div>
                                     </div>
 
-                                    <div className="contact-card">
+                                    <div className="contact-card d-sm-none " id="thirdCard">
+                                        <div className="icon">
+                                            <FaLocationArrow size={32} className="icon-color" />
+                                        </div>
+                                        <div className="content">
+                                            <h3>Address</h3>
+                                            <p>No: 58 A, Madison Street,</p>
+                                            <p>Baltimore, MD, USA 4508</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="up-section" id="cardsss">
+                                    
+
+                                    <div className="contact-card d-md-none">
+                                        <div className="icon">
+                                            <FaPhone size={32} className="icon-color" />
+                                        </div>
+                                        <div className="content">
+                                            <h3>Call Us</h3>
+                                            <p>+1 (555) 123-4567</p>
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+                                <div className="up-section" id="cardsss">
+                                  
+                                  
+                                    <div className="contact-card d-md-none">
                                         <div className="icon">
                                             <FaLocationArrow size={32} className="icon-color" />
                                         </div>

@@ -1087,6 +1087,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}
                                                         //  onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                                                         breakpoints={{
+                                                            
                                                             320: { slidesPerView: 1 },
                                                             460: { slidesPerView: 2 },
                                                             576: { slidesPerView: 3 },

@@ -2171,12 +2171,5 @@ input::placeholder {
   color: var(--secondary-color);
 }
 
-/* Responsive design */
-/* @media (max-width: 768px) {
-  .category-image {
-      width: 70px;
-      height: 70px;
-  }
-} */
 
 

@@ -369,7 +369,7 @@ a:focus .product-card {
 .dropdown-menu {
   padding: 0 !important;
   z-index: 10 !important;
-  width: 40px !important;
+  /* width: 40px !important; */
 }
 
 .dropdown-menu li:hover {
