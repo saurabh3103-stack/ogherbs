@@ -204,7 +204,7 @@
 }
 
 .product_title_content a {
-  background: var(--secondary-color-light);
+  
   border: 1px solid var(--secondary-color);
   border-radius: 8px;
 
@@ -239,7 +239,7 @@
   border-width: 2px;
 }
 
-.product-card {
+ /*.product-card {
   color: var(--primary-color);
   background: var(--second-cards-color);
   border-radius: 8px;
@@ -251,9 +251,25 @@
 .product-card:hover,
 a:focus .product-card {
   box-shadow: 0 0 15px rgb(0 0 0 / 5%);
-  /* transform: scale(1.003); */
+  transform: scale(1.003);
   border: 1px solid var(--secondary-color) !important;
+  cursor: pointer;
+} */
 
+.product-card {
+  color: var(--primary-color);
+  background: var(--second-cards-color);
+  border-radius: 20px;
+  overflow: visible;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.product-card:hover,
+a:focus .product-card {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  background-color: var(--hover-background-color); /* Add your hover background color */
   cursor: pointer;
 }
 
@@ -313,7 +329,7 @@ a:focus .product-card {
 
 .product-card .image-container img {
   height: auto;
-  width: 100%;
+  width: 50%;
   /* padding: 15px; */
   aspect-ratio: 3/3;
   object-fit: fill;
@@ -347,11 +363,13 @@ a:focus .product-card {
 
 .dropDownLi {
   border-bottom: 1px solid #888;
+  width: 40px !important;
 }
 
 .dropdown-menu {
   padding: 0 !important;
-  z-index: 1 !important;
+  z-index: 10 !important;
+  width: 40px !important;
 }
 
 .dropdown-menu li:hover {
@@ -364,7 +382,6 @@ a:focus .product-card {
 
 .dropdown-menu li button {
   padding: 10px !important;
-  padding: 10px;
 }
 
 .react-share__ShareButton {
@@ -473,9 +490,21 @@ a:focus .product-card {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
 }
+
+/* mayank changes */
+.product-card .product-card-body .price button {
+  background: var(--secondary-color);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  padding: 3px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+/* mayank changes */
 
 input::placeholder {
   text-align: center !important;
@@ -1769,6 +1798,18 @@ input::placeholder {
   .category-image {
       width: 70px;
       height: 70px;
+  }
+}
+@media (min-width: 800px){
+  #imgissue{
+    height: 50vh;
+    width: 10vw;
+  }
+}
+@media (max-width: 800px){
+  #imgissue{
+    height: 20vh;
+    width: 14vw;
   }
 }
 

@@ -195,7 +195,7 @@ const ProductDetails = () => {
                     // toast.success(result.message);
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id !==product_variant_id) {
+                        if (product?.product_variant_id !== product_variant_id) {
                             return product;
                         }
                     });
@@ -235,7 +235,7 @@ const ProductDetails = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !==product_id);
+                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !== product_id);
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -442,7 +442,7 @@ const ProductDetails = () => {
         <>
             {loading && <Loader screen="full" background="none" />}
             {!isNetworkError ?
-                <div className='product-details-view'>
+                <div className='product-details-view' style={{ marginTop: "50px" }}>
                     <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
                         <div className='container d-flex align-items-center gap-2'>
                             <div className='breadCrumbsItem'>
@@ -461,10 +461,13 @@ const ProductDetails = () => {
                                 <Loader width={"100%"} height={"600px"} background={"var(--second-cards-color"} />
                                 : (
                                     <div className='row body-wrapper '>
-                                        <div className="col-xl-3 col-lg-4 col-md-12 col-12">
-                                            <div className='image-wrapper '>
-                                                <div className='main-image col-12 border'>
-                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' className='col-12' />
+                                        <div className="col-xl-8 col-lg-8 col-md-12 col-12">
+                                            <div className='image-wrapper ' >
+                                                <div className='main-image d-flex flex-row border border-secondary rounded p-4'>
+                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' className='w-70 img-fluid' />
+
+                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' style={{margin:"auto"}} className='mb-2 img-fluid' id="imgissue" />
+
                                                 </div>
                                                 <div className='sub-images-container'>
                                                     {images.length >= 1 ?
@@ -520,10 +523,10 @@ const ProductDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-xl-9 col-lg-8 col-md-12 col-12">
+                                        <div className="col-xl-4 col-lg-4 col-md-12 col-12">
                                             <div className='detail-wrapper'>
-                                                <div className='top-section'>
-                                                    <p className='product_name'>{productdata.name}</p>
+                                                <div className='top-section '>
+                                                    <p className='product_name text-uppercase'>{productdata.name}</p>
                                                     {/* {Object.keys(productbrand).length === 0
                                                     ? null
                                                     : (
@@ -896,7 +899,7 @@ const ProductDetails = () => {
                                                                                 {setting.setting && setting.setting.currency}
                                                                                 {related_product.variants[0].discounted_price === 0 ? related_product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : related_product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                             </p>
-                                                                            {(related_product?.variants[0]?.price && (related_product?.variants[0]?.discounted_price !==0)) && (related_product?.variants[0]?.price !== related_product?.variants[0]?.discounted_price) ?
+                                                                            {(related_product?.variants[0]?.price && (related_product?.variants[0]?.discounted_price !== 0)) && (related_product?.variants[0]?.price !== related_product?.variants[0]?.discounted_price) ?
                                                                                 <span id={`price${index}-section`} className="d-flex align-items-center" >
                                                                                     <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}
                                                                                         {related_product?.variants[0]?.price?.toFixed(setting.setting && setting.setting.decimal_point)}

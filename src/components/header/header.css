@@ -150,6 +150,7 @@
   align-items: center;
 }
 
+
 .header-main.sticky {
   transition: all ease-in-out;
   position: fixed;

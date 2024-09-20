@@ -527,7 +527,7 @@ const Header = () => {
 
 
                 {/* bottom header */}
-                <div className={isSticky ? "sticky header-main w-100 sticky-top" : "header-main w-100 sticky-top"}>
+                <div className={isSticky ? "sticky header-main w-100 sticky-top" : "sticky header-main w-100 sticky-top"} id="stickyHeader">
                     {/* <div className="container">  */}
                     {/*UPDATED */}
                     <div className="container">

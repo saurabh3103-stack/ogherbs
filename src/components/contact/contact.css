@@ -13,9 +13,14 @@
 .contact-wrapper > * {
   color: var(--font-color) !important;
 }
+
+.contact-wrapper .map-section{
+  width: 100%;
+}
 .contact-wrapper .up-section {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  flex-direction: row;
   gap: 10px;
 }
 
@@ -25,6 +30,7 @@
 }
 
 .contact-wrapper .up-section .contact-card {
+  width: 100%;
   margin: 5px;
   padding: 10px;
   border: 1px solid var(--secondary-color);
@@ -34,9 +40,19 @@
   gap: 10px;
   justify-content: flex-start;
   align-items: center;
-  /* max-width: 470px;
-    min-width: 470px; */
+  transition: transform 0.2s ease-in-out; /* Animation on hover */
 }
+
+.contact-wrapper .up-section .contact-card:hover {
+  transform: translateY(-5px); /* Slight hover effect */
+  background-color: var(--secondary-color);
+  color: 1px solid var(--secondary-color);
+}
+
+.contact-wrapper .up-section .contact-card .icon-color {
+  color: var(--secondary-color); /* Bootstrap primary color */
+}
+
 .contact-wrapper .up-section .left-section {
   width: 50%;
 }
@@ -59,6 +75,10 @@
 .contact-wrapper .up-section .contact-card .content span {
   font-size: 2.055rem;
   font-weight: 500;
+}
+
+.contact-wrapper .up-section .contact-card .content p{
+  margin-bottom: 0;
 }
 
 .contact-wrapper .up-section .contact-card .content span {
@@ -92,7 +112,8 @@
   font-weight: 700;
 }
 
-.contact-wrapper .bottom-section form input {
+.contact-wrapper .bottom-section form input,
+.contact-wrapper .bottom-section form select {
   padding: 5px;
   font-size: 2.055rem;
 }
