@@ -17,9 +17,10 @@
 .contact-wrapper .map-section{
   width: 100%;
 }
+
 .contact-wrapper .up-section {
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
   flex-direction: row;
   gap: 10px;
 }
@@ -30,7 +31,7 @@
 }
 
 .contact-wrapper .up-section .contact-card {
-  width: 100%;
+  width: calc(33.333% - 20px); /* Each card takes up 1/3 of the row with some margin */
   margin: 5px;
   padding: 10px;
   border: 1px solid var(--secondary-color);
@@ -42,15 +43,6 @@
   align-items: center;
   transition: transform 0.2s ease-in-out; /* Animation on hover */
 }
-@media screen and (max-width:576){
-  #secCard,#thirdCard{
-    display: none;
-  }
-
-}
-  
-
-
 
 .contact-wrapper .up-section .contact-card:hover {
   transform: translateY(-5px); /* Slight hover effect */
@@ -59,7 +51,28 @@
 }
 
 .contact-wrapper .up-section .contact-card .icon-color {
-  color: var(--secondary-color); /* Bootstrap primary color */
+  color: #000301 /* Bootstrap primary color */
+}
+
+/* On medium screens (tablets) */
+@media screen and (min-width: 1200px) {
+  .contact-wrapper .up-section .contact-card {
+    width: calc(33.333% - 20px); /* Each card takes up 1/2 of the row */
+  }
+}
+
+/* On medium screens (tablets) */
+@media screen and (min-width: 992px) {
+  .contact-wrapper .up-section .contact-card {
+    width: calc(33.333% - 20px); /* Each card takes up 1/2 of the row */
+  }
+}
+
+/* On small screens (phones) */
+@media screen and (min-width: 576px) {
+  .contact-wrapper .up-section .contact-card {
+    width: calc(100% - 20px); /* Each card takes full width on mobile */
+  }
 }
 
 .contact-wrapper .up-section .left-section {
@@ -108,7 +121,6 @@
 .contact-wrapper .bottom-section p {
   color: var(--sub-text-color);
   font-size: 2.355rem;
-
   margin-top: 10px;
 }
 

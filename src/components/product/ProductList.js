@@ -100,15 +100,15 @@ const ProductList2 = React.memo(() => {
 
     const filterProductsFromApi = async (filter) => {
         setisLoader(true);
-    
+
         // Log latitude and longitude
         console.log("Latitude:", city?.city?.latitude);
         console.log("Longitude:", city?.city?.longitude);
-    
+
         try {
             const response = await api.getProductbyFilter(city?.city?.latitude, city?.city?.longitude, filter, user?.jwtToken);
             const result = await response.json();
-    
+
             if (result.status === 1) {
                 if (minPrice == null && maxPrice == null && filter?.price_filter == null) {
                     setMinPrice(parseInt(result.total_min_price));
@@ -120,7 +120,7 @@ const ProductList2 = React.memo(() => {
                         setValues([parseInt(result.total_min_price), parseInt(result.total_max_price)]);
                     }
                 }
-    
+
                 setproductresult(result.data);
                 setSizes(result.sizes);
                 settotalProducts(result.total);
@@ -131,7 +131,7 @@ const ProductList2 = React.memo(() => {
                 setSizes([]);
                 setShowPriceFilter(false);
             }
-    
+
         } catch (error) {
             const regex = /Failed to fetch/g;
             if (regex.test(error.message)) {
@@ -143,7 +143,7 @@ const ProductList2 = React.memo(() => {
             setisLoader(false);
         }
     };
-    
+
 
     const sort_unique_brand_ids = (int_brand_ids) => {
         if (int_brand_ids.length === 0) return int_brand_ids;

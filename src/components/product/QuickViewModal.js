@@ -440,7 +440,7 @@ const QuickViewModal = (props) => {
                                 <div className="top-wrapper">
 
                                     <div className='row body-wrapper'>
-                                        <div className="col-xl-4 col-lg-6 col-md-12 col-12">
+                                        <div className="col-xl-7 col-lg-6 col-md-12 col-12">
                                             <div className='image-wrapper'>
                                                 <div className='main-image border'>
                                                     <img onError={placeHolderImage} src={mainimage} alt='main-product' className='col-12' />
@@ -472,7 +472,7 @@ const QuickViewModal = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-xl-8 col-lg-6 col-md-12 col-12">
+                                        <div className="col-xl-5 col-lg-6 col-md-12 col-12">
 
                                             <div className='detail-wrapper'>
                                                 <div className='top-section'>

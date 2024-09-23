@@ -89,7 +89,7 @@ const About = () => {
     </div>
 </section>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+{/* <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" /> */}
 <section class="about-cards-section">
   <div class="container">
     <div class="row">
