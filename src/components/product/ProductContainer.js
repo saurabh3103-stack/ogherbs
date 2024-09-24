@@ -1080,11 +1080,11 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                             nextEl: '.swiper-button-next',
                                                         }}
                                                         modules={[Autoplay, Navigation]}
-                                                        autoplay={{
-                                                            delay: 1500,
-                                                            disableOnInteraction: false,
-                                                            pauseOnMouseEnter: true// Allows autoplay after interaction
-                                                        }}
+                                                         autoplay={{
+                                                           delay: 1500,
+                                                           disableOnInteraction: false,
+                                                             pauseOnMouseEnter: true// Allows autoplay after interaction
+                                                         }}
                                                         //  onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                                                         breakpoints={{
                                                             
@@ -1126,7 +1126,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                         <div className='d-flex flex-row product-card-footer'>
                                                                             <div>
                                                                                 {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-                                                                                    <button type="button" className='w-100 h-100 favouriteBtn px-4' onClick={() => {
+                                                                                    <button type="button"  className='w-100 h-100 
+                                                                                     px-3 border border-light rounded-circle' onClick={() => {
                                                                                         if (user?.jwtToken !== "") {
                                                                                             removefromFavorite(product.id);
                                                                                         } else {
@@ -1137,7 +1138,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                         <BsHeartFill size={16} fill='green' />
                                                                                     </button>
                                                                                 ) : (
-                                                                                    <button key={product.id} type="button" className='w-100 h-100 favouriteBtn px-4' onClick={() => {
+                                                                                    <button key={product.id} type="button"className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle' onClick={() => {
                                                                                         if (user?.jwtToken !== "") {
                                                                                             addToFavorite(product.id);
                                                                                         } else {
@@ -1150,8 +1151,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                             <div style={{ flexGrow: "1" }}>
                                                                                 {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
                                                                                     (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ? <>
-                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart">
-                                                                                        <button type='button' className="wishlist-button" onClick={() => {
+                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart border border-secondary" style={{background:"white"}}>
+                                                                                        <button type='button' className="wishlist-button" style={{background:"var(--secondary-color)"}} onClick={() => {
                                                                                             if (cart?.isGuest) {
                                                                                                 AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty - 1, 1);
                                                                                             } else {
@@ -1175,9 +1176,10 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                                 // value={product.variants[0].cart_count} 
                                                                                                 value={cart?.isGuest === false ? cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty : cart?.guestCart?.find(prdct => prdct?.product_id == product?.id)?.qty}
                                                                                                 disabled
+                                                                                               
                                                                                             />
                                                                                         </div>
-                                                                                        <button type='button' className="wishlist-button" onClick={() => {
+                                                                                        <button type='button' className="wishlist-button" style={{background:"var(--secondary-color)"}} onClick={() => {
                                                                                             if (cart?.isGuest) {
                                                                                                 // AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty + 1, 1);
 
@@ -1198,7 +1200,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                             </div>
 
                                                                             <div className='dropup share'>
-                                                                                <button type="button" className='w-100 h-100 shareBtn px-4' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
+                                                                                <button type="button" className='w-100 h-100 shareBtn px-3  border border-light rounded-circle' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
 
                                                                                 <ul className='dropdown-menu' style={{ width: "40px" }}>
                                                                                     <li className='dropDownLi'><WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><WhatsappIcon size={18} round={true} /> </WhatsappShareButton></li>

@@ -41,7 +41,6 @@
   font-weight: 700;
   color: var(--font-color);
 }
-
 .address-wrapper .address-component label span.home {
   padding: 3px 8px;
   font-size: 12px;
@@ -52,7 +51,6 @@
   border: 1px solid var(--secondary-color);
   border-radius: 5px;
 }
-
 .address-wrapper .address-component .edit {
   background: var(--secondary-color-light);
   padding: 5px;
