@@ -206,6 +206,7 @@ const QuickViewModal = (props) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
                     const updatedFavouriteProducts = [...favorite.favouriteProductIds, product_id];
+                    console.log(updatedFavouriteProducts)
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength + 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -611,6 +612,7 @@ const QuickViewModal = (props) => {
                                                         <button key={product.id} type="button" className='wishlist-product' onClick={() => {
                                                             if (user?.jwtToken !== "") {
                                                                 addToFavorite(product.id);
+
                                                             } else {
                                                                 toast.error(t("required_login_message_for_wishlist"));
                                                             }

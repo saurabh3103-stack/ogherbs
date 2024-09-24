@@ -92,6 +92,7 @@ const ProductDetails = () => {
             api.getProductbyId(city.city?.latitude ? city.city?.latitude : setting?.setting?.default_city?.latitude, city.city?.longitude ? city.city?.longitude : setting?.setting?.default_city?.longitude, -1, user?.jwtToken, slug)
                 .then(response => response.json())
                 .then(result => {
+                 
                     if (result.status === 1) {
                         dispatch(setSelectedProduct({ data: result?.data[0]?.id }));
                         setproductdata(result.data);

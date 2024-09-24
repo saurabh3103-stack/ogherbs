@@ -366,12 +366,12 @@
 //                                                     </div>
 //                                                     <div>
 //                                                         {/* {console.log(section)} */}
-                                                        // <Link type="button" class="btn btn-outline-success "  to="/products" onClick={() => {
-                                                        //     dispatch(setFilterSection({ data: section.id }));
-                                                        //     navigate('/products');
+// <Link type="button" class="btn btn-outline-success "  to="/products" onClick={() => {
+//     dispatch(setFilterSection({ data: section.id }));
+//     navigate('/products');
 
 
-                                                        // }}>{t('see_all')}</Link>
+// }}>{t('see_all')}</Link>
 //                                                     </div>
 //                                                 </div>
 //                                                 <div className="col-1 d-flex align-items-center justify-content-center">
@@ -690,7 +690,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { useTranslation } from 'react-i18next';
 
 import { addtoGuestCart, setCart, setCartProducts, setCartSubTotal, setSellerFlag } from "../../model/reducer/cartReducer";
-import { setFavouriteLength, setFavouriteProductIds } from "../../model/reducer/favouriteReducer";
+import { setFavouriteLength, setFavouriteProductIds,setFavourite } from "../../model/reducer/favouriteReducer";
 import { setProductSizes } from "../../model/reducer/productSizesReducer";
 import { setFilterCategory, setFilterSection } from '../../model/reducer/productFilterReducer';
 import Popup from "../same-seller-popup/Popup";
@@ -707,6 +707,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import { setCSSMode } from '../../model/reducer/cssmodeReducer';
 import { Button } from 'react-bootstrap';
+import { ValidateNoInternet } from '../../utils/NoInternetValidator';
+
 
 
 const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOfferArray }) => {
@@ -735,6 +737,10 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     const [productSizes, setproductSizes] = useState(null);
     const [offerConatiner, setOfferContainer] = useState(0);
     const [variant_index, setVariantIndex] = useState(null);
+    const [isNetworkError, setIsNetworkError] = useState(false);
+
+
+ 
 
 
     const handleMouseEnter = () => {
@@ -826,6 +832,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
     //Add to favorite
     const addToFavorite = async (product_id) => {
+
+
         await api.addToFavotite(user?.jwtToken, product_id)
             .then(response => response.json())
             .then(async (result) => {
@@ -837,6 +845,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                         ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
                         product_id
                     ];
+
 
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
 
@@ -863,6 +872,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
                 }
                 else {
+
                     toast.error(result.message);
                 }
             });
@@ -1040,7 +1050,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                     </div>
                                                     <div>
                                                         {/* {console.log(section)} */}
-                                                        <Link type="button" class="btn btn-outline-success "  to="/products" onClick={() => {
+                                                        <Link type="button" class="btn btn-outline-success " to="/products" onClick={() => {
                                                             dispatch(setFilterSection({ data: section.id }));
                                                             navigate('/products');
 
@@ -1080,14 +1090,14 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                             nextEl: '.swiper-button-next',
                                                         }}
                                                         modules={[Autoplay, Navigation]}
-                                                         autoplay={{
-                                                           delay: 1500,
-                                                           disableOnInteraction: false,
-                                                             pauseOnMouseEnter: true// Allows autoplay after interaction
-                                                         }}
+                                                        autoplay={{
+                                                            delay: 1500,
+                                                            disableOnInteraction: false,
+                                                            pauseOnMouseEnter: true// Allows autoplay after interaction
+                                                        }}
                                                         //  onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                                                         breakpoints={{
-                                                            
+
                                                             320: { slidesPerView: 1 },
                                                             460: { slidesPerView: 2 },
                                                             576: { slidesPerView: 3 },
@@ -1126,33 +1136,44 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                         <div className='d-flex flex-row product-card-footer'>
                                                                             <div>
                                                                                 {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-                                                                                    <button type="button"  className='w-100 h-100 
-                                                                                     px-3 border border-light rounded-circle' onClick={() => {
-                                                                                        if (user?.jwtToken !== "") {
-                                                                                            removefromFavorite(product.id);
-                                                                                        } else {
-                                                                                            toast.error(t('required_login_message_for_cart'));
-                                                                                        }
-                                                                                    }}
-                                                                                    >
-                                                                                        <BsHeartFill size={16} fill='green' />
+                                                                                 
+                                                                                    <button
+
+                                                                                   
+                                                                                        key={product.id}
+                                                                                        type="button"
+                                                                                        className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle red-heart' // Added class red-heart here
+                                                                                        onClick={() => {
+                                                                                            if (user?.jwtToken !== "") {
+                                                                                                addToFavorite(product.id);
+                                                                                            } else {
+                                                                                                toast.error(t("required_login_message_for_cart"));
+                                                                                            }
+                                                                                        }}>
+                                                                                            
+                                                                                        <BsHeart size={16} fill='red' /> {/* Updated heart icon to red */}
                                                                                     </button>
                                                                                 ) : (
-                                                                                    <button key={product.id} type="button"className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle' onClick={() => {
-                                                                                        if (user?.jwtToken !== "") {
-                                                                                            addToFavorite(product.id);
-                                                                                        } else {
-                                                                                            toast.error(t("required_login_message_for_cart"));
-                                                                                        }
-                                                                                    }}>
-                                                                                        <BsHeart size={16} /></button>
+                                                                                    <button
+                                                                                        key={product.id}
+                                                                                        type="button"
+                                                                                        className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle'
+                                                                                        onClick={() => {
+                                                                                            if (user?.jwtToken !== "") {
+                                                                                                addToFavorite(product.id);
+                                                                                            } else {
+                                                                                                toast.error(t("required_login_message_for_cart"));
+                                                                                            }
+                                                                                        }}>
+                                                                                        <BsHeart size={16} />
+                                                                                    </button>
                                                                                 )}
                                                                             </div>
                                                                             <div style={{ flexGrow: "1" }}>
                                                                                 {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
                                                                                     (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ? <>
-                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart border border-secondary" style={{background:"white"}}>
-                                                                                        <button type='button' className="wishlist-button" style={{background:"var(--secondary-color)"}} onClick={() => {
+                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart border border-secondary" style={{ background: "white" }}>
+                                                                                        <button type='button' className="wishlist-button" style={{ background: "var(--secondary-color)" }} onClick={() => {
                                                                                             if (cart?.isGuest) {
                                                                                                 AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty - 1, 1);
                                                                                             } else {
@@ -1176,10 +1197,9 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                                 // value={product.variants[0].cart_count} 
                                                                                                 value={cart?.isGuest === false ? cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id)?.qty : cart?.guestCart?.find(prdct => prdct?.product_id == product?.id)?.qty}
                                                                                                 disabled
-                                                                                               
                                                                                             />
                                                                                         </div>
-                                                                                        <button type='button' className="wishlist-button" style={{background:"var(--secondary-color)"}} onClick={() => {
+                                                                                        <button type='button' className="wishlist-button" style={{ background: "var(--secondary-color)" }} onClick={() => {
                                                                                             if (cart?.isGuest) {
                                                                                                 // AddToGuestCart(product?.id, product?.variants?.[0]?.id, cart?.guestCart?.find(prdct => prdct.product_id == product.id && prdct.product_variant_id == product.variants[0]?.id)?.qty + 1, 1);
 

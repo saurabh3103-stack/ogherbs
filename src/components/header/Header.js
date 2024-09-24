@@ -862,16 +862,16 @@ const Header = () => {
                                                 :
                                                 <button className='themeBtn tabletScreen icon position-relative hide-mobile-screen mx-3' onClick={() => handleThemeChange("light")}><MdOutlineWbSunny size={25} /></button>}
                                             <div className='hide-mobile-screen ms-5'>
-                                                <Link to='/profile' className='d-flex align-items-center flex-row user-profile gap-1' >
-                                                    <div className='d-flex flex-column user-info my-auto'>
+                                                <Link to='/profile' className='d-flex align-items-center flex-row user-profile gap-1' style={{borderRadius:"50%",padding:"0px"}} >
+                                                    {/* <div className='d-flex flex-column user-info my-auto'>
                                                         <span className='number'> {t("welcome")}</span>
                                                         <span className='name'>
                                                             {user.user && user.user.name.split(' ')[0].length > 20
                                                                 ? user.user.name.split(' ')[0].substring(0, 20) + "..."
                                                                 : user.user.name.split(' ')[0]}
                                                         </span>
-                                                    </div>
-                                                    <img onError={placeHolderImage} src={user.user && user.user.profile} alt="user"></img>
+                                                    </div> */}
+                                                    <img onError={placeHolderImage} src={user.user && user.user.profile} alt="user" style={{padding:"0.8px",background:"var(--sub-text-color)"}}></img>
                                                 </Link>
                                             </div>
                                         </>
