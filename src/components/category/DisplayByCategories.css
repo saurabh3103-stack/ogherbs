@@ -34,14 +34,14 @@
     color: var(--sub-text-color);
   }
   
-  .category-image {
+  /* .category-image {
     width: 70px;
     height: 70px;
     background-position: center;
     background-size: cover;
     border-radius: 50%;
     border: 2px solid var(--secondary-color);
-  }
+  } */
   
   /* Adjust styles for smaller screens */
   @media (max-width: 768px) {
@@ -83,4 +83,23 @@
     }
 /* } */ 
 
+.outer-circle {
+  width: 100px; /* Circle size */
+  height: 100px;
+  border-radius: 50%; /* Make it circular */
+  border: 5px solid #fff; /* Outer border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; /* Optional: Background color of the outer circle */
+}
 
+.inner-image {
+  width: 85%; /* Control the inner image size to leave padding */
+  height: 85%;
+  background-position: center;
+  background-size: contain; /* Ensure the full image is visible */
+  background-repeat: no-repeat;
+/* Keep the inner div circular */
+}

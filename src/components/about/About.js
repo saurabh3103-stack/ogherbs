@@ -57,7 +57,7 @@ const About = () => {
                 <div className="inner-column">
                     <div className="sec-title">
                         <span className="title text-success">More About OG Herbs</span>
-                        <h2>Empowering Healthy Living with Organic Products Since 2015</h2>
+                        <h2 style={{color:"var(--font-color)"}}>Empowering Healthy Living with Organic Products Since 2015</h2>
                     </div>
                     <div className="text">
                         Welcome to <strong>OG Herbs</strong>, powered by <strong>Deific Digital</strong>. Since 2015, we've been committed to bringing you high-quality organic herbs and groceries to help you live a healthier, more sustainable life. Our team of tech enthusiasts works hard to ensure that our platform is seamless, user-friendly, and provides you with the freshest organic produce, herbs, and pantry essentials.

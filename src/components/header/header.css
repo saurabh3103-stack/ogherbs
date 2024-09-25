@@ -1,3 +1,4 @@
+
 /* Dark Mode */
 
 /* .dark-header-1 {
@@ -953,4 +954,9 @@
     display: none !important;
 
   }
+}
+
+#drop .active{
+color:var(--secondary-color) !important;
+
 }

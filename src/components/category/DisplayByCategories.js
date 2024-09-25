@@ -89,13 +89,15 @@ const DisplayByCategories = () => {
                                     }}
                                 >
                                     <div className='d-flex justify-content-evenly'>
+                                    <div class="outer-circle">
                                         <div
-                                            className='category-image mx-2'
+                                            className='inner-image'
                                             style={{
                                                 backgroundImage: `url(${category.image_url})`,
-                                                backgroundSize: 'cover',
+                                               
                                             }}
                                         />
+                                        </div>
                                     </div>
                                     <div className="text-center mt-2">
                                         <h5 
@@ -104,7 +106,7 @@ const DisplayByCategories = () => {
                                         >
                                             {t(category.name)}
                                         </h5>
-                                        <p className="category-subtitle text-muted">{t(category.subtitle)}</p>
+                                        {/* <p className="category-subtitle text-muted">{t(category.subtitle)}</p> */}
                                     </div>
                                 </div>
                             </SwiperSlide>

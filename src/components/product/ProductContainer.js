@@ -690,7 +690,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { useTranslation } from 'react-i18next';
 
 import { addtoGuestCart, setCart, setCartProducts, setCartSubTotal, setSellerFlag } from "../../model/reducer/cartReducer";
-import { setFavouriteLength, setFavouriteProductIds,setFavourite } from "../../model/reducer/favouriteReducer";
+import { setFavouriteLength, setFavouriteProductIds, setFavourite } from "../../model/reducer/favouriteReducer";
 import { setProductSizes } from "../../model/reducer/productSizesReducer";
 import { setFilterCategory, setFilterSection } from '../../model/reducer/productFilterReducer';
 import Popup from "../same-seller-popup/Popup";
@@ -740,7 +740,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     const [isNetworkError, setIsNetworkError] = useState(false);
 
 
- 
+
 
 
     const handleMouseEnter = () => {
@@ -1061,7 +1061,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                 <div className="col-1 d-flex align-items-center justify-content-center">
                                                     <FaCircleChevronLeft className="swiper-button-prev" size={40} style={{
                                                         position: 'absolute',
-                                                        top: '58%', // Adjusting position
+                                                        top: '75%', // Adjusting position
                                                         zIndex: 10,
                                                         color: 'var(--swiper-navigation-color)', // Ensure color applies
                                                         display: 'flex',
@@ -1110,6 +1110,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                             <div className="row" key={index}>
                                                                 <div className="col-md-12">
                                                                     <SwiperSlide className='product-card' style={{ padding: "5px" }}>
+
+
                                                                         <span className='border border-light rounded-circle' id='aiEye'>
                                                                             <AiOutlineEye
                                                                                 onClick={() => {
@@ -1136,10 +1138,10 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                         <div className='d-flex flex-row product-card-footer'>
                                                                             <div>
                                                                                 {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-                                                                                 
+
                                                                                     <button
 
-                                                                                   
+
                                                                                         key={product.id}
                                                                                         type="button"
                                                                                         className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle red-heart' // Added class red-heart here
@@ -1150,7 +1152,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                                 toast.error(t("required_login_message_for_cart"));
                                                                                             }
                                                                                         }}>
-                                                                                            
+
                                                                                         <BsHeart size={16} fill='red' /> {/* Updated heart icon to red */}
                                                                                     </button>
                                                                                 ) : (
@@ -1307,6 +1309,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
                                                                             </div>
                                                                         </div>
+                                                                       
 
 
                                                                     </SwiperSlide>

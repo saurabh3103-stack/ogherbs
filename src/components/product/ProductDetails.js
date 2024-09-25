@@ -92,15 +92,14 @@ const ProductDetails = () => {
             api.getProductbyId(city.city?.latitude ? city.city?.latitude : setting?.setting?.default_city?.latitude, city.city?.longitude ? city.city?.longitude : setting?.setting?.default_city?.longitude, -1, user?.jwtToken, slug)
                 .then(response => response.json())
                 .then(result => {
-                 
                     if (result.status === 1) {
                         dispatch(setSelectedProduct({ data: result?.data[0]?.id }));
                         setproductdata(result.data);
                         setVariantIndex(result.data.variants[0]?.id);
-                        setSelectedVariant(result.data.variants?.length > 0 && result.data.variants.find((element) => element.id === variant_index) ? result.data.variants.find((element) => element.id === variant_index) : result.data.variants[0]);
+                        setSelectedVariant(result.data.variants?.length > 0 && result.data.variants.find((element) => element.id == variant_index) ? result.data.variants.find((element) => element.id == variant_index) : result.data.variants[0]);
                         setmainimage(result.data.image_url);
                         setimages(result.data.images);
-                        setproductbrand(shop?.shop?.brands?.find((brand) => brand?.id === result?.data?.brand_id));
+                        setproductbrand(shop?.shop?.brands?.find((brand) => brand?.id == result?.data?.brand_id));
                     };
                 })
                 .catch(error => {
@@ -156,14 +155,14 @@ const ProductDetails = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    if (cart?.cartProducts?.find((product) => (product?.product_id === product_id) && (product?.product_variant_id === product_variant_id))?.qty === undefined) {
+                    if (cart?.cartProducts?.find((product) => (product?.product_id == product_id) && (product?.product_variant_id == product_variant_id))?.qty == undefined) {
                         dispatch(setCart({ data: result }));
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                         const updatedCartCount = [...cart?.cartProducts, { product_id: product_id, product_variant_id: product_variant_id, qty: qty }];
                         dispatch(setCartProducts({ data: updatedCartCount }));
                     } else {
                         const updatedProducts = cart?.cartProducts?.map(product => {
-                            if ((product.product_id === product_id) && (product?.product_variant_id === product_variant_id)) {
+                            if ((product.product_id == product_id) && (product?.product_variant_id == product_variant_id)) {
                                 return { ...product, qty: qty };
                             } else {
                                 return product;
@@ -174,7 +173,7 @@ const ProductDetails = () => {
                         dispatch(setCartSubTotal({ data: result?.data?.sub_total }));
                     }
                 }
-                else if (result?.data?.one_seller_error_code === 1) {
+                else if (result?.data?.one_seller_error_code == 1) {
                     dispatch(setSellerFlag({ data: 1 }));
                     // console.log(result.message);
                     // toast.error(t(`${result.message}`));
@@ -196,7 +195,7 @@ const ProductDetails = () => {
                     // toast.success(result.message);
                     dispatch(setCartSubTotal({ data: result?.sub_total }));
                     const updatedCartProducts = cart?.cartProducts?.filter(product => {
-                        if (product?.product_variant_id !== product_variant_id) {
+                        if (product?.product_variant_id != product_variant_id) {
                             return product;
                         }
                     });
@@ -236,7 +235,7 @@ const ProductDetails = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id !== product_id);
+                    const updatedFavouriteProducts = favorite?.favouriteProductIds.filter(id => id != product_id);
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength - 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -349,22 +348,22 @@ const ProductDetails = () => {
 
     const handleValidateAddExistingProduct = (productQuantity, productdata) => {
         if (Number(productdata.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id === productdata?.id)?.qty >= Number(productdata?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == productdata?.id)?.qty >= Number(productdata?.total_allowed_quantity)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
-                addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty + 1);
+                addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty + 1);
             }
         }
         else {
-            if (productQuantity?.find(prdct => prdct?.product_id === productdata?.id)?.qty >= Number(selectedVariant.stock)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == productdata?.id)?.qty >= Number(selectedVariant.stock)) {
                 toast.error(t("limited_product_stock_error"));
             }
-            else if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty >= Number(setting.setting.max_cart_items_count)) {
+            else if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty >= Number(setting.setting.max_cart_items_count)) {
                 toast.error(t("max_cart_limit_error"));
             }
             else {
-                addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty + 1);
+                addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty + 1);
             }
         }
 
@@ -372,7 +371,7 @@ const ProductDetails = () => {
 
     const handleValidateAddNewProduct = (productQuantity, productdata) => {
         if (user?.jwtToken !== "") {
-            if (productQuantity?.find(prdct => prdct?.product_id === productdata?.id)?.qty >= Number(productdata?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == productdata?.id)?.qty >= Number(productdata?.total_allowed_quantity)) {
                 toast.error(t("limited_product_stock_error"));
             }
             else if (Number(productdata.is_unlimited_stock)) {
@@ -395,7 +394,7 @@ const ProductDetails = () => {
 
     const handleValidateAddExistingGuestProduct = (productQuantity, product, quantity) => {
         if (Number(product.is_unlimited_stock)) {
-            if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error('Apologies, maximum product quantity limit reached');
             }
             else {
@@ -406,7 +405,7 @@ const ProductDetails = () => {
             if (selectedVariant.cart_count >= Number(selectedVariant.stock)) {
                 toast.error('Oops, Limited Stock Available');
             }
-            else if (productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
+            else if (productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty >= Number(product?.total_allowed_quantity)) {
                 toast.error('Apologies, maximum cart quantity limit reached');
             }
             else {
@@ -418,7 +417,7 @@ const ProductDetails = () => {
     const AddToGuestCart = (productId, productVariantId, Qty, isExisting) => {
         if (isExisting) {
             const updatedProducts = cart?.guestCart?.map((product) => {
-                if (product?.product_id === productId && product?.product_variant_id === productVariantId) {
+                if (product?.product_id == productId && product?.product_variant_id == productVariantId) {
                     return { ...product, qty: Qty };
                 } else {
                     return product;
@@ -432,7 +431,7 @@ const ProductDetails = () => {
     };
 
     const handleAddNewProductGuest = (productQuantity, product) => {
-        if ((productQuantity?.find(prdct => prdct?.product_id === product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
+        if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
             AddToGuestCart(product.id, selectedVariant.id, 1, 0);
         } else {
             toast.error(t("max_cart_limit_error"));
@@ -443,7 +442,7 @@ const ProductDetails = () => {
         <>
             {loading && <Loader screen="full" background="none" />}
             {!isNetworkError ?
-                <div className='product-details-view' style={{ marginTop: "50px" }}>
+                <div className='product-details-view'>
                     <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
                         <div className='container d-flex align-items-center gap-2'>
                             <div className='breadCrumbsItem'>
@@ -451,7 +450,7 @@ const ProductDetails = () => {
                             </div>
                             <div className='breadCrumbsItem'>/</div>
                             <div className='breadCrumbsItem'>
-                                <Link className={location.pathname.split("/").findIndex(loc => loc === productdata?.slug) !== -1 ? "breadCrumbActive" : ""} to={location?.pathname}>{productdata?.name}</Link>
+                                <Link className={location.pathname.split("/").findIndex(loc => loc == productdata?.slug) !== -1 ? "breadCrumbActive" : ""} to={location?.pathname}>{productdata?.name}</Link>
                             </div>
                         </div>
                     </div>
@@ -462,13 +461,10 @@ const ProductDetails = () => {
                                 <Loader width={"100%"} height={"600px"} background={"var(--second-cards-color"} />
                                 : (
                                     <div className='row body-wrapper '>
-                                        <div className="col-xl-8 col-lg-8 col-md-12 col-12">
-                                            <div className='image-wrapper ' >
-                                                <div className='main-image d-flex flex-row border border-secondary rounded p-4'>
-                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' className='w-70 img-fluid' />
-
-                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' style={{margin:"auto"}} className='mb-2 img-fluid' id="imgissue" />
-
+                                        <div className="col-xl-3 col-lg-4 col-md-12 col-12">
+                                            <div className='image-wrapper '>
+                                                <div className='main-image col-12 border'>
+                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' className='col-12' />
                                                 </div>
                                                 <div className='sub-images-container'>
                                                     {images.length >= 1 ?
@@ -499,7 +495,7 @@ const ProductDetails = () => {
                                                             {images?.map((image, index) => {
                                                                 return (
                                                                     <SwiperSlide>
-                                                                        <div key={index} className={`sub-image border ${mainimage === image ? 'active' : ''}`}>
+                                                                        <div key={index} className={`sub-image border ${mainimage == image ? 'active' : ''}`}>
                                                                             <img onError={placeHolderImage} src={image} className='col-12' alt="product" onClick={() => {
                                                                                 setmainimage(image);
                                                                             }} />
@@ -524,10 +520,10 @@ const ProductDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-xl-4 col-lg-4 col-md-12 col-12">
+                                        <div className="col-xl-9 col-lg-8 col-md-12 col-12">
                                             <div className='detail-wrapper'>
-                                                <div className='top-section '>
-                                                    <p className='product_name text-uppercase'>{productdata.name}</p>
+                                                <div className='top-section'>
+                                                    <p className='product_name'>{productdata.name}</p>
                                                     {/* {Object.keys(productbrand).length === 0
                                                     ? null
                                                     : (
@@ -543,7 +539,7 @@ const ProductDetails = () => {
                                                     )} */}
                                                     <div className='d-flex flex-column gap-2 align-items-start my-1'>
                                                         <div id="price-section" className='d-flex flex-row gap-2 align-items-center my-1'>
-                                                            {setting.setting && setting.setting.currency}<p id='fa-rupee' className='m-0'>{selectedVariant ? (selectedVariant.discounted_price === 0 ? selectedVariant.price.toFixed(setting.setting && setting.setting.decimal_point) : selectedVariant.discounted_price.toFixed(setting.setting && setting.setting.decimal_point)) : (productdata.variants[0].discounted_price === 0 ? productdata.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : productdata.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point))}</p>
+                                                            {setting.setting && setting.setting.currency}<p id='fa-rupee' className='m-0'>{selectedVariant ? (selectedVariant.discounted_price == 0 ? selectedVariant.price.toFixed(setting.setting && setting.setting.decimal_point) : selectedVariant.discounted_price.toFixed(setting.setting && setting.setting.decimal_point)) : (productdata.variants[0].discounted_price === 0 ? productdata.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : productdata.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point))}</p>
                                                         </div>
                                                         {(selectedVariant?.price && (selectedVariant?.discounted_price !== 0)) && (selectedVariant?.price !== selectedVariant?.discounted_price) ?
                                                             <div>
@@ -568,7 +564,7 @@ const ProductDetails = () => {
                                                                             <div className={`variant-element ${variant_index === variant.id ? 'active' : ''}   `} key={index}>
                                                                                 <label className="element_container " htmlFor={`variant${index}`}>
                                                                                     <div className="top-section">
-                                                                                        <input type="radio" name="variant" id={`variant${index}`} checked={variant_index === variant.id} onChange={() => handleVariantChange(variant, variant.id)} />
+                                                                                        <input type="radio" name="variant" id={`variant${index}`} checked={variant_index == variant.id} onChange={() => handleVariantChange(variant, variant.id)} />
                                                                                     </div>
                                                                                     <div className="h-100">
                                                                                         <span className="d-flex align-items-center flex-column variantMeasure">{variant.measurement} {variant.stock_unit_name} </span>
@@ -583,8 +579,8 @@ const ProductDetails = () => {
                                                         </div>
                                                         <div className="cart_option">
                                                             {selectedVariant ?
-                                                                ((cart?.isGuest === false && user?.user && cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty >= 1)
-                                                                    || (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty > 0)
+                                                                ((cart?.isGuest === false && user?.user && cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty >= 1)
+                                                                    || (cart?.isGuest === true && cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty > 0)
                                                                     ? <>
                                                                         <div id={`input-cart-quickview`} className="input-to-cart">
                                                                             <button
@@ -594,15 +590,15 @@ const ProductDetails = () => {
                                                                                         AddToGuestCart(
                                                                                             productdata?.id,
                                                                                             selectedVariant?.id,
-                                                                                            cart?.guestCart?.find(prdct => prdct.product_id === productdata.id && prdct.product_variant_id === selectedVariant?.id)?.qty - 1,
+                                                                                            cart?.guestCart?.find(prdct => prdct.product_id == productdata.id && prdct.product_variant_id == selectedVariant?.id)?.qty - 1,
                                                                                             1
                                                                                         );
                                                                                     } else {
-                                                                                        if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty === 1) {
+                                                                                        if (cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty == 1) {
                                                                                             removefromCart(productdata.id, selectedVariant.id);
                                                                                         }
                                                                                         else {
-                                                                                            addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty - 1);
+                                                                                            addtoCart(productdata.id, selectedVariant.id, cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty - 1);
                                                                                         }
                                                                                     }
                                                                                 }}
@@ -613,9 +609,9 @@ const ProductDetails = () => {
                                                                             <span id={`input-quickview`}>
                                                                                 {cartLoader ? <div className="spinner-border text-muted"></div> :
                                                                                     cart?.isGuest === false ?
-                                                                                        cart?.cartProducts?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty
+                                                                                        cart?.cartProducts?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty
                                                                                         :
-                                                                                        cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant.id)?.qty
+                                                                                        cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant.id)?.qty
                                                                                 }
                                                                             </span>
 
@@ -627,7 +623,7 @@ const ProductDetails = () => {
                                                                                         handleValidateAddExistingGuestProduct(
                                                                                             productQuantity,
                                                                                             productdata,
-                                                                                            cart?.guestCart?.find(prdct => prdct?.product_variant_id === selectedVariant?.id)?.qty + 1
+                                                                                            cart?.guestCart?.find(prdct => prdct?.product_variant_id == selectedVariant?.id)?.qty + 1
                                                                                         );
                                                                                     } else {
                                                                                         const productQuantity = getProductQuantities(cart?.cartProducts);
@@ -657,7 +653,7 @@ const ProductDetails = () => {
                                                                             }}>{t("add_to_cart")}</button>
                                                                     </>)
                                                                 : null}
-                                                            {favorite.favorite && favorite?.favouriteProductIds?.some(id => id === productdata.id) ? (
+                                                            {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == productdata.id) ? (
                                                                 <button type="button" className='wishlist-product' onClick={() => {
                                                                     if (user?.jwtToken !== "") {
                                                                         removefromFavorite(productdata.id);
@@ -716,7 +712,7 @@ const ProductDetails = () => {
                                                             </OverlayTrigger>
                                                         </div> : null}
                                                     {productdata?.indicator ?
-                                                        productdata?.indicator === 1 ?
+                                                        productdata?.indicator == 1 ?
                                                             <div className='d-flex align-items-center mt-3'>
                                                                 <img src={VegIcon} alt='vegIcon' className='me-3' />
                                                                 {t("vegetarian")}
@@ -727,32 +723,32 @@ const ProductDetails = () => {
                                                                 {t("non-vegetarian")}
                                                             </div>
                                                         : null}
-                                                    {productdata?.cancelable_status === 1 ?
+                                                    {productdata?.cancelable_status == 1 ?
                                                         <div className='d-flex align-items-center mt-3 cancelContainer'>
                                                             <img src={Cancelable} alt='cancelableIcon' className='me-3' />
                                                             <span className='cancelDetail'>
                                                                 {t("cancelable")}
-                                                                {productdata?.till_status === 1 ?
+                                                                {productdata?.till_status == 1 ?
                                                                     t("payment_pending")
                                                                     :
                                                                     null
                                                                 }
-                                                                {productdata?.till_status === 2 ?
+                                                                {productdata?.till_status == 2 ?
                                                                     t("received")
                                                                     :
                                                                     null
                                                                 }
-                                                                {productdata?.till_status === 3 ?
+                                                                {productdata?.till_status == 3 ?
                                                                     t("processed")
                                                                     :
                                                                     null
                                                                 }
-                                                                {productdata?.till_status === 4 ?
+                                                                {productdata?.till_status == 4 ?
                                                                     t("shipped")
                                                                     :
                                                                     null
                                                                 }
-                                                                {productdata?.till_status === 5 ?
+                                                                {productdata?.till_status == 5 ?
                                                                     t("out_for_delivery")
                                                                     :
                                                                     null
@@ -765,7 +761,7 @@ const ProductDetails = () => {
                                                             <span className='cancelDetail'>{t("non-cancelable")}</span>
                                                         </div>
                                                     }
-                                                    {productdata?.return_status === 1 ?
+                                                    {productdata?.return_status == 1 ?
                                                         <div className='d-flex align-items-center mt-3 returnContainer'>
                                                             <img src={Returnable} alt='returnableIcon' className='me-3' />
                                                             <span className='returnDetail'>{t("returnable")} {productdata?.return_days} {t("days")}</span>
@@ -900,7 +896,7 @@ const ProductDetails = () => {
                                                                                 {setting.setting && setting.setting.currency}
                                                                                 {related_product.variants[0].discounted_price === 0 ? related_product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : related_product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                             </p>
-                                                                            {(related_product?.variants[0]?.price && (related_product?.variants[0]?.discounted_price !== 0)) && (related_product?.variants[0]?.price !== related_product?.variants[0]?.discounted_price) ?
+                                                                            {(related_product?.variants[0]?.price && (related_product?.variants[0]?.discounted_price != 0)) && (related_product?.variants[0]?.price !== related_product?.variants[0]?.discounted_price) ?
                                                                                 <span id={`price${index}-section`} className="d-flex align-items-center" >
                                                                                     <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}
                                                                                         {related_product?.variants[0]?.price?.toFixed(setting.setting && setting.setting.decimal_point)}
