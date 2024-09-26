@@ -882,7 +882,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
         const { slideCount, currentSlide, ...remainingProps } = props;
         return (
             <button {...remainingProps} type="button" className="slick-prev">
-                <FaChevronLeft fill='black' size={30} className="prev-arrow" />
+                <FaChevronLeft fill='black' size={30} className
+                ="prev-arrow" />
             </button>
         );
     };
@@ -1058,30 +1059,15 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}>{t('see_all')}</Link>
                                                     </div>
                                                 </div>
-                                                <div className="col-1 d-flex align-items-center justify-content-center">
-                                                    <FaCircleChevronLeft className="swiper-button-prev" size={40} style={{
-                                                        position: 'absolute',
-                                                        top: '75%', // Adjusting position
-                                                        zIndex: 10,
-                                                        color: 'var(--swiper-navigation-color)', // Ensure color applies
-                                                        display: 'flex',
-                                                        cursor: 'pointer',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
-                                                        height: 'var(--swiper-navigation-size)',
-                                                        marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
-                                                        important: 'true',
-                                                        color: cssmode.cssmode === 'dark' ? 'white' : 'black',
-                                                        left: 'var(--swiper-navigation-sides-offset, 1px)',
-                                                        right: 'auto'
+                                                <div className="col-1 d-flex align-items-center justify-content-center" style={{zIndex:1}}>
 
-                                                        // This won't work in React, but inline should still take priority
-                                                    }} />
                                                 </div>
-                                                <div className="product_section_content p-0">
+                                                <div className="product_section_content p-0" style={{zIndex:1}}>
+                                               
 
-                                                    <Swiper
+                                                    <Swiper style={{zIndex:1}}
+                                                    
+
                                                         //  ref={swiperRef}  // Assign Swiper reference                                                    spaceBetween={5}
                                                         slidesPerView={6}
                                                         spaceBetween={10}
@@ -1106,6 +1092,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
                                                         }}
                                                     >
+                                                         <FaCircleChevronLeft className="swiper-button-prev medium"size={40} />
+                                                        
                                                         {section?.products?.map((product, index) => (
                                                             <div className="row" key={index}>
                                                                 <div className="col-md-12">
@@ -1309,34 +1297,20 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
                                                                             </div>
                                                                         </div>
-                                                                       
+
 
 
                                                                     </SwiperSlide>
                                                                 </div>
                                                             </div>
                                                         ))}
+                                                        <FaCircleChevronRight className="swiper-button-next" size={40}
+
+                                                            />
                                                     </Swiper>
                                                 </div>
                                                 <div className="col-1 d-flex align-items-center justify-content-center">
-                                                    <FaCircleChevronRight className="swiper-button-next" size={40}
 
-                                                        style={{
-                                                            position: 'absolute',
-                                                            top: '58%', // Adjusting position
-                                                            zIndex: 10,
-                                                            color: 'var(--swiper-navigation-color)', // Ensure color applies
-                                                            display: 'flex',
-                                                            cursor: 'pointer',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'center',
-                                                            width: 'calc(var(--swiper-navigation-size) / 44 * 27)',
-                                                            height: 'var(--swiper-navigation-size)',
-                                                            marginTop: 'calc(0px - (var(--swiper-navigation-size) / 2))',
-                                                            important: 'true',
-                                                            color: cssmode.cssmode === 'dark' ? 'white' : 'black',
-                                                            // This won't work in React, but inline should still take priority
-                                                        }} />
                                                 </div>
 
 

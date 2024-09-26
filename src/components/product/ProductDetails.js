@@ -216,7 +216,8 @@ const ProductDetails = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = [...favorite.favouriteProductIds, product_id];
+                    const updatedFavouriteProducts = [ ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
+                    product_id];
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength + 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -442,7 +443,7 @@ const ProductDetails = () => {
         <>
             {loading && <Loader screen="full" background="none" />}
             {!isNetworkError ?
-                <div className='product-details-view'>
+                <div className='product-details-view' >
                     <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
                         <div className='container d-flex align-items-center gap-2'>
                             <div className='breadCrumbsItem'>
@@ -461,7 +462,7 @@ const ProductDetails = () => {
                                 <Loader width={"100%"} height={"600px"} background={"var(--second-cards-color"} />
                                 : (
                                     <div className='row body-wrapper '>
-                                        <div className="col-xl-3 col-lg-4 col-md-12 col-12">
+                                        <div className="col-xl-7 col-lg-7 col-md-12 col-12">
                                             <div className='image-wrapper '>
                                                 <div className='main-image col-12 border'>
                                                     <img onError={placeHolderImage} src={mainimage} alt='main-product' className='col-12' />
@@ -520,7 +521,7 @@ const ProductDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-xl-9 col-lg-8 col-md-12 col-12">
+                                        <div className="col-xl-5 col-lg-5 col-md-12 col-12">
                                             <div className='detail-wrapper'>
                                                 <div className='top-section'>
                                                     <p className='product_name'>{productdata.name}</p>

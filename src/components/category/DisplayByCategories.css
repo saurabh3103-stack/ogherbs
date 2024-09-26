@@ -1,105 +1,70 @@
-/* Ensure global theme variables are applied */
 .categories {
     background-color: var(--body-background);
-    padding: 20px;
-  }
-  
-  .category-container {
+    padding: 30px; /* Added padding */
+}
+
+.category-container {
     margin-top: 20px;
-  }
-  
-  .category-link {
-    padding: 10px;
-    border-radius: 8px;
+}
+
+.category-link {
+    padding: 15px;
+    border-radius: 10px;
     transition: background-color 0.3s ease-in-out, transform 0.3s;
     background-color: var(--second-cards-color);
     color: var(--font-color);
     cursor: pointer;
-  }
-  
-  .category-link:hover {
-    background-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Added shadow */
+}
+
+.category-link:hover {
+    background-color: whitesmoke;
     color: white;
     transform: scale(1.05);
-  }
-  
-  .category-title {
-    font-size: 1.6rem;
+}
+
+.category-title {
+    font-size: 1.4rem; /* Adjusted font size */
     font-weight: bold;
     color: var(--primary-color);
-  }
-  
-  .category-subtitle {
-    font-size: 1.2rem;
+}
+
+.category-subtitle {
+    font-size: 1rem; /* Adjusted subtitle font size */
     color: var(--sub-text-color);
-  }
-  
-  /* .category-image {
-    width: 70px;
-    height: 70px;
-    background-position: center;
-    background-size: cover;
-    border-radius: 50%;
-    border: 2px solid var(--secondary-color);
-  } */
-  
-  /* Adjust styles for smaller screens */
-  @media (max-width: 768px) {
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
     .category-link {
-      padding: 8px;
+        padding: 8px;
     }
-  
+
     .category-title {
-      font-size: 1.4rem;
+        font-size: 1.2rem;
     }
-  
+
     .category-subtitle {
-      font-size: 1.1rem;
+        font-size: 0.9rem;
     }
-  
-    .category-image {
-      width: 60px;
-      height: 60px;
-    }
-  }
-
-/* .swiper-button-prev,
-.swiper-button-next {
-    cursor: pointer;
-    color: var(--primary-color);
-    transition: color 0.3s ease;
 }
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-    color: var(--secondary-color);
-}
-
-/* Responsive design */
-/* @media (max-width: 768px) {
-    .category-image {
-        width: 70px;
-        height: 70px;
-    }
-/* } */ 
 
 .outer-circle {
-  width: 100px; /* Circle size */
-  height: 100px;
-  border-radius: 50%; /* Make it circular */
-  border: 5px solid #fff; /* Outer border */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f8f9fa; /* Optional: Background color of the outer circle */
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
 }
 
 .inner-image {
-  width: 85%; /* Control the inner image size to leave padding */
-  height: 85%;
-  background-position: center;
-  background-size: contain; /* Ensure the full image is visible */
-  background-repeat: no-repeat;
-/* Keep the inner div circular */
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

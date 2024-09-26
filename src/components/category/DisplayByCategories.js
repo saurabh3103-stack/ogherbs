@@ -59,7 +59,7 @@ const DisplayByCategories = () => {
                 <div className="col-md-12 category-container">
                     <Swiper
                         ref={swiperRef}  // Assign Swiper reference
-                        spaceBetween={5}
+                        spaceBetween={0}
                         slidesPerView={6}
                         navigation={{
                             prevEl: '.swiper-button-prev',
@@ -67,7 +67,7 @@ const DisplayByCategories = () => {
                         }}
                         modules={[Autoplay, Navigation]}
                         autoplay={{
-                            delay: 1500,
+                            delay: 15000000000,
                             disableOnInteraction: false,
                             pauseOnMouseEnter:true // Allows autoplay after interaction
                         }}
@@ -76,20 +76,20 @@ const DisplayByCategories = () => {
                             320: { slidesPerView: 3 },
                             576: { slidesPerView: 4 },
                             768: { slidesPerView: 5 },
-                            992: { slidesPerView: 6 },
+                            992: { slidesPerView: 7 },
                         }}
                     >
                         {categories.map(category => (
                             <SwiperSlide key={category.id}>
                                 <div
-                                    className="category-link cursor-pointer"
-                                    onClick={() => {
-                                        dispatch(setFilterCategory({ data: category.id.toString() }));
-                                        navigate("/products");
-                                    }}
+                                    className=""
+                                    
                                 >
                                     <div className='d-flex justify-content-evenly'>
-                                    <div class="outer-circle">
+                                    <div class="outer-circle category-link cursor-pointer" onClick={() => {
+                                        dispatch(setFilterCategory({ data: category.id.toString() }));
+                                        navigate("/products");
+                                    }}>
                                         <div
                                             className='inner-image'
                                             style={{
@@ -104,7 +104,7 @@ const DisplayByCategories = () => {
                                             className="category-title" 
                                             style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
                                         >
-                                            {t(category.name)}
+                                            {/* {t(category.name)} */}
                                         </h5>
                                         {/* <p className="category-subtitle text-muted">{t(category.subtitle)}</p> */}
                                     </div>
