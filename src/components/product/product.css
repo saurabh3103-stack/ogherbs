@@ -305,18 +305,16 @@ a:focus .product-card {
 
 .out_of_stockOverlay {
   position: absolute;
-  top: 0;
+  top: 473px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 20%;
   background-color: rgba(0, 0, 0, 0.6);
-  /* set opacity to 60% */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px 5px 0 0;
   z-index: 1;
-  /* make sure it's on top of the image */
 }
 
 .out_of_stockText {
@@ -487,8 +485,13 @@ a:focus .product-card {
   padding: 6px;
 
 }
-@media (max-width: 480px){
-  
+
+.product-card .product-card-footer .input-to-cart {
+  background: var(--secondary-color);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 /* mayank changes */
@@ -784,10 +787,6 @@ input::placeholder {
   color: black !important;
   font-weight: 500;
   font-size: 14px !important;
-
-}
-.product-details-view{
-  margin-top: 50px;
 }
 
 .product-details-view .top-wrapper {
@@ -1819,5 +1818,3 @@ input::placeholder {
     width: 14vw;
   }
 }
-
-

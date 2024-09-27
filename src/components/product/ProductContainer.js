@@ -1077,7 +1077,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}
                                                         modules={[Autoplay, Navigation]}
                                                         autoplay={{
-                                                            delay: 1500,
+                                                            delay: 15000000000,
                                                             disableOnInteraction: false,
                                                             pauseOnMouseEnter: true// Allows autoplay after interaction
                                                         }}
