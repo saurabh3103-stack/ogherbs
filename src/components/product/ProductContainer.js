@@ -687,6 +687,8 @@ import { toast } from 'react-toastify';
 import QuickViewModal from './QuickViewModal';
 import { FacebookIcon, FacebookShareButton, TelegramIcon, TelegramShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share';
 import { IoIosArrowDown } from 'react-icons/io';
+import { Dropdown } from 'react-bootstrap';
+
 import { useTranslation } from 'react-i18next';
 
 import { addtoGuestCart, setCart, setCartProducts, setCartSubTotal, setSellerFlag } from "../../model/reducer/cartReducer";
@@ -883,7 +885,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
         return (
             <button {...remainingProps} type="button" className="slick-prev">
                 <FaChevronLeft fill='black' size={30} className
-                ="prev-arrow" />
+                    ="prev-arrow" />
             </button>
         );
     };
@@ -1059,14 +1061,14 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}>{t('see_all')}</Link>
                                                     </div>
                                                 </div>
-                                                <div className="col-1 d-flex align-items-center justify-content-center" style={{zIndex:1}}>
+                                                <div className="col-1 d-flex align-items-center justify-content-center" style={{ zIndex: 1 }}>
 
                                                 </div>
-                                                <div className="product_section_content p-0" style={{zIndex:1}}>
-                                               
+                                                <div className="product_section_content p-0" style={{ zIndex: 1 }}>
 
-                                                    <Swiper style={{zIndex:1}}
-                                                    
+
+                                                    <Swiper style={{ zIndex: 1 }}
+
 
                                                         //  ref={swiperRef}  // Assign Swiper reference                                                    spaceBetween={5}
                                                         slidesPerView={6}
@@ -1077,7 +1079,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         }}
                                                         modules={[Autoplay, Navigation]}
                                                         autoplay={{
-                                                            delay: 15000000000,
+                                                            delay: 60000000,
                                                             disableOnInteraction: false,
                                                             pauseOnMouseEnter: true// Allows autoplay after interaction
                                                         }}
@@ -1092,8 +1094,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
                                                         }}
                                                     >
-                                                         <FaCircleChevronLeft className="swiper-button-prev medium"size={40} />
-                                                        
+                                                        <FaCircleChevronLeft className="swiper-button-prev medium" size={40} />
+
                                                         {section?.products?.map((product, index) => (
                                                             <div className="row" key={index}>
                                                                 <div className="col-md-12">
@@ -1182,6 +1184,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                             <input
                                                                                                 type="number"
                                                                                                 min="1"
+
                                                                                                 max={product.variants[0].stock}
                                                                                                 className="quantity-input bg-transparent text-center"
                                                                                                 // value={product.variants[0].cart_count} 
@@ -1208,26 +1211,48 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 </> : <>
                                                                                 </>}
                                                                             </div>
+                                                                            <Dropdown drop="up" className="share">
+                                                                                <Dropdown.Toggle
+                                                                                    className='w-100 h-100 shareBtn px-3 border border-light rounded-circle'
+                                                                                    style={{ padding: '10px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                                                                >
+                                                                                    <BsShare size={16} style={{ color: "var(--font-color)" }} />
+                                                                                </Dropdown.Toggle>
 
-                                                                            <div className='dropup share'>
-                                                                                <button type="button" className='w-100 h-100 shareBtn px-3  border border-light rounded-circle' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
-
-                                                                                <ul className='dropdown-menu' style={{ width: "40px" }}>
-                                                                                    <li className='dropDownLi'><WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><WhatsappIcon size={18} round={true} /> </WhatsappShareButton></li>
-                                                                                    <li className='dropDownLi'><TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><TelegramIcon size={18} round={true} /> </TelegramShareButton></li>
-                                                                                    <li className='dropDownLi'><FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}><FacebookIcon size={18} round={true} /> </FacebookShareButton></li>
-                                                                                    <li className='dropDownLi'>
-                                                                                        <button type='button' onClick={() => {
-                                                                                            navigator.clipboard.writeText(`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`);
-                                                                                            toast.success("Copied Succesfully!!");
-                                                                                        }} className="react-share__ShareButtonb"> <BiLink size={18} /> </button>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
+                                                                                <Dropdown.Menu style={{ width: "50px", padding: "5px", textAlign: "center",borderRadius:"10px" }} className='hide-pointer'>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                        <WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                            <WhatsappIcon size={30} round />
+                                                                                        </WhatsappShareButton>
+                                                                                    </Dropdown.Item>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                        <TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                            <TelegramIcon size={30} round />
+                                                                                        </TelegramShareButton>
+                                                                                    </Dropdown.Item>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                        <FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                            <FacebookIcon size={30} round />
+                                                                                        </FacebookShareButton>
+                                                                                    </Dropdown.Item>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center' }}>
+                                                                                        <button
+                                                                                            type='button'
+                                                                                            onClick={() => {
+                                                                                                navigator.clipboard.writeText(`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`);
+                                                                                                toast.success("Copied Successfully!!");
+                                                                                            }}
+                                                                                            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                                                                                        >
+                                                                                            <BiLink size={18} />
+                                                                                        </button>
+                                                                                    </Dropdown.Item>
+                                                                                </Dropdown.Menu>
+                                                                            </Dropdown>
                                                                         </div>
 
-                                                                        <div className="card-body product-card-body p-3" >
-                                                                            {product?.rating_count > 0 ?
+                                                                        <div className="card-body product-card-body p-3">
+                                                                            {product?.rating_count > 0 ? (
                                                                                 <div className='ratings d-flex align-items-center'>
                                                                                     <LuStar className='me-2' style={{ fill: "#fead0e", stroke: "#fead0e" }} />
                                                                                     <div className='border-end border-2 pe-2 me-2 avgRating'>
@@ -1236,65 +1261,64 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                     <div>
                                                                                         {product?.rating_count}
                                                                                     </div>
-                                                                                </div> : null}
+                                                                                </div>
+                                                                            ) : null}
+
                                                                             <h3>{product.name}</h3>
+
                                                                             <div className='price d-flex flex-row'>
                                                                                 <span id={`price${index}${index0}-section`} className="d-flex align-items-center">
                                                                                     <p id='fa-rupee' className='m-0'>
                                                                                         {setting.setting && setting.setting.currency}
-                                                                                        {product.variants[0].discounted_price === 0 ? product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point) : product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
+                                                                                        {product.variants[0].discounted_price === 0
+                                                                                            ? product.variants[0].price.toFixed(setting.setting && setting.setting.decimal_point)
+                                                                                            : product.variants[0].discounted_price.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                                     </p>
-                                                                                    {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price != 0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ?
-                                                                                        <span id={`price${index}-section`} className="d-flex align-items-center" >
-                                                                                            <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>{setting.setting && setting.setting.currency}
+
+                                                                                    {/* Display the original price if there's a discount */}
+                                                                                    {(product?.variants[0]?.price && (product?.variants[0]?.discounted_price !== 0)) && (product?.variants[0]?.price !== product?.variants[0]?.discounted_price) ? (
+                                                                                        <span id={`price${index}-section`} className="d-flex align-items-center">
+                                                                                            <p id='relatedproduct-fa-rupee' className='fw-normal text-decoration-line-through m-0' style={{ color: "var(--sub-text-color)", fontSize: "14px" }}>
+                                                                                                {setting.setting && setting.setting.currency}
                                                                                                 {product?.variants[0]?.price?.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                                             </p>
                                                                                         </span>
-                                                                                        : null}
-                                                                                </span>
+                                                                                    ) : null}
 
-                                                                                <button type="button" id={`Add-to-cart-section${index}${index0}`} className='w-100 h-100 add-to-cart active' onClick={() => {
-                                                                                    if (cart?.isGuest) {
-                                                                                        const productQuantity = getProductQuantities(cart?.guestCart);
-                                                                                        handleAddNewProductGuest(
-                                                                                            productQuantity,
-                                                                                            product
-                                                                                        );
-                                                                                    }
-                                                                                    else if (user?.jwtToken !== "") {
-                                                                                        const productQuantity = getProductQuantities(cart?.cartProducts);
-                                                                                        if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
-                                                                                            addtoCart(product.id, product.variants[0].id, 1);
-                                                                                        } else {
-                                                                                            toast.error(t("out_of_stock_message"));
-                                                                                        }
-                                                                                    }
-                                                                                    else {
-                                                                                        toast.error(t("required_login_message_for_cartRedirect"));
-                                                                                    }
-
-                                                                                }} disabled={!Number(product.is_unlimited_stock) && product.variants[0].stock <= 0}>{t('ADD')}</button>
-
-                                                                            </div>
-                                                                            <div className='product_varients_drop'>
-                                                                                <input type="hidden" name={`select-product${index}${index0}-variant-id`} id={`select-product${index}${index0}-variant-id`} value={selectedVariant.pid === product.id ? selectedVariant.id : product.variants[0].id} />
-                                                                                {/* {console.log(product, product.variants)} */}
-                                                                                {product.variants.length > 1 ? <>
-                                                                                    <div className='variant_selection' onClick={() => { setselectedProduct(product); setShowModal(true); setP_id(product.id); setP_V_id(product.variants[0].id); setQnty(product.variants[0].cart_count + 1); }} >
-                                                                                        <span>{<>{product.variants[0].measurement} {product.variants[0].stock_unit_name} </>}</span>
-                                                                                        <IoIosArrowDown />
-                                                                                    </div>
-                                                                                </>
-                                                                                    :
-                                                                                    <>
-
-                                                                                        {/* {document.getElementById()} */}
-                                                                                        <span className={`variant_value select-arrow ${product.variants[0].stock > 0 ? '' : ''}`}>{product.variants[0].measurement + " " + product.variants[0].stock_unit_name}
+                                                                                    {/* Calculate and display the discount percentage */}
+                                                                                    {(product?.variants[0]?.price && product?.variants[0]?.discounted_price !== 0 && product?.variants[0]?.price !== product?.variants[0]?.discounted_price) && (
+                                                                                        <span className="ms-2 discoutPercentage" style={{ fontSize: "1.6rem" }}>
+                                                                                            ({Math.round(((product.variants[0].price - product.variants[0].discounted_price) / product.variants[0].price) * 100)}% OFF)
                                                                                         </span>
-                                                                                    </>}
+                                                                                    )}
+                                                                                </span>
+                                                                            </div>
 
-
-
+                                                                            {/* New Row for Button */}
+                                                                            <div className="mt-3 priceBtn">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    id={`Add-to-cart-section${index}${index0}`}
+                                                                                    className='w-100 h-100 add-to-cart active'
+                                                                                    onClick={() => {
+                                                                                        if (cart?.isGuest) {
+                                                                                            const productQuantity = getProductQuantities(cart?.guestCart);
+                                                                                            handleAddNewProductGuest(productQuantity, product);
+                                                                                        } else if (user?.jwtToken !== "") {
+                                                                                            const productQuantity = getProductQuantities(cart?.cartProducts);
+                                                                                            if ((productQuantity?.find(prdct => prdct?.product_id == product?.id)?.qty || 0) < Number(product.total_allowed_quantity)) {
+                                                                                                addtoCart(product.id, product.variants[0].id, 1);
+                                                                                            } else {
+                                                                                                toast.error(t("out_of_stock_message"));
+                                                                                            }
+                                                                                        } else {
+                                                                                            toast.error(t("required_login_message_for_cartRedirect"));
+                                                                                        }
+                                                                                    }}
+                                                                                    disabled={!Number(product.is_unlimited_stock) && product.variants[0].stock <= 0}
+                                                                                >
+                                                                                    {t('ADD')}
+                                                                                </button>
                                                                             </div>
                                                                         </div>
 
@@ -1306,7 +1330,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         ))}
                                                         <FaCircleChevronRight className="swiper-button-next" size={40}
 
-                                                            />
+                                                        />
                                                     </Swiper>
                                                 </div>
                                                 <div className="col-1 d-flex align-items-center justify-content-center">

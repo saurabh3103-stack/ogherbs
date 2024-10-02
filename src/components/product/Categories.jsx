@@ -130,17 +130,17 @@ const CategoryComponent = ({ data, selectedCategories,
     return (
         <>
             {data?.map(category => (
-                <div key={category?.id} className='p-0'>
+                <div key={category?.id} className='p-0' >
                     <div key={category?.id}
                         className={`d-flex justify-content-between align-items-center filter-bar p-2 border-bottom ${expandedCategories.includes(category.id) ? 'expanded' : ''}
                             ${selectedCategories?.includes(category?.id) ? "active" : ""}
-                        `}>
-                        <div className='d-flex gap-3 align-items-baseline' onClick={() => {
+                        `}  onClick={() => {
                             handleSelectedCategories(category.id);
                         }}>
+                        <div className='d-flex gap-3 align-items-baseline'>
                             <div className='image-container'>
-                                {/* <img src={category.image_url} alt="category" /> */}
-                                <ImageWithPlaceholder src={category.image_url} alt="categoryImage" />
+                               <img src={category.image_url} alt="category" /> 
+                                {/* <ImageWithPlaceholder src={category.image_url} alt="categoryImage" /> */}
                             </div>
                             <p>{category.name}</p>
                         </div>

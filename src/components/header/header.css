@@ -957,6 +957,48 @@
 }
 
 #drop .active{
-color:var(--secondary-color) !important;
+color:white !important;
+background-color: black;
 
+
+}
+
+#drop {
+  width: 100%; /* Make sure the dropdown itself is 100% width */
+}
+
+#drop a{
+  padding:5px;
+  font-weight: 600;
+        
+  transition: transform 500ms ease-out;
+}
+#drop a:hover{
+  transform: scale(1.1);
+  
+}
+
+@media screen and (max-width: 1200px) {
+    #drop {
+        display: none !important;
+    }
+}
+
+#drop .active {
+    color: white !important;
+    background-color: black;
+}
+
+#drop {
+    width: 100%; /* Make sure the dropdown itself is 100% width */
+}
+
+#drop a {
+    padding: 5px;
+    font-weight: 600;
+    transition: transform 500ms ease-out;
+}
+
+#drop a:hover {
+    transform: scale(1.1);
 }

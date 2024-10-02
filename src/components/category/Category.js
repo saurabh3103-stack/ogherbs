@@ -51,8 +51,7 @@ const Category = () => {
             );
     };
     useEffect(() => {
-      //fetchCategory()
-       
+        // fetchCategory()
     }, []);
 
     const selectCategory = (category) => {

@@ -8,7 +8,7 @@ import { IoMdArrowDropdown, IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 import { GoLocation } from 'react-icons/go';
 import { FiMenu, FiFilter } from 'react-icons/fi';
 import { AiOutlineClose, AiOutlineCloseCircle } from 'react-icons/ai';
-import { Link, useLocation, useNavigate,NavLink } from 'react-router-dom';
+import { Link, useLocation, useNavigate, NavLink } from 'react-router-dom';
 import Location from '../location/Location';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '../../api/api';
@@ -760,50 +760,52 @@ const Header = () => {
                                 {/* Conditionally render dropdown */}
 
                                 <div className='d-flex align-items-center px-2 border-start border-end d-none d-md-block' id="dropa">
-                                    <Dropdown className='themeDropdown1 themeDropdown' style={{ zIndex: "999" }} >
-                                        <Dropdown.Toggle>
-                                            <IoMdSettings size={25} />
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {/* Theme Toggle Section */}
-                                            <div className='d-flex align-items-center px-2 border-start border-end'>
-                                                <Dropdown className='themeDropdown'>
-                                                    <Dropdown.Toggle className="d-flex align-items-center">
-                                                        <IoContrast size={30} className='me-2' />
-                                                        {t(cssmode?.cssmode)}
-                                                    </Dropdown.Toggle>
-                                                    <Dropdown.Menu>
-                                                        {cssmode?.cssmode === "dark" ? (
-                                                            <Dropdown.Item onClick={() => handleThemeChange("light")}>
-                                                                Light Mode
-                                                            </Dropdown.Item>
-                                                        ) : (
-                                                            <Dropdown.Item onClick={() => handleThemeChange("dark")}>
-                                                                Dark Mode
-                                                            </Dropdown.Item>
-                                                        )}
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </div>
+                                <Dropdown className='themeDropdown1 themeDropdown' style={{ zIndex: "999" }}>
+    <Dropdown.Toggle>
+        <IoMdSettings size={25} />
+    </Dropdown.Toggle>
+    <Dropdown.Menu style={{ borderRadius: "10%" }}>
+        {/* Theme Toggle Section */}
+        <div className='d-flex align-items-center px-2 border-start border-end'>
+            <Dropdown className='themeDropdown'>
+                <Dropdown.Toggle className="d-flex align-items-center">
+                    <IoContrast size={30} className='me-2' />
+                    {t(cssmode?.cssmode)}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {cssmode?.cssmode === "dark" ? (
+                        <Dropdown.Item onClick={() => handleThemeChange("light")}>
+                            Light Mode
+                        </Dropdown.Item>
+                    ) : (
+                        <Dropdown.Item onClick={() => handleThemeChange("dark")}>
+                            Dark Mode
+                        </Dropdown.Item>
+                    )}
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
 
-                                            {/* Language Selector */}
-                                            <div className='language-container '>
-                                                <Dropdown >
-                                                    <Dropdown.Toggle className="d-flex align-items-center">
-                                                        <MdGTranslate size={30} className='me-2' />
-                                                        {languages.current_language?.name}
-                                                    </Dropdown.Toggle>
-                                                    <Dropdown.Menu>
-                                                        {languages.available_languages?.map((language, index) => (
-                                                            <Dropdown.Item key={index} onClick={() => handleChangeLanguage(language.id)}>
-                                                                {language.name}
-                                                            </Dropdown.Item>
-                                                        ))}
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </div>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+        {/* Language Selector */}
+        <div className='language-container'>
+            <Dropdown>
+                <Dropdown.Toggle className="d-flex align-items-center">
+                    <MdGTranslate size={30} className='me-2' />
+                    {languages.current_language?.name}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {languages.available_languages?.map((language, index) => (
+                        <Dropdown.Item key={index} onClick={() => handleChangeLanguage(language.id)}>
+                            {language.name}
+                        </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
+    </Dropdown.Menu>
+</Dropdown>
+
+
                                 </div>
 
                                 {/* Navigation Links */}
@@ -812,31 +814,31 @@ const Header = () => {
                                         <Dropdown.Toggle>
                                             <FaBars size={25} />
                                         </Dropdown.Toggle>
-                                        <Dropdown.Menu className='px-4' style={{
-                                            borderRadius: "10%"
-                                        }}>
-                                            <div className='d-flex flex-column justify-content-center text-center align-items-center' id="drop">
+                                        <Dropdown.Menu style={{ borderRadius: "10%" }}>
+                                            <div className='d-flex flex-column px-3 py-2 justify-content-center text-center align-items-center' id="drop">
                                                 <NavLink
                                                     to='/about'
-                                                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
-                                                >
+                                                    className={`w-100 px-4 py-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                                    style={{ width: "100%", borderRadius: "10%" }}  >
                                                     {t('about_us')}
+
                                                 </NavLink>
                                                 <NavLink
                                                     to='/contact'
-                                                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
-                                                >
+                                                    className={`w-100 p-2 fs-3 px-4 py-2  text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                                    style={{ width: "100%", borderRadius: "10%" }}  >
                                                     {t('contact_us')}
                                                 </NavLink>
                                                 <NavLink
                                                     to='/faq'
-                                                    className={`p-2 fs-3 text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
-                                                >
+                                                    className={`w-100 p-2 fs-3  px-4 py-2  text-decoration-none no-break ${cssmode.cssmode === 'dark' ? 'text-white' : 'text-dark'}`}
+                                                    style={{ width: "100%", borderRadius: "10%" }}   >
                                                     {t('faq')}
                                                 </NavLink>
                                             </div>
                                         </Dropdown.Menu>
                                     </Dropdown>
+
                                 </div>
 
 
@@ -866,10 +868,10 @@ const Header = () => {
                                                 <button className='themeBtn tabletScreen icon position-relative hide-mobile-screen mx-3' onClick={() => handleThemeChange("light")}><MdOutlineWbSunny size={25} /></button>}
                                             <div className='hide-mobile-screen ms-5'>
                                                 <Link to='/profile' className='d-flex align-items-center flex-column user-profile gap-1' style={{ background: "none" }}>
-                                                    <FaUserCircle size={35}  style={{color:"var(--font-color)"}} />
+                                                    <FaUserCircle size={35} style={{ color: "var(--font-color)" }} />
                                                     <div className='d-flex flex-column user-info my-auto text-center'>
                                                         {/* <span className='number'> {t("welcome")}</span> */}
-                                                        <span className='name' style={{color:"var(--font-color)", fontSize: "14px"}}>
+                                                        <span className='name' style={{ color: "var(--font-color)", fontSize: "14px" }}>
                                                             Profile
                                                             {/* {user.user && user.user.name.split(' ')[0].length > 20
                                                                 ? user.user.name.split(' ')[0].substring(0, 20) + "..."

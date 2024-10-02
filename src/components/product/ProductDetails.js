@@ -975,6 +975,7 @@ const ProductDetails = () => {
                                                                                     <input
                                                                                         type="number"
                                                                                         min="1"
+                                                                                      
                                                                                         max={related_product.variants[0].stock}
                                                                                         className="quantity-input bg-transparent text-center"
                                                                                         value={related_product.variants[0].cart_count}

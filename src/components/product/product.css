@@ -302,20 +302,22 @@ a:focus .product-card {
   filter: invert(1);
 }
 
-
 .out_of_stockOverlay {
   position: absolute;
-  top: 473px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
+  /* set opacity to 60% */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px 5px 0 0;
   z-index: 1;
+  /* make sure it's on top of the image */
 }
+
 
 .out_of_stockText {
   color: red;
@@ -452,11 +454,11 @@ a:focus .product-card {
 }
 
 .product-card .product-card-body .price span {
-  color: var(--secondary-color) !important;
+  color: var(--secondary-color);
   width: 100%;
   font-weight: 700;
 
-  font-size: 18px;
+  font-size: 15px;
   width: 100%;
   float: left;
   letter-spacing: 0.2px;
@@ -495,7 +497,7 @@ a:focus .product-card {
 }
 
 /* mayank changes */
-.product-card .product-card-body .price button {
+.product-card .product-card-body .priceBtn button {
   background: var(--secondary-color);
   display: inline-flex;
   justify-content: center;
@@ -515,6 +517,9 @@ input::placeholder {
   font-size: 14px;
   color:  red;
   width: 100%;
+}
+#pInput{
+  color:white !important;
 }
 
 .product-card .product-card-footer .add-to-cart.active,
@@ -591,6 +596,17 @@ input::placeholder {
   font-size: 22px;
 }
 
+.hide-pointer::before {
+  display: none; /* Hide the default dropup pointer */
+}
+
+.hide-pointer {
+  border: none; /* Optional: Remove border if needed */
+}
+.share .dropdown-toggle::after {
+  display: none !important; /* Hides the default caret */
+}
+
 #productlist .row .filter-row .product-filter-headline {
   color: var(--font-color);
   font-size: 2.5rem;
@@ -618,6 +634,10 @@ input::placeholder {
 
 #productlist .row .filter-row.priceFilter h5 {
   color: var(--font-color);
+}
+.discoutPercentage{
+  color:red !important;
+
 }
 
 #productlist .row .filter-row .image-container {
@@ -1402,7 +1422,7 @@ input::placeholder {
 .product-details-view .detail-wrapper .bottom-section #Add-to-cart-quickview,
 #input-cart-quickview {
   padding: 8px 0;
-  width: 30%;
+  width: 35%;
   margin: 10px 5px 10px 0;
   color: var(--font-color);
 }

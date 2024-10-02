@@ -130,7 +130,7 @@ const CategoryChild = () => {
                                 <div className="col-md-3 col-lg-2 col-6 col-sm-3 my-3 content" key={index}
                                     onClick={(e) => { handleGetCategory(ctg); }}
                                 >
-                                    <div className='card' >
+                                    <div className='card'>
                                         {/* <img onError={placeHolderImage} className='card-img-top' src={ctg.image_url} alt='allCategories' loading='lazy' /> */}
                                         <ImageWithPlaceholder src={ctg?.image_url} className='card-img-top' alt={"allCategories"} />
                                         <div className='card-body' style={{ cursor: "pointer" }}>

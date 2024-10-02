@@ -15,6 +15,7 @@ import QuickViewModal from './QuickViewModal';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'react-bootstrap';
 import { Range, getTrackBackground } from 'react-range';
 import { setCategory } from '../../model/reducer/categoryReducer';
 import { setFilterBrands, setFilterByCountry, setFilterBySeller, setFilterCategory, setFilterMinMaxPrice, setFilterProductSizes, setFilterSearch, setFilterSection, setFilterSort } from '../../model/reducer/productFilterReducer';
@@ -270,7 +271,7 @@ const ProductList2 = React.memo(() => {
     const Filter = () => {
         return (
             <>
-                <div className='filter-row'>
+                {/* <div className='filter-row'>
                     <h5 className='product-filter-headline d-flex w-100 align-items-center justify-content-between'>{t("brands")}
                         <span className='btn border-0' onClick={() => {
                             dispatch(setFilterBrands({ data: [] }));
@@ -286,34 +287,49 @@ const ProductList2 = React.memo(() => {
                             setSelectedCategories([]);
                             setMinPrice(null);
                             setMaxPrice(null);
-                        }}>{t("clear_filters")}</span></h5>
-                    {brands === null
+                        }}>{t("clear_filters")}</span></h5> */}
+                {/* {brands === null
                         ? (
                             <Loader />
                         )
-                        : (
-                            <>
-                                {brands.map((brand, index) => (
+                        : ( */}
+                <>
+                    {/* {brands.map((brand, index) => (
                                     <div whiltap={{ scale: 0.8 }} onClick={() => {
                                         filterbyBrands(brand);
                                         closeCanvas.current.click();
                                     }} className={`d-flex justify-content-between align-items-center filter-bar border-bottom ${filter.brand_ids?.length != 0 ? filter.brand_ids.includes(brand.id) ? 'active' : null : null}`} key={index} >
                                         <div className='d-flex gap-3 align-items-baseline'>
-                                            <div className='image-container'>
-                                                {/* <img onError={placeHolderImage} src={brand.image_url} alt="category" /> */}
-                                                <ImageWithPlaceholder src={brand.image_url} alt="brandImage" />
+                                            <div className='image-container'> */}
+                    {/* <img onError={placeHolderImage} src={brand.image_url} alt="category" /> */}
+                    {/* <ImageWithPlaceholder src={brand.image_url} alt="brandImage" />
                                             </div>
                                             <p>{brand.name}</p>
                                         </div>
                                     </div>
-                                ))}
-                            </>
-                        )}
+                                ))} */}
+                </>
+                {/* )}
 
-                </div>
+                </div> */}
                 <div className='filter-row'>
-                    <h5 className='product-filter-headline d-flex w-100 align-items-center justify-content-start'>
+                    <h5 className='product-filter-headline d-flex w-100 align-items-center justify-content-between'>
                         {t("categories")}
+                        <span className='btn border-0' onClick={() => {
+                            dispatch(setFilterBrands({ data: [] }));
+                            dispatch(setFilterCategory({ data: null }));
+                            dispatch(setFilterSearch({ data: "" }));
+                            dispatch(setFilterSection({ data: null }));
+                            dispatch(setFilterMinMaxPrice({ data: null }));
+                            dispatch(setFilterProductSizes({ data: [] }));
+                            dispatch(setFilterSort({ data: "new" }));
+                            dispatch(setFilterBySeller({ data: "" }));
+                            dispatch(setFilterByCountry({ data: "" }));
+                            dispatch(setFilterCategory({ data: null }));
+                            setSelectedCategories([]);
+                            setMinPrice(null);
+                            setMaxPrice(null);
+                        }}>{t("clear_filters")}</span>
                     </h5>
                     {/* {category?.map((ctg) => (
                         <div key={ctg?.id}
@@ -420,7 +436,7 @@ const ProductList2 = React.memo(() => {
                         }
                     </div> : null}
 
-                {(sizes?.length !== 0) ?
+                {/* {(sizes?.length !== 0) ?
                     <div className='filter-row'>
                         <h2 className='product-filter-headline d-flex w-100 align-items-center justify-content-between'>
                             <span>{t("Filter By Sizes")}</span>
@@ -451,7 +467,7 @@ const ProductList2 = React.memo(() => {
                             )
                         }
                     </div> : null
-                }
+                } */}
             </>
         );
     };
@@ -826,6 +842,7 @@ const ProductList2 = React.memo(() => {
                                                                                                             <input
                                                                                                                 type="number"
                                                                                                                 min="1"
+                                                                                                                id="productInput"
                                                                                                                 max={product.variants[0].stock}
                                                                                                                 className="quantity-input bg-transparent text-center"
                                                                                                                 value={product.variants[0].cart_count}
@@ -934,6 +951,11 @@ const ProductList2 = React.memo(() => {
                                                                                                         </p>
                                                                                                     </span>
                                                                                                     : null}
+                                                                                                {(product?.variants[0]?.price && product?.variants[0]?.discounted_price !== 0 && product?.variants[0]?.price !== product?.variants[0]?.discounted_price) && (
+                                                                                                    <span className="ms-2 text-danger" style={{ fontSize: "1.6rem" }}>
+                                                                                                        ({Math.round(((product.variants[0].price - product.variants[0].discounted_price) / product.variants[0].price) * 100)}% OFF)
+                                                                                                    </span>
+                                                                                                )}
                                                                                             </span>
                                                                                             <div className='product_varients_drop'>
                                                                                                 <input type="hidden" name={`default-variant-id`} id={`productlist${index}-variant-id`} />
@@ -988,27 +1010,39 @@ const ProductList2 = React.memo(() => {
 
                                                                             {filter.grid_view ? <>
                                                                                 <div className='d-flex flex-row border-top product-card-footer'>
-                                                                                    <div className='border-end '>
+                                                                                    <div>
                                                                                         {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-                                                                                            <button type="button" className='wishlist-product favouriteBtn' onClick={() => {
-                                                                                                if (user?.jwtToken !== "") {
-                                                                                                    removefromFavorite(product.id);
-                                                                                                } else {
-                                                                                                    toast.error(t('required_login_message_for_cart'));
-                                                                                                }
-                                                                                            }}
-                                                                                            >
-                                                                                                <BsHeartFill size={16} fill='green' />
+
+                                                                                            <button
+
+
+                                                                                                key={product.id}
+                                                                                                type="button"
+                                                                                                className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle red-heart' // Added class red-heart here
+                                                                                                onClick={() => {
+                                                                                                    if (user?.jwtToken !== "") {
+                                                                                                        addToFavorite(product.id);
+                                                                                                    } else {
+                                                                                                        toast.error(t("required_login_message_for_cart"));
+                                                                                                    }
+                                                                                                }}>
+
+                                                                                                <BsHeart size={16} fill='red' /> {/* Updated heart icon to red */}
                                                                                             </button>
                                                                                         ) : (
-                                                                                            <button key={product.id} type="button" className='wishlist-product favouriteBtn' onClick={() => {
-                                                                                                if (user?.jwtToken !== "") {
-                                                                                                    addToFavorite(product.id);
-                                                                                                } else {
-                                                                                                    toast.error(t("required_login_message_for_cart"));
-                                                                                                }
-                                                                                            }}>
-                                                                                                <BsHeart size={16} /></button>
+                                                                                            <button
+                                                                                                key={product.id}
+                                                                                                type="button"
+                                                                                                className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle'
+                                                                                                onClick={() => {
+                                                                                                    if (user?.jwtToken !== "") {
+                                                                                                        addToFavorite(product.id);
+                                                                                                    } else {
+                                                                                                        toast.error(t("required_login_message_for_cart"));
+                                                                                                    }
+                                                                                                }}>
+                                                                                                <BsHeart size={16} />
+                                                                                            </button>
                                                                                         )}
                                                                                     </div>
 
@@ -1048,6 +1082,7 @@ const ProductList2 = React.memo(() => {
                                                                                                         <input
                                                                                                             type="number"
                                                                                                             min="1"
+                                                                                                            id="pInput"
                                                                                                             max={product.variants[0].stock}
                                                                                                             className="quantity-input bg-transparent text-center"
                                                                                                             value={
@@ -1103,21 +1138,44 @@ const ProductList2 = React.memo(() => {
 
                                                                                     </div>
 
-                                                                                    <div className='dropup share'>
-                                                                                        <button type="button" className='w-100 h-100 shareBtn' data-bs-toggle="dropdown" aria-expanded="false"><BsShare size={16} /></button>
+                                                                                    <Dropdown drop="up" className="share">
+                                                                                        <Dropdown.Toggle
+                                                                                            className='w-100 h-100 shareBtn px-3 border border-light rounded-circle'
+                                                                                            style={{ padding: '10px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                                                                        >
+                                                                                            <BsShare size={16} style={{ color: "var(--font-color)" }} />
+                                                                                        </Dropdown.Toggle>
 
-                                                                                        <ul className='dropdown-menu'>
-                                                                                            <li className='dropDownLi'><WhatsappShareButton url={`${share_parent_url}/${product.slug}`}><WhatsappIcon size={32} round={true} /> <span>WhatsApp</span></WhatsappShareButton></li>
-                                                                                            <li className='dropDownLi'><TelegramShareButton url={`${share_parent_url}/${product.slug}`}><TelegramIcon size={32} round={true} /> <span>Telegram</span></TelegramShareButton></li>
-                                                                                            <li className='dropDownLi'><FacebookShareButton url={`${share_parent_url}/${product.slug}`}><FacebookIcon size={32} round={true} /> <span>Facebook</span></FacebookShareButton></li>
-                                                                                            <li>
-                                                                                                <button type='button' onClick={() => {
-                                                                                                    navigator.clipboard.writeText(`${share_parent_url}/${product.slug}`);
-                                                                                                    toast.success("Copied Succesfully!!");
-                                                                                                }} className='react-share__ShareButton'> <BiLink /> {t("tap_to_copy")}</button>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
+                                                                                        <Dropdown.Menu style={{ width: "50px", padding: "5px", textAlign: "center", borderRadius: "10px" }} className='hide-pointer'>
+                                                                                            <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
+                                                                                                <WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                                    <WhatsappIcon size={30} round />
+                                                                                                </WhatsappShareButton>
+                                                                                            </Dropdown.Item>
+                                                                                            <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
+                                                                                                <TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                                    <TelegramIcon size={30} round />
+                                                                                                </TelegramShareButton>
+                                                                                            </Dropdown.Item>
+                                                                                            <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
+                                                                                                <FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
+                                                                                                    <FacebookIcon size={30} round />
+                                                                                                </FacebookShareButton>
+                                                                                            </Dropdown.Item>
+                                                                                            <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center' }}>
+                                                                                                <button
+                                                                                                    type='button'
+                                                                                                    onClick={() => {
+                                                                                                        navigator.clipboard.writeText(`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`);
+                                                                                                        toast.success("Copied Successfully!!");
+                                                                                                    }}
+                                                                                                    style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                                                                                                >
+                                                                                                    <BiLink size={18} />
+                                                                                                </button>
+                                                                                            </Dropdown.Item>
+                                                                                        </Dropdown.Menu>
+                                                                                    </Dropdown>
                                                                                 </div>
                                                                             </> : <></>}
                                                                         </div>

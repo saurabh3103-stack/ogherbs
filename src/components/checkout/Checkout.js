@@ -83,6 +83,7 @@ const Checkout = () => {
     const paypalStatus = useRef(false);
     const [isNetworkError, setIsNetworkError] = useState(false);
     const [orderNote, setOrderNote] = useState("");
+    const [estimatedDays,setEstimatedDays]=useState(7);
 
 
     const stripePromise = loadStripe(setting?.payment_setting && setting?.payment_setting?.stripe_publishable_key);
@@ -174,10 +175,12 @@ const Checkout = () => {
             .then(response => response.json())
             .then(result => {
                 if (result.status === 1) {
-                    if (result?.data?.time_slots_is_enabled === "false") {
+                    if (result?.data?.time_slots_is_enabled == "false") {
                         // toast.error(t("timeslots_not_enabled"));
                     }
                     settimeslots(result.data);
+                    setEstimatedDays(result.data.delivery_estimate_days)
+                    
                     setexpectedTime(result?.data?.time_slots.filter((element) => checkLastOrderTime(element?.last_order_time))[0]);
                 }
             })
@@ -188,7 +191,7 @@ const Checkout = () => {
     // Filter the time slots based on last_order_time
     useEffect(() => {
         const currentDateTime = new Date();
-        setexpectedDate(new Date(currentDateTime.setDate(currentDateTime.getDate() + (Number(timeslots?.time_slots_delivery_starts_from) - 1))));
+        setexpectedDate(new Date(currentDateTime.setDate(currentDateTime.getDate() + (estimatedDays) - 1)));
     }, [timeslots]);
 
     useEffect(() => {
@@ -602,7 +605,7 @@ const Checkout = () => {
                 //         .catch(error => console.error(error))
                 // }
 
-            } else if (paymentMethod === "Midtrans") {
+            } else if (paymentMethod == "Midtrans") {
                 await api.placeOrder(user?.jwtToken, cart.checkout.product_variant_id, cart.checkout.quantity, cart.checkout.sub_total, cart.checkout.delivery_charge.total_delivery_charge, totalPayment, paymentMethod, address.selected_address.id, delivery_time, cart.promo_code?.promo_code_id, cart.is_wallet_checked ? (walletDeductionAmt) : null, cart.is_wallet_checked ? 1 : 0, orderNote)
                     .then(response => response.json())
                     .then(async result => {
@@ -636,7 +639,7 @@ const Checkout = () => {
                         }
                     })
                     .catch(error => console.log(error));
-            } else if (paymentMethod === "Phonepe") {
+            } else if (paymentMethod == "Phonepe") {
                 await api.placeOrder(user?.jwtToken, cart.checkout.product_variant_id, cart.checkout.quantity, cart.checkout.sub_total, cart.checkout.delivery_charge.total_delivery_charge, totalPayment, paymentMethod, address.selected_address.id, delivery_time, cart.promo_code?.promo_code_id, cart.is_wallet_checked ? (walletDeductionAmt) : null, cart.is_wallet_checked ? 1 : 0, orderNote)
                     .then(response => response.json())
                     .then(async result => {
@@ -827,15 +830,16 @@ const Checkout = () => {
                                                             }
                                                         </div>
                                                     </div>
-                                                </>
-                                                :
-                                                <>
                                                     <div className='delivery-time-wrapper checkout-component'>
                                                         <span className='heading'>{t("estimate_delivery_date")}</span>
                                                         <div className='d-flex justify-content-start align-items-center estimateDeliveryDate'>
                                                             <span>{t("estimate_delivery_date")} : {getEstimatedDeliveryDate()}</span>
                                                         </div>
                                                     </div>
+                                                </>
+                                                :
+                                                <>
+                                                   
                                                 </>}
 
 
@@ -876,7 +880,7 @@ const Checkout = () => {
 
                                                 <div className='payment-wrapper checkout-component'>
                                                     <span className='heading'>{t("payment_method")}</span>
-                                                    {setting?.payment_setting?.cod_payment_method === "1" && codAllow === 1
+                                                    {setting?.payment_setting?.cod_payment_method === "1" && codAllow == 1
                                                         ? (
                                                             <label className="form-check-label cursorPointer" htmlFor='cod'>
                                                                 <div className='payment-selector'>
@@ -1063,13 +1067,13 @@ const Checkout = () => {
                                                                         <Loader screen='full' background='none' content={"Your transaction is being processed.Please don't refresh the page."} />
                                                                         : <>
                                                                             {
-                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow === '1') 
-                                                                                //     setting.payment_setting.razorpay_payment_method === "1" ||
-                                                                                //     setting.payment_setting.paystack_payment_method === "1" ||
-                                                                                //     setting.payment_setting.stripe_payment_method === "1" ||
-                                                                                //     setting.payment_setting.paypal_payment_method === "1" ||
-                                                                                //     setting?.payment_setting?.phonepay_payment_method === "1" ||
-                                                                                //     setting?.payment_setting?.midtrans_payment_method === "1"
+                                                                                (setting.payment_setting.cod_payment_method === "1" && codAllow == '1') ||
+                                                                                    setting.payment_setting.razorpay_payment_method === "1" ||
+                                                                                    setting.payment_setting.paystack_payment_method === "1" ||
+                                                                                    setting.payment_setting.stripe_payment_method === "1" ||
+                                                                                    setting.payment_setting.paypal_payment_method === "1" ||
+                                                                                    setting?.payment_setting?.phonepay_payment_method === "1" ||
+                                                                                    setting?.payment_setting?.midtrans_payment_method === "1"
                                                                                     ? (
                                                                                         <div className='button-container'>
                                                                                             {paymentMethod === "Stripe" && setting
@@ -1078,14 +1082,8 @@ const Checkout = () => {
                                                                                             }
                                                                                         </div>
                                                                                     ) : (
-                                                                                        // <div className='button-container'>
-                                                                                        //     <button type='button' className='checkout' disabled>{t("enable_payment_methods")}</button>
-                                                                                        // </div>
                                                                                         <div className='button-container'>
-                                                                                            {paymentMethod === "Stripe" && setting
-                                                                                                ? <motion.button whiletap={{ scale: 0.8 }} type='button' className='checkout' onClick={(e) => { e.preventDefault(); HandlePlaceOrder(); }}>{t("place_order")}</motion.button>
-                                                                                                : <motion.button whiletap={{ scale: 0.8 }} type='button' className='checkout' onClick={(e) => { e.preventDefault(); HandlePlaceOrder(); }}>{t("place_order")}</motion.button>
-                                                                                            }
+                                                                                            <button type='button' className='checkout' disabled>{t("enable_payment_methods")}</button>
                                                                                         </div>
                                                                                     )
                                                                             }
