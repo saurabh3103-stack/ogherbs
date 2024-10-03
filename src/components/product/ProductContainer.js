@@ -756,34 +756,11 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     };
 
 
-    function isFavColor() {
-        const Target = 5;
-        let found = false;
+    function IsContained(id) {
+        return favorite.favorite.data.filter(item => item.id === id).map(item => item.id);
 
-        // Check if `favorite.data` is defined and is an array
-        if (favorite && Array.isArray(favorite.data)) {
-            favorite.data.forEach(item => {
-                console.log(item.id)
-                if (item.id === Target) {
-                    found = true; // Set found to true if id matches Target
-                }
-            });
-        } else {
-            console.log("favorite.data is undefined or not an array");
-        }
-
-        // Print "yes" if found, otherwise print "no"
-        if (found) {
-            console.log("yes");
-        } else {
-            console.log("no");
-        }
     }
 
-
-    useEffect(() => {
-        isFavColor(); // Call the function to check favorite color on component mount
-    }, [favorite]);
 
     // Function to resume autoplay on mouse leave
     const handleMouseLeave = () => {
@@ -1058,6 +1035,38 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     };
 
 
+
+    function IsContained(id, favorite) {
+        return favorite.favorite.data.filter(item => item.id === id).map(item => item.id);
+    }
+
+    function ProductButton({ product, favorite, user, addToFavorite }) {
+        const [isFavorite, setIsFavorite] = useState(false);
+
+        useEffect(() => {
+            const result = IsContained(product.id, favorite);
+            if (result.length > 0) {
+                setIsFavorite(true); // Set as favorite if id is found
+            } else {
+                setIsFavorite(false); // Otherwise, not favorite
+            }
+        }, [favorite, product.id]);
+
+    }
+    useEffect(() => {
+        api.getFavorite(user?.jwtToken, city.city.latitude, city.city.longitude)
+            .then(response => response.json())
+            .then((result) => {
+                dispatch(setFavourite({ data: result }));
+            }).catch((err) => {
+                const isNoInternet = ValidateNoInternet(err);
+                if (isNoInternet) {
+                    setIsNetworkError(isNoInternet);
+                }
+            });
+    }, []);
+
+
     return (
         <section id="products">
             <div className="container-fluid">
@@ -1160,7 +1169,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 <button
                                                                                     key={product.id}
                                                                                     type="button"
-                                                                                    className="w-100 h-100 favouriteBtn px-3 border border-light rounded-circle"
+                                                                                    className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite.favorite.data.some(item => item.id === product.id) ? 'text-danger' : ''}`} // Conditionally add text-danger class
                                                                                     onClick={() => {
                                                                                         if (user?.jwtToken !== "") {
                                                                                             addToFavorite(product.id);
@@ -1168,8 +1177,12 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                             toast.error(t("required_login_message_for_cart"));
                                                                                         }
                                                                                     }}>
-                                                                                    <BsHeart size={16} /> {/* Updated heart icon to red */}
+                                                                                    <BsHeart
+                                                                                        size={16}
+                                                                                        className={favorite.favorite.data.some(item => item.id === product.id) ? 'text-danger' : ''} // Conditionally add text-danger class to the heart icon
+                                                                                    />
                                                                                 </button>
+
                                                                             </div>
                                                                             <div style={{ flexGrow: "1" }}>
                                                                                 {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||

@@ -49,7 +49,7 @@ const DisplayByCategories = () => {
                         size={40} 
                         style={{
                             position: 'absolute',
-                            top: '50%',
+                            top: '46%',
                             zIndex: 10,
                             color: 'var(--swiper-navigation-color)',
                             cursor: 'pointer',
@@ -58,11 +58,11 @@ const DisplayByCategories = () => {
                 </div>
 
                 {/* Category Navigation */}
-                <div className="col-md-12 category-container">
+                <div className="col-md-12 category-container ">
                     <Swiper
                         ref={swiperRef}  // Assign Swiper reference
-                        spaceBetween={20}
-                        slidesPerView={6}
+                        spaceBetween={5}
+                        slidesPerView={3}
                         navigation={{
                             prevEl: '.swiper-button-prev',
                             nextEl: '.swiper-button-next',
@@ -75,26 +75,30 @@ const DisplayByCategories = () => {
                         }}
                         onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                         breakpoints={{
-                            320: { slidesPerView: 2},
-                            576: { slidesPerView: 3 },
-                            768: { slidesPerView: 4 },
-                            992: { slidesPerView: 6 },
+                            540: { slidesPerView: 4},
+                            600: { slidesPerView: 5},
+                          700: { slidesPerView: 5},
+                           800: { slidesPerView: 6 },
+                            980: { slidesPerView: 6 },
+                            992: { slidesPerView: 7 },
+                            1100: { slidesPerView: 8 },
+
                         }}
                     >
                         {categories.map(category => (
-                            <SwiperSlide key={category.id}>
+                            <SwiperSlide key={category.id} className='swiper-slide-custom'>
                                 <div
                                     className="outer-circle category-link cursor-pointer"
-                                    onClick={() => handleSelectedCategories(category.id)} // Call the function on click
+                                    onClick={() => handleSelectedCategories(category.id)}  // Call the function on click
                                 >
                                     <div
-                                        className='inner-image'
+                                        className='inner-image text-center'
                                         style={{
                                             backgroundImage: `url(${category.image_url})`,
                                         }}
                                     />
                                 </div>
-                                <div className="text-center mt-3">
+                                <div className="text-center" >
                                     <h5 
                                         className="category-title mr-3" 
                                         style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
@@ -110,11 +114,11 @@ const DisplayByCategories = () => {
                 {/* Right Navigation */}
                 <div className="col-1 d-flex align-items-center justify-content-center">
                     <FaCircleChevronRight 
-                        className="swiper-button-next" 
+                        className="swiper-button-next " 
                         size={40} 
                         style={{
                             position: 'absolute',
-                            top: '50%',
+                            top: '46%',
                             zIndex: 10,
                             color: 'var(--swiper-navigation-color)',
                             cursor: 'pointer',

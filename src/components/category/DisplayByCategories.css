@@ -24,9 +24,18 @@
 }
 
 .category-title {
-    font-size: 1.4rem; /* Adjusted font size */
+    font-size: 1.4rem;
     font-weight: bold;
+    text-align: center;
     color: var(--primary-color);
+    margin-top: 10px; /* Adjust margin to control spacing between image and text */
+}
+.swiper-slide-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures the text is centered below the image */
+    justify-content: center;
+    text-align: center;
 }
 
 .category-subtitle {
@@ -50,8 +59,8 @@
 }
 
 .outer-circle {
-    width: 145px;
-    height: 145px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     border: 1px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -68,4 +77,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     border-radius: 50%;
+    padding: 5px;
 }
+

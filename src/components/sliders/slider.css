@@ -46,18 +46,18 @@
 
 @media (min-width: 768px) {
   .swiper-container2 .slider__image img {
-    height: 40vh; /* Adjust height for larger screens */
+    height: 50vh; /* Adjust height for larger screens */
   }
 }
 
 @media (min-width: 992px) {
   .swiper-container2 .slider__image img {
-    height: 50vh; /* Adjust height for larger screens */
+    height: 60vh; /* Adjust height for larger screens */
   }
 }
 
 @media (min-width: 1200px) {
   .swiper-container2 .slider__image img {
-    height: 60vh; /* Larger screens, increase height */
+    height: 80vh; /* Larger screens, increase height */
   }
 }
