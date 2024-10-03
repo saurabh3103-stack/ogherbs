@@ -61,7 +61,7 @@ const DisplayByCategories = () => {
                 <div className="col-md-12 category-container">
                     <Swiper
                         ref={swiperRef}  // Assign Swiper reference
-                        spaceBetween={0}
+                        spaceBetween={20}
                         slidesPerView={6}
                         navigation={{
                             prevEl: '.swiper-button-prev',
@@ -69,16 +69,16 @@ const DisplayByCategories = () => {
                         }}
                         modules={[Autoplay, Navigation]}
                         autoplay={{
-                            delay: 15000000000,
+                            delay: 15000,
                             disableOnInteraction: false,
                             pauseOnMouseEnter: true // Allows autoplay after interaction
                         }}
                         onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                         breakpoints={{
-                            320: { slidesPerView: 3 },
-                            576: { slidesPerView: 4 },
-                            768: { slidesPerView: 5 },
-                            992: { slidesPerView: 7 },
+                            320: { slidesPerView: 2},
+                            576: { slidesPerView: 3 },
+                            768: { slidesPerView: 4 },
+                            992: { slidesPerView: 6 },
                         }}
                     >
                         {categories.map(category => (
@@ -94,9 +94,9 @@ const DisplayByCategories = () => {
                                         }}
                                     />
                                 </div>
-                                <div className="text-center mt-2">
+                                <div className="text-center mt-3">
                                     <h5 
-                                        className="category-title" 
+                                        className="category-title mr-3" 
                                         style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
                                     >
                                         {t(category.name)}

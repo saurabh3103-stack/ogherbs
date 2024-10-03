@@ -8,7 +8,7 @@
 }
 
 .category-link {
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
     transition: background-color 0.3s ease-in-out, transform 0.3s;
     background-color: var(--second-cards-color);
@@ -50,10 +50,10 @@
 }
 
 .outer-circle {
-    width: 150px;
-    height: 150px;
-    border-radius: 20%;
-    border: 5px solid #fff;
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    border: 1px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
@@ -67,4 +67,5 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    border-radius: 50%;
 }

@@ -41,7 +41,7 @@
   width: 100%;
   height: 40vh; /* Set a responsive height */
   object-fit: fill; /* Ensure the image covers the entire container */
-  border-radius: 20px; /* Apply border-radius to both sides */
+   /* Apply border-radius to both sides */
 }
 
 @media (min-width: 768px) {

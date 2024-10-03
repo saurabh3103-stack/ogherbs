@@ -63,7 +63,7 @@ const Slider = () => {
                                 <Swiper
                                     loop={true}
                                     autoplay={{
-                                        delay: 3000,
+                                        delay: 30000000,
                                         disableOnInteraction: false,
                                     }}
                                     centeredSlides={false}
