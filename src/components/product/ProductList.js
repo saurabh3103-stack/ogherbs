@@ -40,6 +40,7 @@ const ProductList2 = React.memo(() => {
 
     const closeCanvas = useRef();
     const category = useSelector(state => state.category?.category);
+    console.log(category)
     const city = useSelector(state => state.city);
     const filter = useSelector(state => state.productFilter);
     const favorite = useSelector(state => (state.favourite));
@@ -823,7 +824,7 @@ const ProductList2 = React.memo(() => {
 
                                                                                             <div className='border-end aes' style={{ flexGrow: "1" }}>
                                                                                                 {product.variants[0].cart_count > 0 ? <>
-                                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart">
+                                                                                                    <div id={`input-cart-productdetail`} className="input-to-cart addToCartHeight">
                                                                                                         <button type='button' className="wishlist-button" onClick={(e) => {
                                                                                                             e.preventDefault();
                                                                                                             if (product.variants[0].cart_count === 1) {

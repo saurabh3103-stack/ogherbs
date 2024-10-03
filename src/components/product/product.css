@@ -17,6 +17,12 @@
   width: max-content !important;
 }
 
+.swiper-slide-card {
+  transform: scale(0.875) rotate(0deg)  !important; /* Enlarges and rotates the slide on hover */
+  -webkit-backface-visibility: hidden  !important;
+          backface-visibility: hidden  !important;
+}
+
 .css-b62m3t-container {
   width: 100%;
 }
@@ -268,12 +274,11 @@ a:focus .product-card {
 
 .product-card:hover,
 a:focus .product-card {
-  box-shadow: 0 0 15px rgb(0 0 0 / 5%);
-  /* transform: scale(1.003); */
-  border: 1px solid var(--secondary-color) !important;
-
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35); Adds a stronger shadow */
+  box-shadow: 0 4px 20px rgba(0, 128, 0, 0.4); /* Green shadow with 40% opacity */
   cursor: pointer;
 }
+
 .product-card .image-container {
   position: relative;
 }
@@ -415,7 +420,10 @@ a:focus .product-card {
   padding: 4px 10px !important;
   opacity: 0.7;
 }
+.addToCartHeight{
+  height: 100% !important;
 
+}
 .product-card .product-card-body .variant-section {
   width: 100%;
 }

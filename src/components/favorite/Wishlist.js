@@ -43,6 +43,8 @@ const Wishlist = () => {
     const [p_v_id, setP_V_id] = useState(0);
     const [qnty, setQnty] = useState(0);
     const [isNetworkError, setIsNetworkError] = useState(false);
+    
+  
     useEffect(() => {
         if (sizes.sizes === null || sizes.status === 'loading') {
             if (city.city !== null && favorite.favorite !== null) {
@@ -356,3 +358,31 @@ const Wishlist = () => {
 
 export default Wishlist;
  
+
+{/* <button
+key={product.id}
+type="button"
+className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite.favorite.data.some(item => item.category_id === product.category_id) ? 'text-danger' : ''}`}
+onClick={() => {
+    if (user?.jwtToken !== "") {
+        addToFavorite(product.id);
+    } else {
+        toast.error(t("required_login_message_for_cart"));
+    }
+}}>
+<BsHeart size={16} fill='red' className="text-danger" /> {/* Updated heart icon to red */}
+// </button>
+// ) : (
+// <button
+// key={product.id}
+// type="button"
+// className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle'
+// onClick={() => {
+//     if (user?.jwtToken !== "") {
+//         addToFavorite(product.id);
+//     } else {
+//         toast.error(t("required_login_message_for_cart"));
+//     }
+// }}>
+// <BsHeart size={16} />
+// </button> */}

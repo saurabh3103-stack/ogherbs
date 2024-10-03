@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import CategoryComponent from '../product/Categories';// Import CategoryComponent
 
 const DisplayByCategories = () => {
     const { t } = useTranslation();
@@ -18,11 +19,14 @@ const DisplayByCategories = () => {
     const navigate = useNavigate();
     const swiperRef = useRef(null);  // Ref for Swiper instance
     const [swiperInstance, setSwiperInstance] = useState(null); // Swiper instance state
-
     const theme = useSelector(state => state.theme);
     const cssmode = useSelector(state => state.cssmode);
 
-    // Dynamically set theme colors
+    const handleSelectedCategories = (categoryId) => {
+        dispatch(setFilterCategory({ data: categoryId }));
+        navigate("/products");
+    };
+
     const setThemeColors = (primaryColor, secondaryColor, textColor) => {
         document.documentElement.style.setProperty('--primary-color', primaryColor);
         document.documentElement.style.setProperty('--secondary-color', secondaryColor);
@@ -35,10 +39,8 @@ const DisplayByCategories = () => {
         }
     }, [theme]);
 
-   
-
     return (
-        <div className="container-fluid categories" >
+        <div className="container-fluid categories">
             <div className="row">
                 {/* Left Navigation */}
                 <div className="col-1 d-flex align-items-center justify-content-center">
@@ -69,7 +71,7 @@ const DisplayByCategories = () => {
                         autoplay={{
                             delay: 15000000000,
                             disableOnInteraction: false,
-                            pauseOnMouseEnter:true // Allows autoplay after interaction
+                            pauseOnMouseEnter: true // Allows autoplay after interaction
                         }}
                         onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                         breakpoints={{
@@ -82,32 +84,23 @@ const DisplayByCategories = () => {
                         {categories.map(category => (
                             <SwiperSlide key={category.id}>
                                 <div
-                                    className=""
-                                    
+                                    className="outer-circle category-link cursor-pointer"
+                                    onClick={() => handleSelectedCategories(category.id)} // Call the function on click
                                 >
-                                    <div className='d-flex justify-content-evenly'>
-                                    <div class="outer-circle category-link cursor-pointer" onClick={() => {
-                                        dispatch(setFilterCategory({ data: category.id.toString() }));
-                                        navigate("/products");
-                                    }}>
-                                        <div
-                                            className='inner-image'
-                                            style={{
-                                                backgroundImage: `url(${category.image_url})`,
-                                               
-                                            }}
-                                        />
-                                        </div>
-                                    </div>
-                                    <div className="text-center mt-2">
-                                        <h5 
-                                            className="category-title" 
-                                            style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
-                                        >
-                                            {/* {t(category.name)} */}
-                                        </h5>
-                                        {/* <p className="category-subtitle text-muted">{t(category.subtitle)}</p> */}
-                                    </div>
+                                    <div
+                                        className='inner-image'
+                                        style={{
+                                            backgroundImage: `url(${category.image_url})`,
+                                        }}
+                                    />
+                                </div>
+                                <div className="text-center mt-2">
+                                    <h5 
+                                        className="category-title" 
+                                        style={{ color: cssmode.cssmode === 'dark' ? 'white' : 'black' }}
+                                    >
+                                        {t(category.name)}
+                                    </h5>
                                 </div>
                             </SwiperSlide>
                         ))}

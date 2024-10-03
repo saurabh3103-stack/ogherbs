@@ -9,6 +9,7 @@ import ImageWithPlaceholder from '../image-with-placeholder/ImageWithPlaceholder
 
 const CategoryComponent = ({ data, selectedCategories,
     setSelectedCategories }) => {
+       
     const dispatch = useDispatch();
     const [expandedCategories, setExpandedCategories] = useState([]);
     // const [selectedCategories, setSelectedCategories] = useState([]);

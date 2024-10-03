@@ -755,6 +755,36 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
         }
     };
 
+
+    function isFavColor() {
+        const Target = 5;
+        let found = false;
+
+        // Check if `favorite.data` is defined and is an array
+        if (favorite && Array.isArray(favorite.data)) {
+            favorite.data.forEach(item => {
+                console.log(item.id)
+                if (item.id === Target) {
+                    found = true; // Set found to true if id matches Target
+                }
+            });
+        } else {
+            console.log("favorite.data is undefined or not an array");
+        }
+
+        // Print "yes" if found, otherwise print "no"
+        if (found) {
+            console.log("yes");
+        } else {
+            console.log("no");
+        }
+    }
+
+
+    useEffect(() => {
+        isFavColor(); // Call the function to check favorite color on component mount
+    }, [favorite]);
+
     // Function to resume autoplay on mouse leave
     const handleMouseLeave = () => {
         if (swiperInstance?.autoplay) {
@@ -831,7 +861,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                 }
             });
     };
-
+    console.log(favorite)
     //Add to favorite
     const addToFavorite = async (product_id) => {
 
@@ -1099,7 +1129,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         {section?.products?.map((product, index) => (
                                                             <div className="row" key={index}>
                                                                 <div className="col-md-12">
-                                                                    <SwiperSlide className='product-card' style={{ padding: "5px" }}>
+                                                                    <SwiperSlide className='product-card swiper-slide-card' style={{ padding: "5px" }}>
 
 
                                                                         <span className='border border-light rounded-circle' id='aiEye'>
@@ -1127,39 +1157,19 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                         {/* {console.log(product)} */}
                                                                         <div className='d-flex flex-row product-card-footer'>
                                                                             <div>
-                                                                                {favorite.favorite && favorite?.favouriteProductIds?.some(id => id == product.id) ? (
-
-                                                                                    <button
-
-
-                                                                                        key={product.id}
-                                                                                        type="button"
-                                                                                        className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle red-heart' // Added class red-heart here
-                                                                                        onClick={() => {
-                                                                                            if (user?.jwtToken !== "") {
-                                                                                                addToFavorite(product.id);
-                                                                                            } else {
-                                                                                                toast.error(t("required_login_message_for_cart"));
-                                                                                            }
-                                                                                        }}>
-
-                                                                                        <BsHeart size={16} fill='red' /> {/* Updated heart icon to red */}
-                                                                                    </button>
-                                                                                ) : (
-                                                                                    <button
-                                                                                        key={product.id}
-                                                                                        type="button"
-                                                                                        className='w-100 h-100 favouriteBtn px-3 border border-light rounded-circle'
-                                                                                        onClick={() => {
-                                                                                            if (user?.jwtToken !== "") {
-                                                                                                addToFavorite(product.id);
-                                                                                            } else {
-                                                                                                toast.error(t("required_login_message_for_cart"));
-                                                                                            }
-                                                                                        }}>
-                                                                                        <BsHeart size={16} />
-                                                                                    </button>
-                                                                                )}
+                                                                                <button
+                                                                                    key={product.id}
+                                                                                    type="button"
+                                                                                    className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite.favorite.data.some(item => item.category_id === product.category_id) ? '' : ''}`}
+                                                                                    onClick={() => {
+                                                                                        if (user?.jwtToken !== "") {
+                                                                                            addToFavorite(product.id);
+                                                                                        } else {
+                                                                                            toast.error(t("required_login_message_for_cart"));
+                                                                                        }
+                                                                                    }}>
+                                                                                    <BsHeart size={16} /> {/* Updated heart icon to red */}
+                                                                                </button>
                                                                             </div>
                                                                             <div style={{ flexGrow: "1" }}>
                                                                                 {(cart?.isGuest === false && cart?.cartProducts?.find(prdct => prdct?.product_id == product?.id && prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0) ||
@@ -1219,18 +1229,18 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                     <BsShare size={16} style={{ color: "var(--font-color)" }} />
                                                                                 </Dropdown.Toggle>
 
-                                                                                <Dropdown.Menu style={{ width: "50px", padding: "5px", textAlign: "center",borderRadius:"10px" }} className='hide-pointer'>
-                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                <Dropdown.Menu style={{ width: "50px", padding: "5px", textAlign: "center", borderRadius: "10px" }} className='hide-pointer drop-menu'>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
                                                                                         <WhatsappShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
                                                                                             <WhatsappIcon size={30} round />
                                                                                         </WhatsappShareButton>
                                                                                     </Dropdown.Item>
-                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
                                                                                         <TelegramShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
                                                                                             <TelegramIcon size={30} round />
                                                                                         </TelegramShareButton>
                                                                                     </Dropdown.Item>
-                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center',borderBottom:"1px var(--font-color)  solid" }}>
+                                                                                    <Dropdown.Item as="li" style={{ display: 'flex', justifyContent: 'center', borderBottom: "1px var(--font-color)  solid" }}>
                                                                                         <FacebookShareButton url={`${setting.setting && setting.setting.web_settings.website_url}product/${product.slug}`}>
                                                                                             <FacebookIcon size={30} round />
                                                                                         </FacebookShareButton>
