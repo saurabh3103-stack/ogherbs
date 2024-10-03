@@ -1160,7 +1160,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 <button
                                                                                     key={product.id}
                                                                                     type="button"
-                                                                                    className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite.favorite.data.some(item => item.category_id === product.category_id) ? '' : ''}`}
+                                                                                    className="w-100 h-100 favouriteBtn px-3 border border-light rounded-circle"
                                                                                     onClick={() => {
                                                                                         if (user?.jwtToken !== "") {
                                                                                             addToFavorite(product.id);
