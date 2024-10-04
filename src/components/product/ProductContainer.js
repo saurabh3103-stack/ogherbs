@@ -1169,7 +1169,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                 <button
                                                                                     key={product.id}
                                                                                     type="button"
-                                                                                    className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite.favorite.data.some(item => item.id === product.id) ? 'text-danger' : ''}`} // Conditionally add text-danger class
+                                                                                    className={`w-100 h-100 favouriteBtn px-3 border border-light rounded-circle ${favorite?.favorite?.data?.some(item => item.id === product.id) ? 'text-danger' : ''}`}
+
                                                                                     onClick={() => {
                                                                                         if (user?.jwtToken !== "") {
                                                                                             addToFavorite(product.id);
@@ -1179,7 +1180,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                                                     }}>
                                                                                     <BsHeart
                                                                                         size={16}
-                                                                                        className={favorite.favorite.data.some(item => item.id === product.id) ? 'text-danger' : ''} // Conditionally add text-danger class to the heart icon
+                                                                                        className={favorite?.favorite?.data?.some(item => item.id === product.id) ? 'text-danger' : ''} // Conditionally add text-danger class to the heart icon
                                                                                     />
                                                                                 </button>
 
