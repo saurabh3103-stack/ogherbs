@@ -1054,18 +1054,26 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
     }
     useEffect(() => {
-        api.getFavorite(user?.jwtToken, city.city.latitude, city.city.longitude)
-            .then(response => response.json())
-            .then((result) => {
-                dispatch(setFavourite({ data: result }));
-            }).catch((err) => {
-                const isNoInternet = ValidateNoInternet(err);
-                if (isNoInternet) {
-                    setIsNetworkError(isNoInternet);
+        const fetchFavorites = async () => {
+            if (user?.jwtToken && city?.city) { // Check if user and city.city are defined
+                try {
+                    const response = await api.getFavorite(user.jwtToken, city.city.latitude, city.city.longitude);
+                    const result = await response.json();
+                    dispatch(setFavourite({ data: result }));
+                } catch (err) {
+                    const isNoInternet = ValidateNoInternet(err);
+                    if (isNoInternet) {
+                        setIsNetworkError(true);
+                    }
                 }
-            });
-    }, []);
-
+            } else {
+                console.warn("User token or city data is not available.");
+            }
+        };
+    
+        fetchFavorites();
+    }, [user, city]); // Add dependencies to re-run the effect when user or city changes
+    
 
     return (
         <section id="products">
