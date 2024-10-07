@@ -22,7 +22,7 @@ const RateProductModal = (props) => {
     const [review, setReview] = useState("");
 
     const handleActive = (index) => {
-        setActiveIndex(index === activeIndex ? null : index);
+        setActiveIndex(index == activeIndex ? null : index);
     };
 
     const handleFileUpload = (e) => {
@@ -48,7 +48,7 @@ const RateProductModal = (props) => {
             const response = await api.addProductRating(user?.jwtToken, props.product_id, activeIndex, review, files);
             const result = await response.json();
             props.setShowPdtRatingModal(false);
-            if (result.message === "The image.0 must be an image.") {
+            if (result.message == "The image.0 must be an image.") {
                 toast.error(t("only_images_are_allowed"));
             } else {
                 toast.success(result.message);
@@ -66,7 +66,7 @@ const RateProductModal = (props) => {
     };
 
     const handleUploadedFileDelete = (imageName) => {
-        setFiles(files.filter((file) => file?.name !==imageName));
+        setFiles(files.filter((file) => file?.name != imageName));
     };
 
     return (

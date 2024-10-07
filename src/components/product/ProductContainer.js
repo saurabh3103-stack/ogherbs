@@ -740,6 +740,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     const [offerConatiner, setOfferContainer] = useState(0);
     const [variant_index, setVariantIndex] = useState(null);
     const [isNetworkError, setIsNetworkError] = useState(false);
+    const[favoriteData,setFavouriteData]=useState(true);
 
 
 
@@ -841,30 +842,28 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
     console.log(favorite)
     //Add to favorite
     const addToFavorite = async (product_id) => {
-
-
-        await api.addToFavotite(user?.jwtToken, product_id)
-            .then(response => response.json())
-            .then(async (result) => {
-                if (result.status === 1) {
-                    // toast.success(result.message);
-
-                    // Ensure favorite.favouriteProductIds is an array before spreading
-                    const updatedFavouriteProducts = [
-                        ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
-                        product_id
-                    ];
-
-
-                    dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
-
-                    const updatedFavouriteLength = (favorite?.favouritelength || 0) + 1;
-                    dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
-                } else {
-                    toast.error(result.message);
-                }
-            });
-    };
+        navigate("/")
+                await api.addToFavotite(user?.jwtToken, product_id)
+                    .then(response => response.json())
+                    .then(async (result) => {
+                        if (result.status === 1) {
+                            // toast.success(result.message);
+        
+                            // Ensure favorite.favouriteProductIds is an array before spreading
+                            const updatedFavouriteProducts = [
+                                ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
+                                product_id
+                            ];
+        
+                            dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
+        
+                            const updatedFavouriteLength = (favorite?.favouritelength || 0) + 1;
+                            dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
+                        } else {
+                            toast.error(result.message);
+                        }
+                    });
+            };
 
 
 

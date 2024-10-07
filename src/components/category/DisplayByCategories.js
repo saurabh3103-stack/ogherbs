@@ -58,7 +58,7 @@ const DisplayByCategories = () => {
                 </div>
 
                 {/* Category Navigation */}
-                <div className="col-md-12 category-container ">
+                <div className="col-md-12 ">
                     <Swiper
                         ref={swiperRef}  // Assign Swiper reference
                         spaceBetween={5}

@@ -142,7 +142,7 @@
 
 .site-header .header-main {
   background-color: var(--second-cards-color);
-  position: fixed;
+  position: relative;
   
   top:0;
   padding: 8px 16px;
@@ -944,9 +944,8 @@
 .canvas-main {
   overflow: hidden;
 }
-.no-break {
-  white-space: nowrap;
-}
+
+
 
 
 @media screen and (max-width: 1200px){
@@ -959,13 +958,11 @@
 #drop .active{
 color:white !important;
 background-color: black;
+border-radius: 10% !important;
 
 
 }
 
-#drop {
-  width: 100%; /* Make sure the dropdown itself is 100% width */
-}
 
 #drop a{
   padding:5px;
@@ -987,11 +984,10 @@ background-color: black;
 #drop .active {
     color: white !important;
     background-color: black;
+    border-radius: 10%;
 }
 
-#drop {
-    width: 100%; /* Make sure the dropdown itself is 100% width */
-}
+
 
 #drop a {
     padding: 5px;

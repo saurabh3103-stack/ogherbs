@@ -39,6 +39,7 @@ import { Navigation, Thumbs, Mousewheel, Autoplay, Pagination } from "swiper/mod
 import 'swiper/css/pagination';
 import { AiOutlineEye } from 'react-icons/ai';
 import { IoIosArrowDown } from "react-icons/io";
+import RateProductModal from '../rate-product/RateProductModal';
 
 const ProductDetails = () => {
 
@@ -54,16 +55,6 @@ const ProductDetails = () => {
     const shop = useSelector(state => state.shop);
     const user = useSelector(state => state.user);
 
-
-    useEffect(() => {
-        window.scrollTo({ top: 0 });
-        return () => {
-            dispatch(clearSelectedProduct({ data: null }));
-            setproductcategory({});
-            setproductbrand({});
-        };
-    }, []);
-
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [mainimage, setmainimage] = useState("");
     const [images, setimages] = useState([]);
@@ -76,7 +67,6 @@ const ProductDetails = () => {
     const [quantity, setQuantity] = useState([]);
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [selectedProduct, setselectedProduct] = useState({});
-    // const [productSizes, setproductSizes] = useState(null);
     const [offerConatiner, setOfferContainer] = useState(0);
     const [variant_index, setVariantIndex] = useState(null);
     const [realted_variant_index, setRelatedVariantIndex] = useState(0);
@@ -86,6 +76,9 @@ const ProductDetails = () => {
     const [qnty, setQnty] = useState(0);
     const [cartLoader, setCartLoader] = useState(false);
     const [isNetworkError, setIsNetworkError] = useState(false);
+
+    const [showPdtRatingModal, setShowPdtRatingModal] = useState(false);
+    const [ratingProductId, setRatingProductId] = useState(0);
 
     const getProductDatafromApi = (slug) => {
         if (slug !== null || slug !== undefined) {
@@ -216,8 +209,8 @@ const ProductDetails = () => {
             .then(async (result) => {
                 if (result.status === 1) {
                     // toast.success(result.message);
-                    const updatedFavouriteProducts = [ ...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
-                    product_id];
+                    const updatedFavouriteProducts = [...(Array.isArray(favorite?.favouriteProductIds) ? favorite.favouriteProductIds : []),
+                        product_id];
                     dispatch(setFavouriteProductIds({ data: updatedFavouriteProducts }));
                     const updatedFavouriteLength = favorite?.favouritelength + 1;
                     dispatch(setFavouriteLength({ data: updatedFavouriteLength }));
@@ -317,7 +310,7 @@ const ProductDetails = () => {
                     <ProgressBar now={Math.floor(calculatePercentage(totalData, productRating?.three_star_rating))} className='ratingBar' />
                     <div>{productRating?.three_star_rating}</div>
                 </div>
-                <div className='d-flex justify-content-start align-items-center mt-3 gap-4'>
+                <div className='d-flex justify-content-start align -items-center mt-3 gap-4'>
                     {t("2")}
                     <div className='d-flex gap-1'>
                         <img src={StarFilledSVG} alt='starLogo' loading='lazy' />
@@ -443,7 +436,7 @@ const ProductDetails = () => {
         <>
             {loading && <Loader screen="full" background="none" />}
             {!isNetworkError ?
-                <div className='product-details-view' >
+                <div className='product-details-view product-details-custom'  >
                     <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
                         <div className='container d-flex align-items-center gap-2'>
                             <div className='breadCrumbsItem'>
@@ -544,12 +537,25 @@ const ProductDetails = () => {
                                                         </div>
                                                         {(selectedVariant?.price && (selectedVariant?.discounted_price !== 0)) && (selectedVariant?.price !== selectedVariant?.discounted_price) ?
                                                             <div>
-                                                                <p className='fw-normal text-decoration-line-through' style={{ color: "var(--sub-text-color)", fontSize: "16px" }}>
+                                                                <p className='fw-normal text-decoration-line-through' style={{ color: "var(--sub-text-color)", fontSize: "18px" }}>
                                                                     {setting.setting && setting.setting.currency}
                                                                     {selectedVariant?.price?.toFixed(setting.setting && setting.setting.decimal_point)}
                                                                 </p>
                                                             </div>
                                                             : null}
+                                                        {(selectedVariant?.price && selectedVariant?.discounted_price !== 0 && selectedVariant?.price !== selectedVariant?.discounted_price) ?
+                                                            <div>
+
+                                                                {/* Calculate and display discount percentage */}
+                                                                <div className='text-danger fw-bold font-custom'>
+                                                                    {Math.round(((selectedVariant.price - selectedVariant.discounted_price) / selectedVariant.price) * 100)}% off
+                                                                </div>
+                                                            </div>
+                                                            : null
+                                                        }
+
+
+
                                                         <input type="hidden" id="productdetail-selected-variant-id" name="variant" value={selectedVariant ? selectedVariant.id : productdata.variants[0].id} />
                                                     </div>
 
@@ -695,23 +701,38 @@ const ProductDetails = () => {
                                                                 <span className='seller-name'>{productbrand?.name} </span>
                                                             </div>
                                                         </div> : null}
-                                                    {productRating?.rating_list?.length !== 0 ?
-                                                        <div className='mt-3 cursorPointer'>
-                                                            <OverlayTrigger
-                                                                trigger="click"
-                                                                placement="bottom-start"
-                                                                overlay={popover}
-                                                                rootClose={true}
-                                                            >
-                                                                <div className='d-flex justify-content-start align-items-center overlay-content'>
-                                                                    <LuStar className='me-1' style={productRating?.average_rating >= 1 ? { fill: "#F4CD32", stroke: "#F4CD32" } : {}} />
-                                                                    <span className='pe-2 me-2 border-end border-2'>
-                                                                        {productRating?.average_rating?.toFixed(setting.setting && setting.setting.decimal_point)}
-                                                                    </span>
-                                                                    {totalData}
-                                                                </div>
-                                                            </OverlayTrigger>
-                                                        </div> : null}
+                                                        <div className='mt-3 cursorPointer d-flex justify-content-start align-items-center'>
+    {productRating?.rating_list?.length !== 0 ? (
+        <OverlayTrigger
+            trigger="click"
+            placement="bottom-start"
+            overlay={popover}
+            rootClose={true}
+        >
+            <div className='d-flex justify-content-start align-items-center overlay-content overlay-custom'>
+                <LuStar className='me-1' style={productRating?.average_rating >= 1 ? { fill: "#F4CD32", stroke: "#F4CD32" } : {}} />
+                <span className='pe-2 me-2 border-end border-2'>
+                    {productRating?.average_rating?.toFixed(setting.setting && setting.setting.decimal_point)}
+                </span>
+                {totalData}
+            </div>
+        </OverlayTrigger>
+    ) : null}
+
+    <button
+        type="button"
+        className="rate-product-button"
+        onClick={() => {
+            setRatingProductId(productdata.id);
+            setShowPdtRatingModal(true);
+        }}
+    >
+        Rate Product
+    </button>
+</div>
+
+
+
                                                     {productdata?.indicator ?
                                                         productdata?.indicator == 1 ?
                                                             <div className='d-flex align-items-center mt-3'>
@@ -975,7 +996,7 @@ const ProductDetails = () => {
                                                                                     <input
                                                                                         type="number"
                                                                                         min="1"
-                                                                                      
+
                                                                                         max={related_product.variants[0].stock}
                                                                                         className="quantity-input bg-transparent text-center"
                                                                                         value={related_product.variants[0].cart_count}
@@ -1073,6 +1094,12 @@ const ProductDetails = () => {
 
                         <QuickViewModal selectedProduct={selectedProduct} setselectedProduct={setselectedProduct} showModal={showModal} setShowModal={setShowModal} setP_V_id={setP_V_id} setP_id={setP_id} />
                         <Popup product_id={p_id} product_variant_id={p_v_id} quantity={qnty} toast={toast} city={city} />
+                        <RateProductModal
+                            product_id={ratingProductId}
+                            showPdtRatingModal={showPdtRatingModal}
+                            setShowPdtRatingModal={setShowPdtRatingModal}
+                        />
+                        
                     </div>
 
                 </div > :

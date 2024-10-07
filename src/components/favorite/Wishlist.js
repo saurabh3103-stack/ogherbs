@@ -181,7 +181,7 @@ const Wishlist = () => {
     return (
         <>
             {!isNetworkError ?
-                <section id='wishlist' className='wishlist' style={{marginTop:"60px"}}>
+                <section id='wishlist' className='wishlist' >
                     <div className='cover'>
                         <img src={coverImg} className='img-fluid' alt="cover"></img>
                         <div className='title'>

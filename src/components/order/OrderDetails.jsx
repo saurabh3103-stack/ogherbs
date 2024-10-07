@@ -130,7 +130,7 @@ const OrderDetails = React.memo(() => {
                     toast.success(response.message);
                     setShowReturnModal(false);
                     setShowCancelModal(false)
-                } else if (response.message === "This Order Item is already Returned!") {
+                } else if (response.message == "This Order Item is already Returned!") {
                     fetchOrderDetails();
                     toast.error(response.message);
                 } else {
@@ -173,7 +173,7 @@ const OrderDetails = React.memo(() => {
                                                     <thead>
                                                         <th>{t('product')}</th>
                                                         <th>{t('price')}</th>
-                                                        {orderData?.items?.some((item) => (Number(item?.active_status) === 6)) ? <th>{t('rating')}</th> : null}
+                                                        {orderData?.items?.some((item) => (Number(item?.active_status) == 6)) ? <th>{t('rating')}</th> : null}
                                                     </thead>
                                                     <tbody>
                                                         {/* console.log(item); */}
@@ -207,14 +207,14 @@ const OrderDetails = React.memo(() => {
                                                                             </div>
                                                                             {/* <div className="actions-container">
 
-                                                                            {!Number(item?.active_status) >= 6 && item?.return_status === 1 ?
+                                                                            {!Number(item?.active_status) >= 6 && item?.return_status == 1 ?
                                                                                 <span className="return">
                                                                                     <button onClick={() => handleUpdateStatus(item?.id, 8)}>{t('return')}</button>
                                                                                 </span>
                                                                                 : <></>
                                                                             }
 
-                                                                            {!Number(item?.active_status) <= 6 && !Number(item?.active_status) <= item?.till_status && item?.cancelable_status === 1 ?
+                                                                            {!Number(item?.active_status) <= 6 && !Number(item?.active_status) <= item?.till_status && item?.cancelable_status == 1 ?
                                                                                 <span className="cancel">
                                                                                     <button onClick={() => handleUpdateStatus(item?.id, 7)}>{t('cancel')}</button>
                                                                                 </span>
@@ -227,7 +227,7 @@ const OrderDetails = React.memo(() => {
                                                                                 </span>
                                                                                 : <></>
                                                                             }
-                                                                            {!Number(item?.active_status) === 8 ?
+                                                                            {!Number(item?.active_status) == 8 ?
                                                                                 <span className="return">
                                                                                     <button onClick={() => handleUpdateStatus(item?.id, 8)}>{t('returned')}</button>
                                                                                 </span>
@@ -236,7 +236,7 @@ const OrderDetails = React.memo(() => {
 
                                                                         </div> */}
                                                                             <div className="actions-container">
-                                                                                {Number(item?.active_status) === 6 && item?.return_status === 1 && item?.return_requested === null ?
+                                                                                {Number(item?.active_status) == 6 && item?.return_status == 1 && item?.return_requested === null ?
                                                                                     <span className="return">
                                                                                         <button onClick={() => setShowReturnModal(prevState => {
                                                                                             const newState = [...prevState];
@@ -247,7 +247,7 @@ const OrderDetails = React.memo(() => {
                                                                                     : null
                                                                                 }
 
-                                                                                {(Number(item?.active_status) <= 6) && (Number(item?.active_status) <= item?.till_status) && (item?.cancelable_status === 1) ?
+                                                                                {(Number(item?.active_status) <= 6) && (Number(item?.active_status) <= item?.till_status) && (item?.cancelable_status == 1) ?
                                                                                     <span className="cancel">
                                                                                         <button onClick={() => setShowCancelModal(prevState => {
                                                                                             const newState = [...prevState];
@@ -258,14 +258,14 @@ const OrderDetails = React.memo(() => {
                                                                                     </span>
                                                                                     : null
                                                                                 }
-                                                                                {Number(item?.active_status) === 7 ?
+                                                                                {Number(item?.active_status) == 7 ?
                                                                                     <span className="cancel">
                                                                                         <button>{t('cancelled')}</button>
                                                                                     </span>
                                                                                     : null
                                                                                 }
 
-                                                                                {Number(item?.active_status) === 8 ?
+                                                                                {Number(item?.active_status) == 8 ?
                                                                                     <span className="return">
                                                                                         <button >{t('returned')}</button>
                                                                                     </span>
@@ -288,7 +288,7 @@ const OrderDetails = React.memo(() => {
                                                                             </div>
 
                                                                         </td>
-                                                                        {(Number(item?.active_status) === 6) ?
+                                                                        {(Number(item?.active_status) == 6) ?
                                                                             <td>
                                                                                 <div className='rateProductText' >
                                                                                     {item.item_rating.find((rating) => rating.user.id === user.id) ?

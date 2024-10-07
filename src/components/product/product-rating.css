@@ -1,7 +1,9 @@
 .productDetailTabs .ant-tabs-nav .ant-tabs-nav-operations .ant-tabs-nav-more {
   display: none;
 }
-
+.accordion li p{
+  color:var(--font-color)
+}
 .description-wrapper {
   margin: 30px 0 40px 0;
   background-color: var(--second-cards-color);

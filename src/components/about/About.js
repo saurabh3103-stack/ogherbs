@@ -23,8 +23,7 @@ const About = () => {
         navigate('/contact')
     }
     return (
-        <section id='about-us' className='about-us' style={{marginTop:"50px"
-        }}>
+        <section id='about-us' className='about-us'>
             {setting.status === 'loading' || setting.setting === null
                 ? (
                     <Loader screen='full' />

@@ -38,7 +38,7 @@ const Contact = () => {
                         </div> */}
                     </>
                 )}
-                 <section id='contact-us' className='contact-us' style={{marginTop:"10px"}}>
+                 <section id='contact-us' className='contact-us' >
             {setting.setting === null ? <Loader screen='full' />
                 : (
                     <>

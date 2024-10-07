@@ -17,7 +17,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
     const dispatch = useDispatch();
     const navigate = useNavigate();
     return (
-        <section id="home" className='home-section container-fluid home-element section' style={{marginTop:"100px"}}>
+        <section id="home" className='home-section container-fluid home-element section' >
             {/* Slider & Category */}
             {OfferImagesArray?.map((offer) => (
                 <div className='col-md-12 p-0 col-12' key={offer?.id} onClick={() => {
@@ -62,7 +62,7 @@ const HomeContainer = ({ OfferImagesArray, BelowSliderOfferArray, BelowCategoryO
             {/* Responsive Done */}
 
             {/* Responsive Done */}
-            <div className='mt-5'>
+            <div className=''>
                 <DisplayByCategories></DisplayByCategories>
             </div>
             {/* Responsive Done */}

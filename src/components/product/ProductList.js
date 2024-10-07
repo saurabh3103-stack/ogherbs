@@ -919,7 +919,7 @@ const ProductList2 = React.memo(() => {
                                                                                 </div>
 
 
-                                                                                <div className="h-0 card-body product-card-body p-3 ">
+                                                                                <div className="h-0 card-body product-card-body p-3 card-height-custom">
                                                                                     {product?.rating_count ? <div className='ratings d-flex align-items-center'>
                                                                                         <LuStar className='me-2' style={{ fill: "#fead0e", stroke: "#fead0e" }} />
                                                                                         <div className='border-end border-2 pe-2 me-2 avgRating'>
@@ -927,15 +927,17 @@ const ProductList2 = React.memo(() => {
                                                                                         </div>
                                                                                         <div>
                                                                                             {product?.rating_count}
-                                                                                        </div>
+                                                                                        </div> 
+                                                                                       
                                                                                     </div> : null}
-                                                                                    <h3 onClick={(e) => {
+                                                                                   <div> <h3 onClick={(e) => {
                                                                                         e.preventDefault();
                                                                                         dispatch(setSelectedProduct({ data: product.id }));
                                                                                         setSelectedProductId(product.id);
                                                                                         navigate(`/product/${product?.slug}`);
                                                                                     }} >{product.name}
-                                                                                    </h3>
+                                                                                    </h3></div>
+                                                                                   
                                                                                     <div className='price'>
                                                                                         {filter.grid_view ? <div>
                                                                                             <span id={`price${index}-section`} className="d-flex align-items-center">
@@ -1052,7 +1054,7 @@ const ProductList2 = React.memo(() => {
                                                                                             (cart?.isGuest === true && cart?.guestCart?.find((prdct) => prdct?.product_variant_id == product?.variants?.[0]?.id)?.qty > 0)
                                                                                             ?
                                                                                             <>
-                                                                                                <div id={`input-cart-productdetail`} className="input-to-cart">
+                                                                                                <div id={`input-cart-productdetail`} className="input-to-cart addToCartHeight">
                                                                                                     <button
                                                                                                         type='button'
                                                                                                         className="wishlist-button"

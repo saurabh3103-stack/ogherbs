@@ -73,7 +73,7 @@ const ProductDetailsTabs = ({ productdata, productRating, totalData, loading, ra
         label: <h3 className={activeKey === "1" ? "productTabActive" : "description-header"}>{t("product_desc_title")}</h3>,
         children:
 
-            <div className='description' dangerouslySetInnerHTML={{ __html: productdata.description }} />
+            <div className='description ' dangerouslySetInnerHTML={{ __html: productdata.description }} />
 
     },
     {
