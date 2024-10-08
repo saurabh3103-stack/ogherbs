@@ -244,9 +244,9 @@
 }
 
 @media (min-width: 0px) and (max-width: 420px) {
-  .login .body img {
+  /* .login .body img {
     width: 200px !important;
-  }
+  } */
 
   .login .body .otp-container>input[type="tel"] {
     margin-right: 5px !important;
