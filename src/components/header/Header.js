@@ -652,6 +652,7 @@ const Header = () => {
                                         {(favorite.favouritelength !== 0) ?
                                             <span className="position-absolute start-100 translate-middle badge rounded-pill fs-5 ">
                                                 {favorite?.favorite?.total}
+                                                
                                               
                                                 <span className="visually-hidden">unread messages</span>
                                             </span>

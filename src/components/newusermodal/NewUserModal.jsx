@@ -209,7 +209,7 @@ function NewUserModal({ registerModalShow, setRegisterModalShow, phoneNum, setPh
                         }}
                             style={authType === "google" ? { color: "var(--sub-text-color)" } : { color: "black" }}
                             required />
-                        <input type='tel' placeholder={t('mobile_number')} disabled={authType === "phone"} value={phoneNum} style={authType === "phone" ? { color: "var(--sub-text-color)" } : { color: "black" }} onChange={(e) => setPhoneNum(e.target.value)} />
+                        <input type='tel' placeholder={t('mobile_number')} disabled={authType === "phone"} value={phoneNum} style={authType === "phone" ? { color: "var(--sub-text-color)" } : { color:"var(--sub-text-color)" }} onChange={(e) => setPhoneNum(e.target.value)} />
                     </div>
                     <button type='submit' disabled={isLoading} >{t("register")} {t("profile")}</button>
                 </form>
