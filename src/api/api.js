@@ -20,9 +20,10 @@ const api = {
         formdata.append("email", email)
         formdata.append("country_code", country_code)
         formdata.append("mobile", mobile)
-        formdata.append("type", type)
+        formdata.append("type","email")
         formdata.append("fcm_token", fcm);
         formdata.append("platform", "web");
+       
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
