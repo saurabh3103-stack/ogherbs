@@ -1,9 +1,9 @@
-
 {
   "name": "egrocer",
   "version": "2.0.1",
   "private": true,
   "homepage": "",
+  "proxy": "https://ogherbs.deificindia.com",  
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@chakra-ui/slider": "^2.1.0",
