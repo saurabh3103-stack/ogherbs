@@ -11,25 +11,32 @@ const api = {
             appUrl.slice(0, -1) :
             appUrl;
     },
-    register(Uid, name, email, mobile, type, fcm, country_code) {
+    register(Uid, name, email, mobile, type, fcm, country_code, profile) {
         let myHeaders = new Headers();
         myHeaders.append(access_key_param, access_key);
+    
         let formdata = new FormData();
         formdata.append("auth_uid", Uid);
         formdata.append("name", name);
-        formdata.append("email", email)
-        formdata.append("country_code", country_code)
-        formdata.append("mobile", mobile)
-        formdata.append("type", type)
+        formdata.append("email", email);
+        formdata.append("country_code", country_code);
+        formdata.append("mobile", mobile);
+        formdata.append("type", type);
         formdata.append("fcm_token", fcm);
         formdata.append("platform", "web");
+        formdata.append("profile", "link to profile");  // Add the profile link
+    
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: formdata,
-            redirect: 'follow'
+            redirect: 'follow',
+            mode: 'no-cors'  // Set request mode to no-cors
         };
+    
         return fetch(appUrl + appSubUrl + "/register", requestOptions);
+    
+    
     },
     login(Uid, fcm) {
         var myHeaders = new Headers();
