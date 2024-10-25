@@ -30,6 +30,7 @@ import "./product.css";
 import CategoryComponent from './Categories';
 import { MdSignalWifiConnectedNoInternet0 } from "react-icons/md";
 import ImageWithPlaceholder from '../image-with-placeholder/ImageWithPlaceholder';
+import ProductDetails from './ProductDetails';
 
 const ProductList2 = React.memo(() => {
     const total_products_per_page = 12;
@@ -350,6 +351,8 @@ const ProductList2 = React.memo(() => {
                         </div>
                     ))} */}
                     <CategoryComponent data={category} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+                    {/* data={category} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} */}
+                  
                 </div>
                 {showPriceFilter ?
                     <div className='filter-row priceFilter'>

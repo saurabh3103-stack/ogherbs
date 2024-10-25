@@ -445,13 +445,13 @@ const ProfileDashboard = (props) => {
                     </button>
 
                     {/* Delete_Account  */}
-                    <button type='button' className='navigation-container-button ' onClick={handleDeleteAcount}>
+                    {/* <button type='button' className='navigation-container-button ' onClick={handleDeleteAcount}>
                         <span>
                             <AiFillDelete size={35} className='mx-3' fill={'var(--secondary-color)'} />
                             {t("delete_account")}
                         </span>
                         <IoIosArrowForward className="profile-navigate-arrow" />
-                    </button>
+                    </button> */}
                 </div>
 
             </>

@@ -1,9 +1,9 @@
 [dir="rtl"] .Manu-links ul li:last-of-type {
   margin-right: 30px;
 }
-.product-details-custom{
+/* .product-details-custom{
   margin-top: 50px;
-}
+} */
 .slick-slider {
   flex: 0 0 auto;
   width: 100% !important;
@@ -836,7 +836,7 @@ input::placeholder {
 }
 
 .product-details-view .top-wrapper {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   background-color: #fff;
   border-radius: 10px;
 }
@@ -860,16 +860,25 @@ input::placeholder {
 .product-details-view .image-wrapper .main-image {
   width: 90%;
   text-align: center;
-  border-radius: 5px !important;
+  /* border-radius: 5px !important; */
 }
 
 .product-details-view .image-wrapper .main-image img {
-  width: 100%;
-  padding:20px;
+  /* border-radius: ; */
+  width: 55%;
+  
   height: 100%;
   aspect-ratio: 1/1;
   border-radius: 5px;
   object-fit: fill;
+}
+.rounded-image {
+  border: 0.2px solid #D3D3D3;  /* 5px border with your desired color */
+  border-radius: 3% !important;         /* Makes the image circular */
+  width: 100%;    
+  padding:5px;
+           /* Ensures the image takes full width */
+            /* Removes any space below the image */
 }
 
 .product-details-view .image-wrapper .sub-images-container {

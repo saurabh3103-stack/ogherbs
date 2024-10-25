@@ -264,6 +264,7 @@ const ProductDetails = () => {
 
     const calculatePercentage = (totalRating, starWiseRating) => {
         const percentage = (starWiseRating * 100) / totalRating;
+        console.log(percentage)
         return percentage;
     };
 
@@ -437,17 +438,33 @@ const ProductDetails = () => {
             {loading && <Loader screen="full" background="none" />}
             {!isNetworkError ?
                 <div className='product-details-view product-details-custom'  >
-                    <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
-                        <div className='container d-flex align-items-center gap-2'>
-                            <div className='breadCrumbsItem'>
-                                <Link to={"/"}>{t("home")}</Link>
-                            </div>
-                            <div className='breadCrumbsItem'>/</div>
-                            <div className='breadCrumbsItem'>
-                                <Link className={location.pathname.split("/").findIndex(loc => loc == productdata?.slug) !== -1 ? "breadCrumbActive" : ""} to={location?.pathname}>{productdata?.name}</Link>
-                            </div>
-                        </div>
-                    </div>
+                   <div id='productListingBreadcrumb' className='w-100 breadCrumbs'>
+    <div className='container d-flex align-items-center gap-2'>
+        <div className='breadCrumbsItem'>
+            <Link to={"/"}>{t("home")}</Link>
+        </div>
+        <div className='breadCrumbsItem'>/</div>
+        <div className='breadCrumbsItem'>
+            {/* Store category_id in sessionStorage and navigate */}
+            <Link to={"/product"}
+                className="breadcrumbLink"
+                onClick={() => {
+                    sessionStorage.setItem('selectedCategoryId', productdata?.category_id);
+                     // Redirect to products page
+                }}
+                style={{ cursor: 'pointer' }}
+            >
+                {productdata?.category_name}
+            </Link>
+        </div>
+        <div className='breadCrumbsItem'>/</div>
+        <div className='breadCrumbsItem'>
+            <Link className={location.pathname.split("/").findIndex(loc => loc === productdata?.slug) !== -1 ? "breadCrumbActive" : ""} to={location?.pathname}>
+                {productdata?.name}
+            </Link>
+        </div>
+    </div>
+</div>
                     <div className='container' style={{ gap: "20px" }}>
                         <div className='top-wrapper'>
 
@@ -456,9 +473,15 @@ const ProductDetails = () => {
                                 : (
                                     <div className='row body-wrapper '>
                                         <div className="col-xl-7 col-lg-7 col-md-12 col-12">
+
                                             <div className='image-wrapper '>
-                                                <div className='main-image col-12 border'>
-                                                    <img onError={placeHolderImage} src={mainimage} alt='main-product' className='col-12' />
+                                                <div className='main-image col-12 mt-4' style={{ borderRight: "0.5px #D3D3D3 solid" }}>
+                                                    <img
+                                                        onError={placeHolderImage}
+                                                        src={mainimage}
+                                                        alt='main-product'
+                                                        className='rounded-image'
+                                                    />
                                                 </div>
                                                 <div className='sub-images-container'>
                                                     {images.length >= 1 ?
@@ -701,35 +724,35 @@ const ProductDetails = () => {
                                                                 <span className='seller-name'>{productbrand?.name} </span>
                                                             </div>
                                                         </div> : null}
-                                                        <div className='mt-3 cursorPointer d-flex justify-content-start align-items-center'>
-    {productRating?.rating_list?.length !== 0 ? (
-        <OverlayTrigger
-            trigger="click"
-            placement="bottom-start"
-            overlay={popover}
-            rootClose={true}
-        >
-            <div className='d-flex justify-content-start align-items-center overlay-content overlay-custom'>
-                <LuStar className='me-1' style={productRating?.average_rating >= 1 ? { fill: "#F4CD32", stroke: "#F4CD32" } : {}} />
-                <span className='pe-2 me-2 border-end border-2'>
-                    {productRating?.average_rating?.toFixed(setting.setting && setting.setting.decimal_point)}
-                </span>
-                {totalData}
-            </div>
-        </OverlayTrigger>
-    ) : null}
+                                                    <div className='mt-3 cursorPointer d-flex justify-content-start align-items-center'>
+                                                        {productRating?.rating_list?.length !== 0 ? (
+                                                            <OverlayTrigger
+                                                                trigger="click"
+                                                                placement="bottom-start"
+                                                                overlay={popover}
+                                                                rootClose={true}
+                                                            >
+                                                                <div className='d-flex justify-content-start align-items-center overlay-content overlay-custom'>
+                                                                    <LuStar className='me-1' style={productRating?.average_rating >= 1 ? { fill: "#F4CD32", stroke: "#F4CD32" } : {}} />
+                                                                    <span className='pe-2 me-2 border-end border-2'>
+                                                                        {productRating?.average_rating?.toFixed(setting.setting && setting.setting.decimal_point)}
+                                                                    </span>
+                                                                    {totalData}
+                                                                </div>
+                                                            </OverlayTrigger>
+                                                        ) : null}
 
-    <button
-        type="button"
-        className="rate-product-button"
-        onClick={() => {
-            setRatingProductId(productdata.id);
-            setShowPdtRatingModal(true);
-        }}
-    >
-        Rate Product
-    </button>
-</div>
+                                                        <button
+                                                            type="button"
+                                                            className="rate-product-button"
+                                                            onClick={() => {
+                                                                setRatingProductId(productdata.id);
+                                                                setShowPdtRatingModal(true);
+                                                            }}
+                                                        >
+                                                            Rate Product
+                                                        </button>
+                                                    </div>
 
 
 
@@ -1099,7 +1122,7 @@ const ProductDetails = () => {
                             showPdtRatingModal={showPdtRatingModal}
                             setShowPdtRatingModal={setShowPdtRatingModal}
                         />
-                        
+
                     </div>
 
                 </div > :

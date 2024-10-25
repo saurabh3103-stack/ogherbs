@@ -5,6 +5,7 @@ import { setFilterCategory } from '../../model/reducer/productFilterReducer';
 import api from '../../api/api';
 import Skeleton from 'react-loading-skeleton';
 import ImageWithPlaceholder from '../image-with-placeholder/ImageWithPlaceholder';
+import { useEffect } from 'react';
 
 
 const CategoryComponent = ({ data, selectedCategories,
@@ -63,22 +64,52 @@ const CategoryComponent = ({ data, selectedCategories,
         return category && category.has_child;
     };
 
+    // const handleSelectedCategories = (ctgId) => {
+    //     if (selectedCategories.includes(ctgId)) {
+    //         const updatedCategories = selectedCategories?.filter((id) => id !==ctgId);
+    //         setSelectedCategories(updatedCategories);
+    //         dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
+    //     } else {
+    //         const updatedCategories = selectedCategories?.filter((cat) => {
+    //             if (cat !=="") {
+    //                 return cat;
+    //             }
+    //         });
+    //         updatedCategories.push(ctgId);
+    //         setSelectedCategories(updatedCategories);
+    //         dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
+    //     }
+    // };
+
+    useEffect(() => {
+        // Retrieve category_id from sessionStorage
+        const categoryId = sessionStorage.getItem('selectedCategoryId');
+        
+
+        // If categoryId exists, call handleSelectedCategories and then clear it
+        if (categoryId) {
+            handleSelectedCategories(categoryId);
+            sessionStorage.removeItem('selectedCategoryId');  // Clear the data after use
+        }
+    }, []);  // Empty dependency array to run only on initial render
+
+
     const handleSelectedCategories = (ctgId) => {
         if (selectedCategories.includes(ctgId)) {
             const updatedCategories = selectedCategories?.filter((id) => id !==ctgId);
             setSelectedCategories(updatedCategories);
             dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
         } else {
-            const updatedCategories = selectedCategories?.filter((cat) => {
-                if (cat !=="") {
-                    return cat;
-                }
-            });
-            updatedCategories.push(ctgId);
-            setSelectedCategories(updatedCategories);
-            dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
-        }
+            setSelectedCategories([]);
+          
+    dispatch(setFilterCategory({ data: "" })); // Optionally dispatch with empty data
+    
+    // Update categories based on ctgId
+    const updatedCategories = [ctgId]; // Set the new category as the only selected one
+    setSelectedCategories(updatedCategories);
+    dispatch(setFilterCategory({ data: updatedCategories.join(",") }));
     };
+}
 
     const renderSubcategories = (subcategories) => {
         return subcategories?.map(subcategory => (
