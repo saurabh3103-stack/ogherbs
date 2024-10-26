@@ -1118,7 +1118,7 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
 
                                                         //  ref={swiperRef}  // Assign Swiper reference                                                    spaceBetween={5}
                                                         slidesPerView={6}
-                                                        spaceBetween={10}
+                                                        spaceBetween={0}
                                                         navigation={{
                                                             prevEl: '.swiper-button-prev',
                                                             nextEl: '.swiper-button-next',
@@ -1132,8 +1132,8 @@ const ProductContainer = React.memo(({ showModal, setShowModal, BelowSectionOffe
                                                         //  onSwiper={setSwiperInstance} // Set swiper instance when it's initialized
                                                         breakpoints={{
 
-                                                            320: { slidesPerView: 1 },
-                                                            460: { slidesPerView: 2 },
+                                                            320: { slidesPerView: 3 },
+                                                            460: { slidesPerView: 3},
                                                             576: { slidesPerView: 3 },
                                                             768: { slidesPerView: 4 },
                                                             992: { slidesPerView: 5 },
