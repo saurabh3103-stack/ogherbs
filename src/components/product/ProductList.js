@@ -764,7 +764,7 @@ const ProductList2 = React.memo(() => {
                                                         <div className='h-100 productList_content'>
                                                             <div className="row  flex-wrap">
                                                                 {productresult.map((product, index) => (
-                                                                    <div key={product?.id} className={`${!filter.grid_view ? 'col-12 list-view ' : 'col-md-6 col-sm-6 col-lg-3 col-12'}`}>
+                                                                    <div key={product?.id} className={`${!filter.grid_view ? 'col-12 list-view ' : 'col-md-6 col-sm-6 col-lg-3 col-6'}`}>
                                                                         <div className={`product-card my-3 ${filter.grid_view ? "flex-column " : "my-3"}`}>
                                                                             <span className='border border-light rounded-circle p-2 px-3' id='aiEye' onClick={(e) => {
                                                                                 e.preventDefault();
@@ -802,7 +802,7 @@ const ProductList2 = React.memo(() => {
                                                                                             <div className='border-end '>
                                                                                                 {
 
-                                                                                                    favorite.favorite && favorite.favorite.data.some(element => element.id === product.id) ? (
+                                                                                                    favorite?.favorite && favorite.favorite.data.some(element => element.id === product.id) ? (
                                                                                                         <button type="button" className='wishlist-product' onClick={() => {
                                                                                                             if (user?.jwtToken !== "") {
                                                                                                                 removefromFavorite(product.id);
@@ -958,7 +958,7 @@ const ProductList2 = React.memo(() => {
                                                                                                     </span>
                                                                                                     : null}
                                                                                                 {(product?.variants[0]?.price && product?.variants[0]?.discounted_price !== 0 && product?.variants[0]?.price !== product?.variants[0]?.discounted_price) && (
-                                                                                                    <span className="ms-2 text-danger" style={{ fontSize: "1.6rem" }}>
+                                                                                                    <span className="ms-2 text-danger" style={{ fontSize: "1.2rem" }}>
                                                                                                         ({Math.round(((product.variants[0].price - product.variants[0].discounted_price) / product.variants[0].price) * 100)}% OFF)
                                                                                                     </span>
                                                                                                 )}

@@ -107,7 +107,7 @@
 
 .borderPad {
   padding: 7px 10px !important;
-  border-right: 1px solid #ddd;
+  border-right: 0.1px solid #ddd;
   color: var(--font-color);
   text-decoration: none;
 }
@@ -983,7 +983,7 @@ border-radius: 10% !important;
 
 #drop .active {
     color: white !important;
-    background-color: black;
+    background-color: var(--secondary-color);
     border-radius: 10%;
 }
 

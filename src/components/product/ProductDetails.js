@@ -446,7 +446,7 @@ const ProductDetails = () => {
         <div className='breadCrumbsItem'>/</div>
         <div className='breadCrumbsItem'>
             {/* Store category_id in sessionStorage and navigate */}
-            <Link to={"/product"}
+            <Link to={"/products"}
                 className="breadcrumbLink"
                 onClick={() => {
                     sessionStorage.setItem('selectedCategoryId', productdata?.category_id);
@@ -499,12 +499,12 @@ const ProductDetails = () => {
                                                                     spaceBetween: 2
                                                                 },
                                                                 992: {
-                                                                    slidesPerView: 3,
+                                                                    slidesPerView: 5,
                                                                     spaceBetween: 5
                                                                 }
                                                             }}
                                                             loop={true}
-                                                            navigation={true}
+                                                            navigation={false}
                                                             thumbs={{ swiper: thumbsSwiper }}
                                                             modules={[Navigation, Thumbs, Mousewheel, Autoplay, Pagination]}
                                                             className="mySwiper2">

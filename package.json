@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "private": true,
   "homepage": "",
-  "proxy": "https://ogherbs.deificindia.com",  
+  "proxy": "https://ogherbs.deificindia.com",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@chakra-ui/slider": "^2.1.0",
@@ -47,6 +47,7 @@
     "react-slick": "^0.30.2",
     "react-slider": "^2.0.6",
     "react-toastify": "^9.1.1",
+    "react-use": "^17.5.1",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.14",
